@@ -1,0 +1,104 @@
+.main {
+  min-height: calc(100vh - 64px);
+}
+
+.intro {
+  background-color: var(--color-background);
+  padding: 38px 0 34px;
+}
+
+.introInner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.introHeading {
+  font-family: var(--font-headline);
+  font-size: clamp(26px, 3.6vw, 40px);
+  font-weight: 700;
+  color: var(--color-headline);
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.introCopy {
+  font-size: 17px;
+  color: var(--color-neutral-dark);
+  line-height: 1.65;
+}
+
+.work {
+  padding: 72px 0;
+  background-image: url('../../assets/bg-cross.svg');
+  background-repeat: repeat;
+  background-size: 30px 30px;
+  background-attachment: fixed;
+}
+
+.workInner {
+  max-width: 990px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.workLabel {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-neutral-dark);
+  margin-bottom: 32px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 80px;
+  row-gap: 64px;
+  align-items: start;
+}
+
+.grid > *:nth-child(even) {
+  margin-top: 56px;
+}
+
+
+@media (max-width: 1024px) and (min-width: 769px) {
+  .workInner {
+    padding: 0 110px;
+  }
+
+  .grid > *:nth-child(even) {
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro {
+    padding: 38px 0 32px;
+  }
+
+  .introInner,
+  .workInner {
+    padding: 0 20px;
+  }
+
+  .introHeading {
+    font-size: 24px;
+  }
+
+  .work {
+    padding: 44px 0;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .grid > *:nth-child(even) {
+    margin-top: 0;
+  }
+}

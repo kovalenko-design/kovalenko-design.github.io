@@ -1,0 +1,208 @@
+.main {
+  min-height: calc(100vh - 64px);
+}
+
+.hero {
+  background-color: var(--color-background);
+  padding: 60px 0 46px;
+}
+
+.heroInner {
+  max-width: 1054px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+}
+
+.heroLeft {
+  flex: 1;
+}
+
+.heroContact {
+  display: flex;
+  align-items: stretch;
+  flex-shrink: 0;
+}
+
+.name {
+  font-family: var(--font-headline);
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 700;
+  color: var(--color-headline);
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 14px;
+  color: var(--color-neutral-dark);
+  line-height: 1.5;
+}
+
+.content {
+  padding: 64px 0 80px;
+}
+
+.contentInner {
+  max-width: 1054px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.sectionLabel {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+  margin-bottom: 20px;
+}
+
+/* Bio */
+.bioText {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--color-charcoal);
+}
+
+/* Skills */
+.skillList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skillItem {
+  font-size: 13px;
+  color: var(--color-charcoal);
+  background: var(--color-background);
+  border: 1px solid var(--color-neutral-light);
+  border-radius: 999px;
+  padding: 5px 12px;
+  line-height: 1.4;
+}
+
+/* Experience */
+.expList {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.expItem {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 24px;
+}
+
+.expPeriod {
+  font-size: 16px;
+  color: var(--color-neutral-dark);
+  padding-top: 3px;
+}
+
+.expRole {
+  font-family: var(--font-headline);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-headline);
+  margin-bottom: 2px;
+}
+
+.expCompany {
+  font-size: 13px;
+  color: var(--color-neutral-dark);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.expSummary {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--color-charcoal);
+}
+
+/* Education */
+.eduList {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.eduItem {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 24px;
+}
+
+.contactLink {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  border-right: 1px solid var(--color-neutral-light);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-neutral-dark);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.contactLink:first-child {
+  padding-left: 0;
+}
+
+.contactLink:last-child {
+  border-right: none;
+}
+
+.contactLink:hover {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary-dark);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 40px 0 34px;
+  }
+
+  .heroInner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .heroInner,
+  .contentInner {
+    padding: 0 20px;
+  }
+
+  .content {
+    padding: 40px 0 60px;
+  }
+
+  .contentInner {
+    gap: 40px;
+  }
+
+  .expItem,
+  .eduItem {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .expPeriod {
+    color: var(--color-neutral-dark);
+    font-size: 12px;
+  }
+}
