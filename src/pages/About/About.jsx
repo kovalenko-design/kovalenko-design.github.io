@@ -126,6 +126,14 @@ export default function About() {
                 LinkedIn
               </a>
               <a
+                href="https://www.behance.net/vadimkovalenko"
+                className={styles.contactLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Behance
+              </a>
+              <a
                 href={`${import.meta.env.BASE_URL}VadimKovalenko_CV_2026.pdf`}
                 className={styles.contactLink}
                 download
