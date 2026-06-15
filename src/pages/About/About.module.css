@@ -4,7 +4,7 @@
 
 .hero {
   background-color: var(--color-background);
-  padding: 60px 0 46px;
+  padding: 48px 0 0;
 }
 
 .heroInner {
@@ -12,19 +12,21 @@
   margin: 0 auto;
   padding: 0 48px;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  justify-content: flex-start;
+  align-items: center;
   gap: 40px;
 }
 
 .heroLeft {
-  flex: 1;
+  flex: 0 0 auto;
+  max-width: 50%;
 }
 
 .heroContact {
   display: flex;
   align-items: stretch;
   flex-shrink: 0;
+  margin-left: 100px;
 }
 
 .name {
@@ -43,7 +45,7 @@
 }
 
 .content {
-  padding: 64px 0 80px;
+  padding: 56px 0 80px;
 }
 
 .contentInner {
@@ -63,6 +65,10 @@
   text-transform: uppercase;
   color: var(--color-primary-dark);
   margin-bottom: 20px;
+}
+
+.heroLabel {
+  margin-bottom: 0;
 }
 
 /* Bio */
@@ -173,13 +179,22 @@
 
 @media (max-width: 640px) {
   .hero {
-    padding: 40px 0 34px;
+    padding: 40px 0 0;
   }
 
   .heroInner {
     flex-direction: column;
     align-items: flex-start;
     gap: 24px;
+  }
+
+  .heroLeft {
+    flex: 1;
+    max-width: 100%;
+  }
+
+  .heroContact {
+    margin-left: 0;
   }
 
   .heroInner,

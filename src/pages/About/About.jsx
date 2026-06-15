@@ -113,8 +113,11 @@ export default function About() {
         <section className={styles.hero}>
           <div className={styles.heroInner}>
             <div className={styles.heroLeft}>
-              <motion.h1 variants={pageItem} className={styles.name}>Vadim Kovalenko</motion.h1>
-              <motion.p variants={pageItem} className={styles.title}>Product Designer building fintech, communication, and retail products</motion.p>
+              <motion.h2 variants={pageItem} className={`${styles.sectionLabel} ${styles.heroLabel}`}>About</motion.h2>
+              <motion.p variants={pageItem} className={styles.bioText}>
+                I&apos;m a product designer with 6+ years of experience in building fintech, communication,
+                and retail products, built on a broader 15+ year design career across the U.S. and Europe.
+              </motion.p>
             </div>
             <motion.div variants={pageItem} className={styles.heroContact}>
               <a
@@ -146,14 +149,6 @@ export default function About() {
 
         <section className={styles.content}>
           <div className={styles.contentInner}>
-            <motion.div variants={pageItem} className={styles.bio}>
-              <h2 className={styles.sectionLabel}>About</h2>
-              <p className={styles.bioText}>
-                I&apos;m a product designer with 6+ years of experience in building fintech, communication,
-                and retail products, built on a broader 15+ year design career across the U.S. and Europe.
-              </p>
-            </motion.div>
-
             <motion.div variants={pageItem} className={styles.skills}>
               <h2 className={styles.sectionLabel}>Skills</h2>
               <ul className={styles.skillList}>
