@@ -25,7 +25,7 @@
 .name {
   font-family: var(--font-headline);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   line-height: 1.2;
 }
@@ -48,7 +48,7 @@
 .nav a {
   font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-neutral-dark);
   text-decoration: none;
   letter-spacing: 0.01em;

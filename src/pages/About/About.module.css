@@ -30,7 +30,7 @@
 .name {
   font-family: var(--font-headline);
   font-size: clamp(32px, 4.5vw, 52px);
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   line-height: 1.1;
   margin-bottom: 12px;
@@ -58,7 +58,7 @@
 .sectionLabel {
   font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-primary-dark);
@@ -112,7 +112,7 @@
 .expRole {
   font-family: var(--font-headline);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   margin-bottom: 2px;
 }
@@ -149,7 +149,7 @@
   padding: 12px 24px;
   border-right: 1px solid var(--color-neutral-light);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-neutral-dark);
   text-decoration: none;
   transition: color 0.15s ease;

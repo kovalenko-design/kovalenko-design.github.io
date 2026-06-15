@@ -112,7 +112,7 @@
 
 .tag {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-neutral-dark);
@@ -127,7 +127,7 @@
 .title {
   font-family: var(--font-headline);
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   line-height: 1.15;
 }
@@ -153,7 +153,7 @@
 
 .metaLabel {
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-neutral-dark);
@@ -161,7 +161,7 @@
 
 .metaValue {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-darkest);
 }
 
@@ -197,7 +197,7 @@
 .colLabel {
   font-family: var(--font-headline);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   margin-bottom: 10px;
   padding-bottom: 6px;
@@ -224,7 +224,7 @@
 
 .featureNumber {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--color-neutral-dark);
@@ -235,7 +235,7 @@
 .featureTitle {
   font-family: var(--font-headline);
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   border-bottom: 3px solid var(--color-primary);
   padding-bottom: 8px;
@@ -301,7 +301,7 @@
 .pwLabel {
   font-family: var(--font-headline);
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   margin-bottom: 10px;
   padding-bottom: 6px;
@@ -344,7 +344,7 @@
 .retroHeading {
   font-family: var(--font-headline);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-surface);
   margin-bottom: 14px;
   padding-bottom: 8px;
@@ -362,7 +362,7 @@
   display: inline-block;
   margin-top: 14px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: #fff;
   text-decoration: underline;
   text-decoration-color: rgba(255, 255, 255, 0.45);
@@ -386,7 +386,7 @@
 .twoColHeading {
   font-family: var(--font-headline);
   font-size: 28px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   border-bottom: 3px solid var(--color-primary);
   padding-bottom: 8px;
@@ -440,7 +440,7 @@
 .overlayHeading {
   font-family: var(--font-headline);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-darkest);
   border-left: 4px solid var(--color-primary);
   padding-left: 14px;
@@ -505,7 +505,7 @@
 .infoCellLabel {
   font-family: var(--font-headline);
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   border-bottom: 3px solid var(--color-primary);
   padding-bottom: 6px;
@@ -569,7 +569,7 @@
 .sectionHeading {
   font-family: var(--font-headline);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--color-headline);
   border-bottom: 3px solid var(--color-primary);
   padding-bottom: 8px;

@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://kovalenko-design.github.io",
+  "homepage": "https://kovalenko.info",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

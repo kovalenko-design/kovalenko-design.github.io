@@ -14,7 +14,7 @@
   --color-accent2: #d822f3;
 
   /* Typography */
-  --font-headline: 'Cousine', monospace;
+  --font-headline: 'Encode Sans Expanded', sans-serif;
   --color-headline: var(--color-primary-dark);
   --font-body: 'DM Sans', sans-serif;
 
