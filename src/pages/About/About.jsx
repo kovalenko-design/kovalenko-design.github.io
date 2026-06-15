@@ -134,7 +134,7 @@ export default function About() {
                 Behance
               </a>
               <a
-                href={`${import.meta.env.BASE_URL}VadimKovalenko_CV_2026.pdf`}
+                href={`${import.meta.env.BASE_URL}Kovalenko_Product_Design_CV_2026.pdf`}
                 className={styles.contactLink}
                 download
               >
