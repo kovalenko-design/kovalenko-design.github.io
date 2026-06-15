@@ -29,8 +29,8 @@
 
 .name {
   font-family: var(--font-headline);
-  font-size: clamp(32px, 4.5vw, 52px);
-  font-weight: 600;
+  font-size: clamp(28px, 3.84vw, 46px);
+  font-weight: 500;
   color: var(--color-headline);
   line-height: 1.1;
   margin-bottom: 12px;
