@@ -3,6 +3,6 @@ import bossMoney from './bossMoney'
 import bossRevolution from './bossRevolution'
 import brWebPortal from './brWebPortal'
 
-const cases = [zendit, bossMoney, brWebPortal, bossRevolution]
+const cases = [bossMoney, zendit, brWebPortal, bossRevolution]
 
 export default cases

@@ -17,7 +17,7 @@ import toolAmplitude from '../assets/tools/Amplitude.png'
 const bossMoney = {
   id: 'boss-money',
   title: 'BOSS Money',
-  subtitle: 'Redesigning the International Money Transfer Experience',
+  subtitle: 'Designing the International Money Transfer Experience',
   description: 'End-to-end redesign of a fintech mobile app for global remittance, including a new design system built from scratch.',
   tags: ['Fintech', 'Mobile', 'UX Design'],
   cover: coverImg,
