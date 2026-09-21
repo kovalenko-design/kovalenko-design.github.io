@@ -190,7 +190,7 @@ npm run deploy     # build + push to gh-pages branch
 ## Architecture
 
 ### Routing and deep links
-`App.jsx` uses `BrowserRouter` with `basename="/"` (custom domain, no sub-path). Routes: `/` → Home, `/about` → About, `/:caseId` → Home with that case open (the case `id`, for example `/panther`). Opening a case from the grid pushes the address, and the browser's back button or the close button returns to the grid. A shared link (no history to go back to) returns to `/` on close. An unknown address redirects to `/`. The pop-up has a "Copy link" button next to the close button.
+`App.jsx` uses `BrowserRouter` with `basename="/"` (custom domain, no sub-path). Routes: `/` → Home, `/about` → About, `/:caseId` → Home with that case open (the case `id`, for example `/panther`). Opening a case from the grid pushes the address, and the browser's back button or the close button returns to the grid. A shared link (no history to go back to) returns to `/` on close. Any unknown address (a mistyped case, or a path with several parts) redirects to `/`; the build also saves `dist/404.html` as a copy of the app so GitHub Pages opens the app instead of its own error page. The pop-up has a "Copy link" button next to the close button.
 GitHub Pages cannot serve those addresses by itself, so `vite.config.js` has a small `addressPages` plugin: after the build it copies `dist/index.html` into `dist/about/`, and `dist/<case id>/` for every file in `src/cases` (the id is read from the file). A new case therefore gets its address automatically. No share-preview (Open Graph) tags: not wanted.
 
 ### Case Data

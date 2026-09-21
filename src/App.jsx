@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Navigate, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import About from './pages/About/About'
 import { Agentation } from 'agentation'
@@ -11,6 +11,8 @@ export default function App() {
         <Route path="/about" element={<About />} />
         {/* A case address, like /panther: the home page with that case open */}
         <Route path="/:caseId" element={<Home />} />
+        {/* Anything else goes to the home page */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       {import.meta.env.DEV && <Agentation endpoint="http://localhost:4747" />}
     </BrowserRouter>

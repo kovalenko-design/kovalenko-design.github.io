@@ -6,6 +6,7 @@ import react from '@vitejs/plugin-react'
 // GitHub Pages has no server that can send /panther or /about to the app, so a direct visit would be a 404.
 // After the build, this copies the app's index.html into a folder for each address (dist/panther/index.html and so on).
 // The case addresses come from the id of each file in src/cases, so a new case gets its own address automatically.
+// It also saves a copy as 404.html, so a mistyped address opens the app, which sends the visitor to the home page.
 function addressPages() {
   return {
     name: 'address-pages',
@@ -21,6 +22,7 @@ function addressPages() {
         mkdirSync(join('dist', address), { recursive: true })
         copyFileSync(join('dist', 'index.html'), join('dist', address, 'index.html'))
       }
+      copyFileSync(join('dist', 'index.html'), join('dist', '404.html'))
     },
   }
 }
