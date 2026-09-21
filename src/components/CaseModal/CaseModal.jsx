@@ -6,7 +6,7 @@ import styles from './CaseModal.module.css'
 // It plays only while visible. A click opens it full screen, where the native controls appear.
 // A small button pauses it: a clip the viewer paused stays paused until they press play.
 // With reduced motion it stays still and shows native controls in place.
-function Clip({ src, poster, label }) {
+function Clip({ src, poster, label, caption }) {
   const ref = useRef(null)
   const held = useRef(false)
   const [reduceMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
@@ -78,35 +78,38 @@ function Clip({ src, poster, label }) {
   }
 
   return (
-    <div className={styles.clipWrapper}>
-      <video
-        ref={ref}
-        className={styles.clip}
-        src={src}
-        poster={poster}
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        controls={reduceMotion || fullscreen}
-        aria-label={label}
-        onClick={reduceMotion ? undefined : openFullscreen}
-      />
-      {!reduceMotion && (
-        <div className={`${styles.clipControls}${playing ? '' : ` ${styles.clipControlsShown}`}`}>
-          <button type="button" className={styles.clipButton} onClick={togglePlay} aria-label={`${playing ? 'Pause' : 'Play'} ${label}`}>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              {playing ? <path d="M8 5v14M16 5v14" /> : <path d="M8 5l11 7-11 7z" fill="currentColor" />}
-            </svg>
-          </button>
-          <button type="button" className={styles.clipButton} onClick={openFullscreen} aria-label={`View ${label} full screen`}>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" />
-            </svg>
-          </button>
-        </div>
-      )}
-    </div>
+    <figure className={styles.clipFigure}>
+      <div className={styles.clipWrapper}>
+        <video
+          ref={ref}
+          className={styles.clip}
+          src={src}
+          poster={poster}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          controls={reduceMotion || fullscreen}
+          aria-label={label}
+          onClick={reduceMotion ? undefined : openFullscreen}
+        />
+        {!reduceMotion && (
+          <div className={`${styles.clipControls}${playing ? '' : ` ${styles.clipControlsShown}`}`}>
+            <button type="button" className={styles.clipButton} onClick={togglePlay} aria-label={`${playing ? 'Pause' : 'Play'} ${label}`}>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                {playing ? <path d="M8 5v14M16 5v14" /> : <path d="M8 5l11 7-11 7z" fill="currentColor" />}
+              </svg>
+            </button>
+            <button type="button" className={styles.clipButton} onClick={openFullscreen} aria-label={`View ${label} full screen`}>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" />
+              </svg>
+            </button>
+          </div>
+        )}
+      </div>
+      {caption && <figcaption className={styles.caption}>{caption}</figcaption>}
+    </figure>
   )
 }
 
@@ -199,7 +202,7 @@ function Feature({ feature }) {
         </div>
       </div>
 
-      {feature.clip && <Clip src={feature.clip.src} poster={feature.clip.poster} label={feature.title} />}
+      {feature.clip && <Clip src={feature.clip.src} poster={feature.clip.poster} label={feature.title} caption={feature.clip.caption} />}
       {!feature.clip && feature.videoId && (
         <div className={styles.videoWrapper}>
           <iframe
@@ -607,8 +610,7 @@ export default function CaseModal({ caseData, onClose }) {
                           </figure>
                         )
                       )}
-                      {section.clip && <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} />}
-                      {section.clip && section.clipCaption && <p className={styles.caption}>{section.clipCaption}</p>}
+                      {section.clip && <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} caption={section.clip.caption} />}
                       {section.videoId && (
                         <div className={styles.videoWrapper}>
                           <iframe

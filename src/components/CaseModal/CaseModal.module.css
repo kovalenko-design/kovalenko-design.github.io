@@ -326,6 +326,10 @@
 }
 
 /* Looping screen-recording clip (see Clip in CaseModal.jsx): no player chrome, click for full screen */
+.clipFigure {
+  margin: 0;
+}
+
 .clipWrapper {
   position: relative;
   width: 100%;
