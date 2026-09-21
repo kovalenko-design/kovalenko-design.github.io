@@ -1,6 +1,114 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './CaseModal.module.css'
+
+// A short screen recording that plays like a moving image: silent, looping, no player chrome.
+// It plays only while visible. A click opens it full screen, where the native controls appear.
+// A small button pauses it: a clip the viewer paused stays paused until they press play.
+// With reduced motion it stays still and shows native controls in place.
+function Clip({ src, poster, label }) {
+  const ref = useRef(null)
+  const held = useRef(false)
+  const [reduceMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const [fullscreen, setFullscreen] = useState(false)
+  const [playing, setPlaying] = useState(false)
+
+  useEffect(() => {
+    const video = ref.current
+    if (!video || reduceMotion) return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (!held.current) video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
+      },
+      { threshold: 0.4 },
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [reduceMotion])
+
+  useEffect(() => {
+    const video = ref.current
+    if (!video) return undefined
+    const isFull = () => document.fullscreenElement === video || document.webkitFullscreenElement === video
+    const onFullscreen = () => setFullscreen(isFull())
+    // Pausing or playing with the native controls in full screen counts as the viewer's choice too.
+    const onPlay = () => {
+      setPlaying(true)
+      if (isFull()) held.current = false
+    }
+    const onPause = () => {
+      setPlaying(false)
+      if (isFull()) held.current = true
+    }
+    document.addEventListener('fullscreenchange', onFullscreen)
+    document.addEventListener('webkitfullscreenchange', onFullscreen)
+    video.addEventListener('play', onPlay)
+    video.addEventListener('pause', onPause)
+    return () => {
+      document.removeEventListener('fullscreenchange', onFullscreen)
+      document.removeEventListener('webkitfullscreenchange', onFullscreen)
+      video.removeEventListener('play', onPlay)
+      video.removeEventListener('pause', onPause)
+    }
+  }, [])
+
+  const openFullscreen = () => {
+    const video = ref.current
+    if (!video) return
+    if (video.requestFullscreen) video.requestFullscreen().catch(() => {})
+    else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen()
+    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen() // iPhone
+    video.play().catch(() => {})
+  }
+
+  const togglePlay = () => {
+    const video = ref.current
+    if (!video) return
+    if (video.paused) {
+      held.current = false
+      video.play().catch(() => {})
+    } else {
+      held.current = true
+      video.pause()
+    }
+  }
+
+  return (
+    <div className={styles.clipWrapper}>
+      <video
+        ref={ref}
+        className={styles.clip}
+        src={src}
+        poster={poster}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        controls={reduceMotion || fullscreen}
+        aria-label={label}
+        onClick={reduceMotion ? undefined : openFullscreen}
+      />
+      {!reduceMotion && (
+        <div className={`${styles.clipControls}${playing ? '' : ` ${styles.clipControlsShown}`}`}>
+          <button type="button" className={styles.clipButton} onClick={togglePlay} aria-label={`${playing ? 'Pause' : 'Play'} ${label}`}>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              {playing ? <path d="M8 5v14M16 5v14" /> : <path d="M8 5l11 7-11 7z" fill="currentColor" />}
+            </svg>
+          </button>
+          <button type="button" className={styles.clipButton} onClick={openFullscreen} aria-label={`View ${label} full screen`}>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" />
+            </svg>
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
 
 const ease = [0.16, 1, 0.3, 1]
 
@@ -91,7 +199,8 @@ function Feature({ feature }) {
         </div>
       </div>
 
-      {feature.videoId && (
+      {feature.clip && <Clip src={feature.clip.src} poster={feature.clip.poster} label={feature.title} />}
+      {!feature.clip && feature.videoId && (
         <div className={styles.videoWrapper}>
           <iframe
             src={`https://www.youtube.com/embed/${feature.videoId}`}
@@ -498,6 +607,8 @@ export default function CaseModal({ caseData, onClose }) {
                           </figure>
                         )
                       )}
+                      {section.clip && <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} />}
+                      {section.clip && section.clipCaption && <p className={styles.caption}>{section.clipCaption}</p>}
                       {section.videoId && (
                         <div className={styles.videoWrapper}>
                           <iframe
