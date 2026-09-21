@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Working files for making case assets (see _sources/README.md)
+_sources/

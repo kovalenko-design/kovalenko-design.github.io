@@ -1,4 +1,3 @@
-import { useRef } from 'react'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import styles from './CaseCard.module.css'
 

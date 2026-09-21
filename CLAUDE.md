@@ -48,23 +48,42 @@ I'm a product designer with 6+ years of experience in building fintech, communic
 
 ---
 
-## Cases (starts with 3, expandable)
+## Cases (live now — grid accommodates growth)
 
-1. **BOSS Money** — Redesigning the International Money Transfer Experience
-   - Fintech mobile app, global remittance, Flutter, Material Design system
-   
-2. **BOSS Revolution** — (details to be added)
+Grid order = array order in `src/cases/index.js`. Currently live, in grid order:
 
-3. **Mobile Top-Up UX** — (details to be added)
+1. **panther** (`/panther`) — Panther POS: the ground-up rebuild of a point-of-sale system for small retail (Kotlin Multiplatform, a design system, Pizza Builder, Consumer Engagement App)
+2. **boss-money** — Redesigning the international money transfer experience (fintech mobile, Flutter, Material Design)
+3. **zendit** — B2B feature design for a global prepaid platform (multi-user account management, bulk eSIM ordering)
+4. **boss-revolution** — BOSS Revolution mobile app
+5. **br-web-portal** — BR Web Portal
 
 > New cases will be added over time. The grid must accommodate this gracefully.
 
+### Adding a new case — the only recipe needed
+
+1. Drop exported images into `src/assets/cases/<case-id>/` (ask before assuming filenames — always exported manually from Figma/Behance).
+2. Create `src/cases/<case-id>.js` exporting a plain data object. Two schemas are in active use — pick whichever fits the story, don't force one onto the other:
+   - **`sections` + `tools`** (bossMoney, brWebPortal, bossRevolution) — a linear array of free-form narrative sections.
+   - **`features` + `context`/`approach`** (zendit) — structured per-feature blocks: `{ title, description, problem, work, image, imageCaption, imageLayout, videoId }`.
+   - Common to both: `id, title, subtitle, description, tags, cover, logo, meta[], intro, introImage, retrospective, retroUrl`. Optional, used by some cases only: `splitIntro`, `introBgImage`, `introImageSmall`, `logoWide`.
+3. Import it in `src/cases/index.js` and add to the `cases` array — that position sets its place in the grid.
+
+That's the whole change. **Never hardcode case content in components** — CaseCard/CaseDrawer render whatever shape of data they're given.
+
 ---
+
+### Section layouts available in `CaseModal.jsx` (set with `layout` on a section)
+- default: `heading`, `body` (string or array; an item can be `{ lead, text }` for a bold run-in lead), `image` / `image2` / `image3` (stacked), `imageCaption`, `bodyAfter` (text after the image), `pair: [{ image, caption }, { image, caption }]` (two framed images on a gray card, each with its own caption), `clip`, `videoId` (old embeds)
+- `overlay`, `info-grid` (`cells`), `two-col-body`, `two-media` (two images side by side)
+- `timeline`: `stages: [{ title, body }]` joined by a dashed line (vertical on phones), plus `note: { label, body }`
+- `carousel`: `slides: [{ image, caption }]` scrolling sideways with snap, arrows and dots; optional `body`
+- `clip-side`: one narrow text column and the clip at two thirds of the width; optional `devices: [images]` shows a small row of drawings above the clip on a gradient strip
 
 ## Design Rules
 
 ### Typography
-- **Headlines:** Caudex (Google Fonts)
+- **Headlines:** Encode Sans Expanded (Google Fonts), set in `variables.css` as `--font-headline`
 - **Body:** DM Sans (Google Fonts)
 
 ### Color Palette
@@ -100,7 +119,7 @@ I'm a product designer with 6+ years of experience in building fintech, communic
 
 ## Figma Access
 
-This project uses **figma-mcp-go** for free-plan Figma access without API rate limits.
+This project was set up with **figma-mcp-go** for free-plan Figma access without API rate limits. NOTE (2026-09): the plugin repository was taken down by GitHub after a copyright notice, so the plugin cannot be downloaded any more and the setup below no longer works. Use screenshots or the official Figma connector instead.
 It reads Figma files via a local plugin bridge — no REST API, no rate limits.
 
 ### Setup (run once)
@@ -131,6 +150,14 @@ Run the plugin inside the Figma file before asking Claude Code to read it.
 - Case study images exported manually from Figma or Behance
 - Assets will be placed in `src/assets/cases/<case-id>/`, organized by case
 - Claude Code should ask before assuming any asset filename or path
+- Working files for making assets (originals, tools, docs) live in `_sources/` inside the project. It is ignored by git and lint. See `_sources/README.md`.
+
+### Image specs — match these for every new case (measured from the 4 live cases)
+
+- **Cover image** (`cover` field, shown on the homepage grid card): CSS enforces `aspect-ratio: 404 / 313` (≈1.29:1) with `object-fit: cover`. All 4 live covers are ~1616×1260px (2× retina at that ratio). Export new covers at the same ratio, ~1600px wide minimum — the crop is forgiving (`object-fit: cover`) but the source must already be close to 1.29:1 or the crop looks wrong.
+- **Intro / section / feature images** (`introImage`, `image` inside `features`/`sections`): no fixed aspect ratio in CSS — these scale via `max-width: 100%`, so dimensions vary per case (screenshots, phone mockups, wide platform shots all coexist). Export at whatever ratio suits the actual content, at a resolution sharp on retina (≥1600px on the long edge for a full-width shot).
+- **Demo clips** (`clip: { src, poster, caption }` on a section or feature): short looping mp4, muted, silent, no player chrome; it plays only while at least 45% is on screen (the bottom 15% of the screen does not count), opens full screen on click, and has small restart / pause / full-screen buttons (always visible on touch screens). Encode with a fast-start mp4 and keep each clip under about 8 MB. **Every clip needs a caption** in the form "<Feature> flow example" (the caption is part of the clip data, so a clip cannot appear without one). No YouTube embeds and no unlisted video IDs in the repo, it is public.
+- Typography and color are never touched per-image — they come from `global.css` / `variables.css` (Encode Sans Expanded + DM Sans, the token table above). Nothing case-specific to configure there.
 
 ---
 
@@ -138,10 +165,10 @@ Run the plugin inside the Figma file before asking Claude Code to read it.
 
 - React + Vite
 - CSS Modules (no exceptions — do not use inline styles or other CSS solutions)
-- Google Fonts: Caudex + DM Sans
+- Google Fonts: Encode Sans Expanded + DM Sans
 - React Router for navigation
 - Framer Motion for animations and drawer transitions
-- GitHub Pages deployment via `gh-pages` package
+- GitHub Pages deployment via GitHub Actions on push to `main` (see Architecture → Deploy)
 - ESLint + Prettier configured at project init
 - Agentation MCP for visual feedback during development
 
@@ -162,20 +189,22 @@ npm run deploy     # build + push to gh-pages branch
 
 ## Architecture
 
-### Routing
-`App.jsx` uses `BrowserRouter` with `basename="/git-portf"` (matches GitHub Pages path). Routes: `/` → Home, `/about` → About. Case drawer opens as an overlay on the Home route — no separate route.
+### Routing and deep links
+`App.jsx` uses `BrowserRouter` with `basename="/"` (custom domain, no sub-path). Routes: `/` → Home, `/about` → About, `/:caseId` → Home with that case open (the case `id`, for example `/panther`). Opening a case from the grid pushes the address, and the browser's back button or the close button returns to the grid. A shared link (no history to go back to) returns to `/` on close. An unknown address redirects to `/`. The pop-up has a "Copy link" button next to the close button.
+GitHub Pages cannot serve those addresses by itself, so `vite.config.js` has a small `addressPages` plugin: after the build it copies `dist/index.html` into `dist/about/`, and `dist/<case id>/` for every file in `src/cases` (the id is read from the file). A new case therefore gets its address automatically. No share-preview (Open Graph) tags: not wanted.
 
 ### Case Data
 Each case is a plain data object in `src/cases/` (one file per case). `src/cases/index.js` exports the array. Components receive case data as props — **never hardcode case content in components**. Adding a new case = add one data file + import it in `index.js`.
 
 ### Styling
-CSS Modules only — no exceptions. Global CSS variables are in `src/styles/variables.css` (imported via `src/styles/global.css`). Use `var(--token-name)` throughout. Google Fonts (Caudex + DM Sans) are loaded in `global.css`.
+CSS Modules only — no exceptions. Global CSS variables are in `src/styles/variables.css` (imported via `src/styles/global.css`). Use `var(--token-name)` throughout. Google Fonts (Encode Sans Expanded + DM Sans) are loaded in `global.css`.
 
 ### Assets
 Case images go in `src/assets/cases/<case-id>/`. Always ask before assuming an asset filename — images are exported manually from Figma.
 
-### GitHub Pages
-`vite.config.js` sets `base: '/git-portf/'`. `package.json` has `predeploy` + `deploy` scripts using `gh-pages`. The `homepage` field is set to `https://vkovalenko.github.io/git-portf`.
+### Deploy — GitHub Actions, not the `gh-pages` script
+`vite.config.js` sets `base: '/'`. Custom domain `kovalenko.info` (see `public/CNAME`), `homepage` in `package.json` is `https://kovalenko.info`. **Live deploy path is `.github/workflows/deploy.yml`: push to `main` → GitHub Actions runs `npm ci && npm run build` → publishes `dist/` to GitHub Pages automatically.** The `npm run deploy` / `gh-pages` script in `package.json` still exists but is not what actually ships the site — don't rely on it, don't need to run it. Repo: `github.com/kovalenko-design/kovalenko-design.github.io` (repo name is fixed by GitHub Pages' `<org>.github.io` convention; the project itself is "Kovalenko Portfolio"). Deploy status: https://github.com/kovalenko-design/kovalenko-design.github.io/actions
+`publish.sh` in the repo root is a one-command helper: stages, commits, pushes to `main`. Optional — GitHub Desktop's commit/push works the same.
 
 ---
 
