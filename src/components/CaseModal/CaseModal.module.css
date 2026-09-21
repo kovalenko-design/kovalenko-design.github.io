@@ -611,6 +611,238 @@
   line-height: 1.65;
 }
 
+/* Carousel — slides scroll sideways and snap; the next slide peeks in at the right edge */
+.carousel {
+  margin-bottom: 28px;
+}
+
+.carouselTrack {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  position: relative;
+  border-radius: 12px;
+}
+
+.carouselTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.carouselTrack:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+.carouselSlide {
+  flex: 0 0 86%;
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.carouselCard {
+  background: var(--color-background);
+  border-radius: 12px;
+  padding: 32px 40px;
+}
+
+.carouselCard img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.carouselNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.carouselButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-background);
+  color: var(--color-neutral-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.carouselButton:hover:not(:disabled) {
+  background: var(--color-neutral-light);
+  color: var(--color-darkest);
+}
+
+.carouselButton:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.carouselDots {
+  display: flex;
+  align-items: center;
+}
+
+.carouselDot {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.carouselDot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-neutral-light);
+  transition: background 0.15s ease;
+}
+
+.carouselDot:hover::before {
+  background: var(--color-neutral-dark);
+}
+
+.carouselDot[aria-current='true']::before {
+  background: var(--color-primary-dark);
+}
+
+.carouselDot:focus-visible {
+  outline: 2px solid var(--color-primary);
+  border-radius: 50%;
+}
+
+/* Clip beside its text: one narrow text column and the clip at two-thirds of the width */
+.clipSide {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.clipSideText .sectionBody:last-child {
+  margin-bottom: 0;
+}
+
+.clipSideMedia .clipWrapper {
+  margin-top: 0;
+}
+
+/* Row of small pictures above the clip: same height, bottoms aligned, grouped in the middle of the clip's width */
+.deviceRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+/* A rounded strip behind the drawings: from their vertical middle down to 10px below their bottom, as wide as the clip */
+.deviceRow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  bottom: -10px;
+  border-radius: 12px;
+  /* The same pastel lavender, blue and mint as the Challenges image */
+  background: linear-gradient(135deg, #efeafe 0%, #e8ecfa 40%, #e8f0f7 65%, #e5f4ed 100%);
+}
+
+.deviceImg {
+  position: relative;
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(30, 30, 30, 0.16));
+  height: 108px;
+  width: auto;
+  max-width: 32%;
+  object-fit: contain;
+}
+
+/* Timeline — numbered stages joined by a line, with a "throughout" note underneath */
+.timeline {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+
+.timelineStage {
+  position: relative;
+}
+
+.timelineStage:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 40px;
+  right: -24px;
+  border-top: 2px dashed #b8b8b8;
+}
+
+.timelineNode {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 3px solid var(--color-surface);
+  background: var(--color-primary-light-light);
+  color: var(--color-primary-dark);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.timelineTitle {
+  font-family: var(--font-headline);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-headline);
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+
+.timelineBody {
+  text-wrap: pretty;
+  font-size: 15px;
+  color: var(--color-charcoal);
+  line-height: 1.7;
+}
+
+.timelineNote {
+  text-wrap: pretty;
+  font-size: 15px;
+  color: var(--color-charcoal);
+  line-height: 1.7;
+}
+
+.timelineNoteLabel {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  color: var(--color-headline);
+}
+
 .twoMedia {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -625,6 +857,17 @@
 
 .twoMediaItem {
   display: block;
+}
+
+/* Framed pair: padding and a gap so cards and dialogs keep their own edges */
+.twoMediaFramed {
+  gap: 40px;
+  padding: 32px 40px;
+  margin-bottom: 28px;
+}
+
+.twoMediaFramed .twoMediaImg {
+  clip-path: none;
 }
 
 .twoMediaImg {
@@ -666,6 +909,12 @@
   padding-bottom: 8px;
   display: inline-block;
   margin-bottom: 20px;
+}
+
+.sectionLead {
+  font-family: var(--font-headline);
+  font-weight: 600;
+  color: var(--color-headline);
 }
 
 .sectionBody {
@@ -883,6 +1132,20 @@
 
 /* Tablet/narrow — overlay switches to stacked blue layout, mobile image loads */
 @media (max-width: 860px) {
+  /* Timeline turns vertical: the line runs down the left edge */
+  .timeline { grid-template-columns: 1fr; gap: 28px; }
+  .timelineStage { padding-left: 52px; }
+  .timelineStage:not(:last-child)::before {
+    top: 40px;
+    bottom: -20px;
+    left: 15px;
+    right: auto;
+    border-top: none;
+    border-left: 2px dashed #b8b8b8;
+  }
+  .timelineNode { position: absolute; top: 0; left: 0; margin-bottom: 0; }
+  .timelineTitle { padding-top: 4px; }
+
   .overlayContainer { grid-template-rows: auto auto; background: var(--color-primary-light-light); }
   .overlayText { grid-row: 2; width: 100%; justify-self: stretch; align-self: start; padding: 20px 24px; }
   .overlayHeading { font-size: 18px; }
@@ -890,6 +1153,9 @@
 
 /* Mobile */
 @media (max-width: 640px) {
+  .carouselTrack { gap: 16px; }
+  .carouselSlide { flex-basis: 88%; }
+  .carouselCard { padding: 16px 12px; border-radius: 10px; }
   .backdrop { padding: 0; align-items: flex-end; }
   .modal { width: 100vw; max-width: 100%; max-height: 95vh; border-radius: 20px 20px 0 0; }
   .content { padding: 116px 24px 60px; }
@@ -933,4 +1199,9 @@
   .infoGrid { grid-template-columns: 1fr; gap: 20px; }
   .infoGridCard { padding: 24px 20px; border-radius: 12px; }
   .twoMedia { grid-template-columns: 1fr; }
+  .clipSide { grid-template-columns: 1fr; gap: 24px; }
+  .deviceRow { gap: 24px; }
+  .deviceRow::before { border-radius: 10px; }
+  .deviceImg { height: 72px; }
+  .twoMediaFramed { gap: 28px; padding: 20px 16px; }
 }

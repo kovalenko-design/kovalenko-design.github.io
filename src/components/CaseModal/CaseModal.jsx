@@ -129,6 +129,121 @@ function Clip({ src, poster, label, caption }) {
   )
 }
 
+// A row of slides the viewer scrolls or swipes sideways. Each slide snaps into place and the next one peeks in,
+// so it is clear there is more. The buttons and the dots follow the scroll position.
+function Carousel({ slides, label }) {
+  const trackRef = useRef(null)
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return undefined
+    const onScroll = () => {
+      let nearest = 0
+      let best = Infinity
+      Array.from(track.children).forEach((slide, i) => {
+        const distance = Math.abs(slide.offsetLeft - track.scrollLeft)
+        if (distance < best) {
+          best = distance
+          nearest = i
+        }
+      })
+      setIndex(nearest)
+    }
+    track.addEventListener('scroll', onScroll, { passive: true })
+    return () => track.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const goTo = (target) => {
+    const track = trackRef.current
+    const slide = track && track.children[target]
+    if (!slide) return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    track.scrollTo({ left: slide.offsetLeft, behavior: reduce ? 'auto' : 'smooth' })
+  }
+
+  return (
+    <div className={styles.carousel}>
+      <div
+        ref={trackRef}
+        className={styles.carouselTrack}
+        role="region"
+        aria-roledescription="carousel"
+        aria-label={label}
+        tabIndex={0}
+      >
+        {slides.map((slide, i) => (
+          <figure
+            key={i}
+            className={styles.carouselSlide}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${i + 1} of ${slides.length}`}
+          >
+            <div className={styles.carouselCard}>
+              <img src={slide.image} alt={slide.caption || ''} />
+            </div>
+            {slide.caption && <figcaption className={styles.caption}>{slide.caption}</figcaption>}
+          </figure>
+        ))}
+      </div>
+      <div className={styles.carouselNav}>
+        <button
+          type="button"
+          className={styles.carouselButton}
+          onClick={() => goTo(index - 1)}
+          disabled={index === 0}
+          aria-label="Previous screen"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M15 5l-7 7 7 7" />
+          </svg>
+        </button>
+        <div className={styles.carouselDots}>
+          {slides.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              className={styles.carouselDot}
+              onClick={() => goTo(i)}
+              aria-label={`Go to screen ${i + 1} of ${slides.length}`}
+              aria-current={i === index ? 'true' : undefined}
+            />
+          ))}
+        </div>
+        <button
+          type="button"
+          className={styles.carouselButton}
+          onClick={() => goTo(index + 1)}
+          disabled={index === slides.length - 1}
+          aria-label="Next screen"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  )
+}
+
+// Two images side by side on a grey card, each with its own caption underneath.
+// "framed" adds padding and gaps so images that carry their own edges (cards, dialogs) are not cut off.
+function MediaPair({ items, framed }) {
+  return (
+    <div className={`${styles.twoMedia}${framed ? ` ${styles.twoMediaFramed}` : ''}`}>
+      {items.map((media, i) => (
+        <div key={i} className={styles.twoMediaItem}>
+          {media.image
+            ? <img src={media.image} alt={media.caption || ''} className={styles.twoMediaImg} />
+            : <div className={styles.twoMediaPlaceholder} />}
+          {media.caption && <p className={styles.twoMediaCaption}>{media.caption}</p>}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 const ease = [0.16, 1, 0.3, 1]
 
 const backdropVariants = {
@@ -544,6 +659,68 @@ export default function CaseModal({ caseData, onClose }) {
                         )}
                       </div>
                     </div>
+                  ) : section.layout === 'carousel' ? (
+                    <>
+                      {section.heading && (
+                        <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                      )}
+                      {/* A paragraph can be { lead, text }: the lead is set in bold as a run-in heading */}
+                      {section.body && section.body.map((para, j) => (
+                        <p key={j} className={styles.sectionBody}>
+                          {typeof para === 'string' ? para : (
+                            <>
+                              <strong className={styles.sectionLead}>{para.lead}</strong> {para.text}
+                            </>
+                          )}
+                        </p>
+                      ))}
+                      <Carousel slides={section.slides} label={section.heading || caseData.title} />
+                    </>
+                  ) : section.layout === 'clip-side' ? (
+                    <div className={styles.clipSide}>
+                      <div className={styles.clipSideText}>
+                        {section.heading && (
+                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                        )}
+                        {section.body && (
+                          Array.isArray(section.body)
+                            ? section.body.map((para, j) => <p key={j} className={styles.sectionBody}>{para}</p>)
+                            : <p className={styles.sectionBody}>{section.body}</p>
+                        )}
+                      </div>
+                      <div className={styles.clipSideMedia}>
+                        {/* Optional row of small decorative pictures (for example the devices) above the clip */}
+                        {section.devices && (
+                          <div className={styles.deviceRow}>
+                            {section.devices.map((src, j) => (
+                              <img key={j} src={src} alt="" className={styles.deviceImg} />
+                            ))}
+                          </div>
+                        )}
+                        <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} caption={section.clip.caption} />
+                      </div>
+                    </div>
+                  ) : section.layout === 'timeline' ? (
+                    <>
+                      {section.heading && (
+                        <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                      )}
+                      <ol className={styles.timeline}>
+                        {section.stages.map((stage, j) => (
+                          <li key={j} className={styles.timelineStage}>
+                            <span className={styles.timelineNode} aria-hidden="true">{j + 1}</span>
+                            <h3 className={styles.timelineTitle}>{stage.title}</h3>
+                            <p className={styles.timelineBody}>{stage.body}</p>
+                          </li>
+                        ))}
+                      </ol>
+                      {section.note && (
+                        <p className={styles.timelineNote}>
+                          <strong className={styles.timelineNoteLabel}>{section.note.label}</strong>{' '}
+                          {section.note.body}
+                        </p>
+                      )}
+                    </>
                   ) : section.layout === 'info-grid' ? (
                     <div className={styles.infoGridCard}>
                       <div className={styles.infoGrid}>
@@ -556,20 +733,12 @@ export default function CaseModal({ caseData, onClose }) {
                       </div>
                     </div>
                   ) : section.layout === 'two-media' ? (
-                    <div className={styles.twoMedia}>
-                      <div className={styles.twoMediaItem}>
-                        {section.image
-                          ? <img src={section.image} alt={section.imageCaption || ''} className={styles.twoMediaImg} />
-                          : <div className={styles.twoMediaPlaceholder} />}
-                        {section.imageCaption && <p className={styles.twoMediaCaption}>{section.imageCaption}</p>}
-                      </div>
-                      <div className={styles.twoMediaItem}>
-                        {section.image2
-                          ? <img src={section.image2} alt={section.imageCaption2 || ''} className={styles.twoMediaImg} />
-                          : <div className={styles.twoMediaPlaceholder} />}
-                        {section.imageCaption2 && <p className={styles.twoMediaCaption}>{section.imageCaption2}</p>}
-                      </div>
-                    </div>
+                    <MediaPair
+                      items={[
+                        { image: section.image, caption: section.imageCaption },
+                        { image: section.image2, caption: section.imageCaption2 },
+                      ]}
+                    />
                   ) : section.layout === 'two-col-body' ? (
                     <>
                       {section.heading && (
@@ -626,6 +795,13 @@ export default function CaseModal({ caseData, onClose }) {
                           </figure>
                         )
                       )}
+                      {/* Text that continues after the image (bodyAfter), before any pair or clip */}
+                      {section.bodyAfter && (
+                        Array.isArray(section.bodyAfter)
+                          ? section.bodyAfter.map((para, j) => <p key={j} className={styles.sectionBody}>{para}</p>)
+                          : <p className={styles.sectionBody}>{section.bodyAfter}</p>
+                      )}
+                      {section.pair && <MediaPair items={section.pair} framed />}
                       {section.clip && <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} caption={section.clip.caption} />}
                       {section.videoId && (
                         <div className={styles.videoWrapper}>
