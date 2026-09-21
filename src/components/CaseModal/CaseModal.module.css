@@ -48,6 +48,44 @@
   color: var(--color-darkest);
 }
 
+/* Copy link button — same look as the close button, just to its left */
+.copyBtn {
+  position: absolute;
+  top: 20px;
+  right: 62px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-background);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-neutral-dark);
+  transition: background 0.15s ease, color 0.15s ease;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.copyBtn:hover {
+  background: var(--color-neutral-light);
+  color: var(--color-darkest);
+}
+
+.copyToast {
+  position: absolute;
+  top: 28px;
+  right: 104px;
+  z-index: 2;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-neutral-dark);
+  background: var(--color-background);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
 /* Content area — only this scrolls */
 .content {
   padding: 160px 64px 72px;

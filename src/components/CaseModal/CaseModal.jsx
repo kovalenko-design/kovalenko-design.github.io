@@ -351,6 +351,30 @@ function Feature({ feature }) {
 }
 
 export default function CaseModal({ caseData, onClose }) {
+  const [copied, setCopied] = useState(false)
+
+  const copyLink = async () => {
+    const url = `${window.location.origin}/${caseData.id}`
+    try {
+      await navigator.clipboard.writeText(url)
+    } catch {
+      // Older browsers: copy through a temporary text field.
+      const field = document.createElement('textarea')
+      field.value = url
+      document.body.appendChild(field)
+      field.select()
+      document.execCommand('copy')
+      document.body.removeChild(field)
+    }
+    setCopied(true)
+  }
+
+  useEffect(() => {
+    if (!copied) return undefined
+    const timer = setTimeout(() => setCopied(false), 1800)
+    return () => clearTimeout(timer)
+  }, [copied])
+
   useEffect(() => {
     if (!caseData) return
     document.body.style.overflow = 'hidden'
@@ -383,6 +407,13 @@ export default function CaseModal({ caseData, onClose }) {
             onClick={(e) => e.stopPropagation()}
             style={{ transformOrigin: 'center center' }}
           >
+            <button className={styles.copyBtn} onClick={copyLink} aria-label="Copy link to this case">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+            </button>
+            {copied && <span className={styles.copyToast} role="status">Link copied</span>}
             <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>

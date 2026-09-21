@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useCallback } from 'react'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
@@ -18,7 +19,21 @@ const pageItem = {
 }
 
 export default function Home() {
-  const [activeCase, setActiveCase] = useState(null)
+  const { caseId } = useParams()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const activeCase = cases.find((c) => c.id === caseId) || null
+
+  const openCase = (c) => navigate(`/${c.id}`, { state: { fromGrid: true } })
+
+  // Closing goes back when the case was opened from the grid, so the browser's back button stays natural.
+  // A case opened from a shared link has nothing to go back to, so it returns to the grid instead.
+  const closeCase = useCallback(() => {
+    if (location.state?.fromGrid) navigate(-1)
+    else navigate('/', { replace: true })
+  }, [location.state, navigate])
+
+  if (caseId && !activeCase) return <Navigate to="/" replace />
 
   return (
     <>
@@ -43,7 +58,7 @@ export default function Home() {
             <motion.h2 variants={pageItem} className={styles.workLabel}>Selected Work</motion.h2>
             <motion.div variants={pageItem} className={styles.grid}>
               {cases.map((c, i) => (
-                <CaseCard key={c.id} caseData={c} index={i} onClick={() => setActiveCase(c)} />
+                <CaseCard key={c.id} caseData={c} index={i} onClick={() => openCase(c)} />
               ))}
             </motion.div>
           </div>
@@ -52,7 +67,7 @@ export default function Home() {
 
       <Footer />
 
-      <CaseModal caseData={activeCase} onClose={() => setActiveCase(null)} />
+      <CaseModal caseData={activeCase} onClose={closeCase} />
     </>
   )
 }

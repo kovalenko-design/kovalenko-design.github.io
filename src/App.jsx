@@ -9,6 +9,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        {/* A case address, like /panther: the home page with that case open */}
+        <Route path="/:caseId" element={<Home />} />
       </Routes>
       {import.meta.env.DEV && <Agentation endpoint="http://localhost:4747" />}
     </BrowserRouter>
