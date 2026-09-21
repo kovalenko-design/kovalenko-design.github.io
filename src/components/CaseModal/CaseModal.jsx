@@ -16,15 +16,17 @@ function Clip({ src, poster, label, caption }) {
   useEffect(() => {
     const video = ref.current
     if (!video || reduceMotion) return undefined
+    // Play once at least 45% of the clip is on screen, not counting the bottom 15% of the screen,
+    // so a clip does not start while it is only just peeking in at the bottom. Pause when it drops below that.
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
+        if (entry.intersectionRatio >= 0.45) {
           if (!held.current) video.play().catch(() => {})
         } else {
           video.pause()
         }
       },
-      { threshold: 0.4 },
+      { threshold: 0.45, rootMargin: '0px 0px -15% 0px' },
     )
     observer.observe(video)
     return () => observer.disconnect()
