@@ -28,6 +28,7 @@
 }
 
 .links a {
+  position: relative;
   font-size: 13px;
   color: var(--color-neutral-dark);
   text-decoration: none;
@@ -45,4 +46,11 @@
     align-items: flex-start;
     gap: 12px;
   }
+}
+
+/* Invisible tap area: a 44px-tall target for each small footer link. */
+.links a::after {
+  content: '';
+  position: absolute;
+  inset: -12px;
 }

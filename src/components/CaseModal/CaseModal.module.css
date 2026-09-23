@@ -438,6 +438,7 @@
 }
 
 .clipButton {
+  position: relative;
   width: 36px;
   height: 36px;
   display: grid;
@@ -491,6 +492,7 @@
 }
 
 .retroLink {
+  position: relative;
   display: inline-block;
   margin-top: 14px;
   font-size: 14px;
@@ -708,6 +710,7 @@
 }
 
 .carouselButton {
+  position: relative;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -737,6 +740,7 @@
 }
 
 .carouselDot {
+  position: relative;
   width: 24px;
   height: 24px;
   padding: 0;
@@ -1267,4 +1271,35 @@
   .deviceRow::before { border-radius: 10px; }
   .deviceImg { height: 72px; }
   .twoMediaFramed { gap: 28px; padding: 20px 16px; }
+}
+
+/* Invisible tap areas: these controls are smaller than 44px, so each gets a 44px target
+   without changing how it looks. The dots grow taller only, because they sit side by side. */
+.closeBtn::after,
+.copyBtn::after,
+.clipButton::after,
+.carouselButton::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+}
+
+.retroLink::after {
+  content: '';
+  position: absolute;
+  inset: -12px -4px;
+}
+
+.carouselDot::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 44px;
+  transform: translateY(-50%);
 }

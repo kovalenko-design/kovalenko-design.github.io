@@ -16,6 +16,7 @@
 }
 
 .brand {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 1px;
@@ -46,6 +47,7 @@
 }
 
 .nav a {
+  position: relative;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
@@ -79,4 +81,13 @@
   .title {
     display: none;
   }
+}
+
+/* Invisible tap area: the name and the menu links are small, so a finger gets a 44px-tall target
+   without changing how they look. */
+.brand::after,
+.nav a::after {
+  content: '';
+  position: absolute;
+  inset: -12px -8px;
 }

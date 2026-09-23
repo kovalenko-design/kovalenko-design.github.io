@@ -120,7 +120,7 @@ export default function About() {
             <div className={styles.heroLeft}>
               <motion.h2 variants={pageItem} className={`${styles.sectionLabel} ${styles.heroLabel}`}>About</motion.h2>
               <motion.p variants={pageItem} className={styles.bioText}>
-                I&apos;m a product designer with 6+ years of experience in building fintech, communication,
+                I&apos;m a product designer with 7+ years of experience in building fintech, communication,
                 and retail products, built on a broader 15+ year design career across the U.S. and Europe.
               </motion.p>
             </div>
@@ -133,14 +133,6 @@ export default function About() {
                 rel="noopener noreferrer"
               >
                 LinkedIn
-              </a>
-              <a
-                href="https://www.behance.net/vadimkovalenko"
-                className={styles.contactLink}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Behance
               </a>
               <a
                 href={`${import.meta.env.BASE_URL}Kovalenko_Product_Design_CV_en.pdf`}
