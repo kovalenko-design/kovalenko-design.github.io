@@ -128,7 +128,7 @@ export default function About() {
                 href="mailto:vadim.kavalenka@gmail.com"
                 className={styles.contactLink}
               >
-                vadim.kavalenka@gmail.com
+                Email
               </a>
               <a
                 href="https://www.linkedin.com/in/vadim-kovalenko-design/"
