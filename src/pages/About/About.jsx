@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
+import EmailLink from '../../components/EmailLink/EmailLink'
 import styles from './About.module.css'
 
 const pageVariants = {
@@ -124,12 +125,7 @@ export default function About() {
               </motion.p>
             </div>
             <motion.div variants={pageItem} className={styles.heroContact}>
-              <a
-                href="mailto:vadim.kavalenka@gmail.com"
-                className={styles.contactLink}
-              >
-                Email
-              </a>
+              <EmailLink className={styles.contactLink}>Email</EmailLink>
               <a
                 href="https://www.linkedin.com/in/vadim-kovalenko-design/"
                 className={styles.contactLink}
