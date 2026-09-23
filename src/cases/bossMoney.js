@@ -6,8 +6,8 @@ import designSystemImg from '../assets/cases/boss-money/design-system.png'
 import dataIterationImg from '../assets/cases/boss-money/data-iteration.png'
 import researchImg from '../assets/cases/boss-money/research.png'
 import evolutionImg from '../assets/cases/boss-money/evolution.png'
-import inboxGif from '../assets/cases/boss-money/Inbox.gif'
-import happyPassGif from '../assets/cases/boss-money/MT-happy-pass.gif'
+import inboxVideo from '../assets/cases/boss-money/Inbox.mp4'
+import happyPassVideo from '../assets/cases/boss-money/MT-happy-pass.mp4'
 import logoImg from '../assets/tools/BMoney_logo_squircle.png'
 import toolFigma from '../assets/tools/Figma.png'
 import toolJira from '../assets/tools/Jira.png'
@@ -37,10 +37,10 @@ const bossMoney = {
   },
 
   context:
-    'BOSS Money started as a straight forward app for sending money internationally, primarily focusing on mobile wallet transfers and bank deposits. As the app grew, the original design became too convoluted and struggling to support the new functionalities.',
+    'BOSS Money started as a straightforward app for sending money internationally, primarily focusing on mobile wallet transfers and bank deposits. As the app grew, the original design became too convoluted and struggling to support the new functionalities.',
 
   approach:
-    'To scale efficiently, BOSS Money needed to transition to a unified Flutter code base, aligning with it\'s sister app, BOSS Revolution. This would enable a vision of modular app design for both of the apps and beyond.',
+    'To scale efficiently, BOSS Money needed to transition to a unified Flutter code base, aligning with its sister app, BOSS Revolution. This would enable a vision of modular app design for both of the apps and beyond.',
 
   splitIntro: true,
 
@@ -55,7 +55,7 @@ const bossMoney = {
     {
       heading: 'Challenges and Goals',
       body: [
-        'Our team used created opportunity for significant redesign. The old design had become emotionally outdated and was no longer able to support the expanding feature set, including new services like peer-to-peer wallet transfers.',
+        'Our team used the opportunity to create a significant redesign. The old design had become emotionally outdated and was no longer able to support the expanding feature set, including new services like peer-to-peer wallet transfers.',
         'It was crucial to simplify the user experience and support the app\'s evolving international feature set.',
       ],
       image: challengesImg,
@@ -73,15 +73,15 @@ const bossMoney = {
     },
     {
       layout: 'two-media',
-      image: inboxGif,
-      image2: happyPassGif,
+      image: inboxVideo,
+      image2: happyPassVideo,
     },
     {
       heading: 'Research & Competitor Analysis',
       layout: 'text-left-img-right',
       body: [
         'Our team uses Amplitude as a tool to research how people are using the app—what features they used the most and where they get stuck. This data is key in helping us figure out where to focus our efforts.',
-        'We also looked at competing apps in fintech space a well as elsewhere to see what they were doing well and where we fell short. This helped us identify opportunities to stand out by offering a smoother, more intuitive user experience, while still keeping all the core functionalities users expect.',
+        'We also looked at competing apps in the fintech space as well as elsewhere to see what they were doing well and where we fell short. This helped us identify opportunities to stand out by offering a smoother, more intuitive user experience, while still keeping all the core functionalities users expect.',
       ],
       image: researchImg,
     },

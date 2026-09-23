@@ -24,7 +24,7 @@ const zendit = {
   ],
 
   intro:
-    'zendit is a B2B platform that gives businesses API access to a global catalog of prepaid services - mobile top-ups, gift cards, eSIMs, and utility payments. It lets clients offer prepaid products without building the infrastructure themselves',
+    'zendit is a B2B platform that gives businesses API access to a global catalog of prepaid services - mobile top-ups, gift cards, eSIMs, and utility payments. It lets clients offer prepaid products without building the infrastructure themselves.',
 
   introImage: {
     src: platformOverviewImg,
@@ -34,7 +34,7 @@ const zendit = {
     'Joined the product during active development. Requirements arrived as intent, not specification, defining the flow, edge cases, and component structure was part of the work.',
 
   approach:
-    'New UI patterns were built within the existing Ant Design based system adapted, branded, and delivered as reusable components before being applied in the product.',
+    'New UI patterns were built within the existing Ant Design-based system: adapted, branded, and delivered as reusable components before being applied in the product.',
 
   features: [
     {

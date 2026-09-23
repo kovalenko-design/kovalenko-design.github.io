@@ -6,7 +6,7 @@ import webPortalHeroImg from '../assets/cases/boss-revolution/brwp-intro.png'
 import miroImg from '../assets/cases/boss-revolution/brwp-miro.png'
 import slice5Img from '../assets/cases/boss-revolution/Slice 5.png'
 import slice7Img from '../assets/cases/boss-revolution/Slice 7.png'
-import imtuDesktopGif from '../assets/cases/boss-revolution/IMTU_desktop.gif'
+import imtuDesktopVideo from '../assets/cases/boss-revolution/IMTU_desktop.mp4'
 import imtuFlowClip from '../assets/cases/boss-revolution/imtu-flow.mp4'
 import imtuFlowPoster from '../assets/cases/boss-revolution/imtu-flow-poster.png'
 import step1Img from '../assets/cases/boss-revolution/step1.png'
@@ -47,7 +47,7 @@ const bossRevolution = {
   introBgImage: bellImg,
 
   context:
-    'This is a UX iteration project focused on simplifying UI for messaging, VOiP, mobile top-ups, and money transfers on iOS and Android.',
+    'This is a UX iteration project focused on simplifying UI for messaging, VoIP, mobile top-ups, and money transfers on iOS and Android.',
 
   splitIntro: true,
   introImageSmall: true,
@@ -83,7 +83,7 @@ const bossRevolution = {
         src: webPortalHeroImg,
       },
       context:
-        "The company already had a successful mobile app with features allowing users to purchase bundles of IMTU (international mobile top-ups). The team saw an opportunity to extend it to a web platform for both mobile and desktop users. My task was to create a web experience that seamlessly integrated with the existing brand's look and feel. The underlining framework to be used was chosen to be Tailwind CSS.",
+        "The company already had a successful mobile app with features allowing users to purchase bundles of IMTU (international mobile top-ups). The team saw an opportunity to extend it to a web platform for both mobile and desktop users. My task was to create a web experience that seamlessly integrated with the existing brand's look and feel. The underlying framework to be used was chosen to be Tailwind CSS.",
       tools: [
         { name: 'Figma', icon: toolFigma },
         { name: 'Sketch', icon: toolSketch },
@@ -98,7 +98,7 @@ const bossRevolution = {
       heading: 'Challenge',
       layout: 'img-left-text-right',
       body: [
-        "To adapt a successful mobile feature to work just as smoothly on the web presented it's own set of challenges. The real struggle was making sure the desktop version didn't feel clunky while keeping everything familiar and on-brand. I had to figure out how to make the experience seamless across both platforms without overcomplicating things.",
+        "To adapt a successful mobile feature to work just as smoothly on the web presented its own set of challenges. The real struggle was making sure the desktop version didn't feel clunky while keeping everything familiar and on-brand. I had to figure out how to make the experience seamless across both platforms without overcomplicating things.",
         'I began by reviewing the mobile app design to understand the user flow. As always, my approach was iterative:',
       ],
       clip: {
@@ -146,7 +146,7 @@ const bossRevolution = {
       heading: 'Refinement & Handoff',
       body: "By bringing developers in early, we were able to catch and solve most issues upfront, making sure both the mobile and desktop versions worked smoothly. Throughout the process, we ran several iterations and A/B tests to refine key pages and ensure an optimal user experience.  I also collaborated closely with stakeholders to keep the web portal aligned with the brand's look and feel.",
       image: slice5Img,
-      image2: imtuDesktopGif,
+      image2: imtuDesktopVideo,
       image3: slice7Img,
       imageCaption:
         'Iterations and A/B tests used to refine the mobile and desktop user experience.',

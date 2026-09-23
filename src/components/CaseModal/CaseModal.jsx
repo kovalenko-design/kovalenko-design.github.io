@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Footer from '../Footer/Footer'
 import styles from './CaseModal.module.css'
 
 // A short screen recording that plays like a moving image: silent, looping, no player chrome.
@@ -231,13 +232,54 @@ function Carousel({ slides, label }) {
 
 // Two images side by side on a grey card, each with its own caption underneath.
 // "framed" adds padding and gaps so images that carry their own edges (cards, dialogs) are not cut off.
+// A screen recording that stands in for an animated GIF: silent, looping, no controls.
+// It plays only while it is on screen, and stays still with reduced motion.
+function LoopVideo({ src, className, label }) {
+  const ref = useRef(null)
+  const [reduceMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+
+  useEffect(() => {
+    const video = ref.current
+    if (!video || reduceMotion) return undefined
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {})
+        else video.pause()
+      },
+      { threshold: 0.25 },
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [reduceMotion])
+
+  return (
+    <video
+      ref={ref}
+      src={src}
+      className={className}
+      aria-label={label || undefined}
+      aria-hidden={label ? undefined : 'true'}
+      muted
+      loop
+      playsInline
+      preload="metadata"
+    />
+  )
+}
+
+// A picture or, when the file is a video, a looping video. Both take the same class, so they lay out the same.
+function Media({ src, alt, className }) {
+  if (/\.mp4(\?|$)/.test(src)) return <LoopVideo src={src} className={className} label={alt} />
+  return <img src={src} alt={alt} className={className} />
+}
+
 function MediaPair({ items, framed }) {
   return (
     <div className={`${styles.twoMedia}${framed ? ` ${styles.twoMediaFramed}` : ''}`}>
       {items.map((media, i) => (
         <div key={i} className={styles.twoMediaItem}>
           {media.image
-            ? <img src={media.image} alt={media.caption || ''} className={styles.twoMediaImg} />
+            ? <Media src={media.image} alt={media.caption || ''} className={styles.twoMediaImg} />
             : <div className={styles.twoMediaPlaceholder} />}
           {media.caption && <p className={styles.twoMediaCaption}>{media.caption}</p>}
         </div>
@@ -352,6 +394,10 @@ function Feature({ feature }) {
 
 export default function CaseModal({ caseData, onClose }) {
   const [copied, setCopied] = useState(false)
+  // A case opened from a shared link shows at once, with no entry animation.
+  const [openedOnLoad, setOpenedOnLoad] = useState(Boolean(caseData))
+  if (!caseData && openedOnLoad) setOpenedOnLoad(false)
+  const startState = openedOnLoad ? false : 'hidden'
 
   const copyLink = async () => {
     const url = `${window.location.origin}/${caseData.id}`
@@ -392,7 +438,7 @@ export default function CaseModal({ caseData, onClose }) {
         <motion.div
           className={styles.backdrop}
           variants={backdropVariants}
-          initial="hidden"
+          initial={startState}
           animate="visible"
           exit="exit"
           onClick={onClose}
@@ -401,7 +447,7 @@ export default function CaseModal({ caseData, onClose }) {
           <motion.div
             className={styles.modal}
             variants={modalVariants}
-            initial="hidden"
+            initial={startState}
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
@@ -423,7 +469,7 @@ export default function CaseModal({ caseData, onClose }) {
             <motion.div
               className={`${styles.content}${caseData.logo && !caseData.logoWide ? ' ' + styles.contentWithSquircle : ''}${caseData.logoWide ? ' ' + styles.contentWithWideLogo : ''}`}
               variants={contentVariants}
-              initial="hidden"
+              initial={startState}
               animate="visible"
             >
               {/* App logo — absolutely positioned top-right */}
@@ -850,9 +896,9 @@ export default function CaseModal({ caseData, onClose }) {
                         (section.image2 || section.image3) ? (
                           <>
                             <figure className={styles.imageStack}>
-                              <img src={section.image} alt={section.heading || ''} />
-                              {section.image2 && <img src={section.image2} alt="" />}
-                              {section.image3 && <img src={section.image3} alt="" />}
+                              <Media src={section.image} alt={section.heading || ''} />
+                              {section.image2 && <Media src={section.image2} alt="" />}
+                              {section.image3 && <Media src={section.image3} alt="" />}
                             </figure>
                             {section.imageCaption && (
                               <p className={styles.caption}>{section.imageCaption}</p>
@@ -911,6 +957,10 @@ export default function CaseModal({ caseData, onClose }) {
                   )}
                 </motion.div>
               )}
+
+              <motion.div variants={item} className={styles.caseFooter}>
+                <Footer flush />
+              </motion.div>
             </motion.div>
           </motion.div>
         </motion.div>
