@@ -486,6 +486,7 @@
   font-size: 15px;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.7;
+  white-space: pre-line;
 }
 
 .retroLink {
@@ -934,7 +935,7 @@
 .section { margin-bottom: 72px; }
 
 .sectionTight {
-  margin-bottom: 36px;
+  margin-bottom: 72px;
   margin-top: -36px;
 }
 
@@ -1124,6 +1125,24 @@
 .imgLeftTextRightRight {
   display: flex;
   flex-direction: column;
+}
+
+/* Full-width sub-header inside a case (section.layout: 'section-intro') — same weight as the
+   case's own top title, for a section that reads as its own mini case within the case. */
+.sectionIntro .title {
+  margin-bottom: 16px;
+  text-wrap: balance;
+  white-space: pre-line;
+}
+
+.sectionIntro .intro {
+  margin-bottom: 0;
+  max-width: 90%;
+}
+
+/* Hero image (man on the phone), 10% smaller than the standard intro treatment */
+.sectionIntro .introSplitRight img {
+  width: 90%;
 }
 
 /* Numbered steps list — icon left, text right, divider between items */

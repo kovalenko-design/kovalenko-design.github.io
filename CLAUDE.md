@@ -55,8 +55,7 @@ Grid order = array order in `src/cases/index.js`. Currently live, in grid order:
 1. **panther** (`/panther`) — Panther POS: the ground-up rebuild of a point-of-sale system for small retail (Kotlin Multiplatform, a design system, Pizza Builder, Consumer Engagement App)
 2. **boss-money** — Redesigning the international money transfer experience (fintech mobile, Flutter, Material Design)
 3. **zendit** — B2B feature design for a global prepaid platform (multi-user account management, bulk eSIM ordering)
-4. **boss-revolution** — BOSS Revolution mobile app
-5. **br-web-portal** — BR Web Portal
+4. **boss-revolution** — BOSS Revolution: the mobile app, with the Web Portal (the web version of the same product) as its own sub-section further down. The Web Portal used to be a separate case (`br-web-portal`); its address now redirects to `/`.
 
 > New cases will be added over time. The grid must accommodate this gracefully.
 
@@ -79,6 +78,8 @@ That's the whole change. **Never hardcode case content in components** — CaseC
 - `timeline`: `stages: [{ title, body }]` joined by a dashed line (vertical on phones), plus `note: { label, body }`
 - `carousel`: `slides: [{ image, caption }]` scrolling sideways with snap, arrows and dots; optional `body`
 - `clip-side`: one narrow text column and the clip at two thirds of the width; optional `devices: [images]` shows a small row of drawings above the clip on a gradient strip
+- `img-left-text-right`: image (or a `clip`) on the left, heading, `body` and an optional numbered `steps: [{ icon, text }]` list on the right
+- `section-intro`: a sub-header for a part of the case that reads like its own mini case: a full-width title (same style as the case title, `\n` breaks the line), optional `meta: [{ label, value }]`, `body` (the intro paragraph), `introImage: { src }`, `context` and `tools: [{ name, icon }]`, laid out like the case's own intro
 
 ## Design Rules
 

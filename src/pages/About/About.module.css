@@ -18,15 +18,18 @@
 }
 
 .heroLeft {
-  flex: 0 0 auto;
+  flex: 0 1 auto;
   max-width: 50%;
 }
 
+/* Right-aligned to the header's right edge. The header container (--max-width) is wider than this
+   1054px column, so the row steps out by half the difference; it is 0 when the window is narrower than 1054px. */
 .heroContact {
   display: flex;
   align-items: stretch;
   flex-shrink: 0;
-  margin-left: 100px;
+  margin-left: auto;
+  margin-right: calc((min(100vw, var(--max-width)) - min(100vw, 1054px)) / -2);
 }
 
 .name {
@@ -167,6 +170,7 @@
 
 .contactLink:last-child {
   border-right: none;
+  padding-right: 0;
 }
 
 .contactLink:hover {
@@ -194,7 +198,19 @@
   }
 
   .heroContact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 24px;
+    width: 100%;
     margin-left: 0;
+    margin-right: 0;
+  }
+
+  .contactLink,
+  .contactLink:first-child,
+  .contactLink:last-child {
+    padding: 8px 0;
+    border-right: none;
   }
 
   .heroInner,

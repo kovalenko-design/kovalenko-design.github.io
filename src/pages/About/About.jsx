@@ -14,27 +14,31 @@ const pageItem = {
 }
 
 const skills = [
+  'Agentic AI Workflows',
+  'Claude Code',
+  'Design Harnesses',
   'Interaction Design',
   'Visual Design',
   'Information Architecture',
   'User Flows',
   'Wireframing',
   'Prototyping',
-  'Usability Testing',
-  'UX Writing',
-  'User Research',
   'Design Systems',
-  'Figma',
-  'FigJam',
   'Accessibility',
-  'AI & Agentic Workflows',
-  'Claude Code',
+  'UX Writing',
+  'Figma',
+  'LLMs',
+  'GitHub',
   'Adobe CC',
   'Amplitude',
   'Miro',
   'Agile',
   'Jira',
   'Confluence',
+  'User Research',
+  'Usability Testing',
+  'English (C1)',
+  'Russian (Native)',
 ]
 
 const experience = [
@@ -73,7 +77,7 @@ const experience = [
     role: 'Designer',
     company: 'Freelance Practice',
     location: '',
-    period: '2010–Present',
+    period: '2010–2019',
     summary: 'End-to-end design services for startups and small businesses',
   },
   {
@@ -120,6 +124,12 @@ export default function About() {
               </motion.p>
             </div>
             <motion.div variants={pageItem} className={styles.heroContact}>
+              <a
+                href="mailto:vadim.kavalenka@gmail.com"
+                className={styles.contactLink}
+              >
+                Contact Me
+              </a>
               <a
                 href="https://www.linkedin.com/in/vadim-kovalenko-design/"
                 className={styles.contactLink}

@@ -597,7 +597,48 @@ export default function CaseModal({ caseData, onClose }) {
               {/* Sections (boss money / legacy schema) */}
               {!caseData.features && caseData.sections && caseData.sections.map((section, i) => (
                 <motion.section variants={item} key={i} className={`${styles.section}${section.layout === 'img-left-text-right' ? ' ' + styles.sectionTight : ''}`}>
-                  {section.layout === 'two-col-header' ? (
+                  {section.layout === 'section-intro' ? (
+                    <div className={styles.sectionIntro}>
+                      {section.heading && (
+                        <h2 className={styles.title}>{section.heading}</h2>
+                      )}
+                      {section.meta && (
+                        <ul className={styles.meta}>
+                          {section.meta.map(({ label, value }) => (
+                            <li key={label} className={styles.metaItem}>
+                              <span className={styles.metaLabel}>{label}</span>
+                              <span className={styles.metaValue}>{value}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      <div className={styles.introSplit}>
+                        <div className={styles.introSplitLeft}>
+                          {section.body && <p className={styles.intro}>{section.body}</p>}
+                        </div>
+                        {section.introImage && (
+                          <figure className={styles.introSplitRight}>
+                            <img src={section.introImage.src} alt="" />
+                          </figure>
+                        )}
+                        <div className={styles.introSplitBelow}>
+                          {section.context && (
+                            <div>
+                              <h3 className={styles.colLabel}>Context</h3>
+                              <p className={styles.colBody}>{section.context}</p>
+                            </div>
+                          )}
+                          {section.tools && (
+                            <div className={styles.toolsRow}>
+                              {section.tools.map((tool) => (
+                                <img key={tool.name} src={tool.icon} alt={tool.name} title={tool.name} className={styles.toolIcon} />
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ) : section.layout === 'two-col-header' ? (
                     <>
                       <div className={styles.twoColHeader}>
                         <h2 className={styles.twoColHeading}>{section.heading}</h2>
@@ -664,9 +705,11 @@ export default function CaseModal({ caseData, onClose }) {
                   ) : section.layout === 'img-left-text-right' ? (
                     <div className={styles.imgLeftTextRightCols}>
                       <div className={styles.imgLeftTextRightLeft}>
-                        {section.image && (
+                        {section.clip ? (
+                          <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} caption={section.clip.caption} />
+                        ) : section.image ? (
                           <img src={section.image} alt={section.heading || ''} />
-                        )}
+                        ) : null}
                         {section.imageCaption && (
                           <p className={styles.caption}>{section.imageCaption}</p>
                         )}
