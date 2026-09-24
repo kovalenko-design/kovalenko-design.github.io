@@ -509,10 +509,6 @@
 }
 
 /* Contact footer at the end of a case */
-.caseFooter {
-  margin-top: 32px;
-}
-
 /* Two-column header — heading left, body right, image below */
 .twoColHeader {
   display: grid;

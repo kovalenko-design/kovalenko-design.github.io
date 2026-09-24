@@ -1,11 +1,10 @@
 import EmailLink from '../EmailLink/EmailLink'
 import styles from './Footer.module.css'
 
-// flush: no side padding, for a footer placed inside a container that already has its own (the case drawer).
-export default function Footer({ flush = false }) {
+export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <div className={`${styles.inner}${flush ? ` ${styles.flush}` : ''}`}>
+      <div className={styles.inner}>
         <span className={styles.copy}>© {new Date().getFullYear()} Vadim Kovalenko</span>
         <nav className={styles.links} aria-label="Contact">
           <EmailLink>Email</EmailLink>

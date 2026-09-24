@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Footer from '../Footer/Footer'
 import styles from './CaseModal.module.css'
 
 // A short screen recording that plays like a moving image: silent, looping, no player chrome.
@@ -957,10 +956,6 @@ export default function CaseModal({ caseData, onClose }) {
                   )}
                 </motion.div>
               )}
-
-              <motion.div variants={item} className={styles.caseFooter}>
-                <Footer flush />
-              </motion.div>
             </motion.div>
           </motion.div>
         </motion.div>

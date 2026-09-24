@@ -11,11 +11,6 @@
   justify-content: space-between;
 }
 
-.inner.flush {
-  padding-left: 0;
-  padding-right: 0;
-}
-
 .copy {
   font-size: 13px;
   color: var(--color-neutral-dark);

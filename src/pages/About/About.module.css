@@ -110,12 +110,12 @@
   display: grid;
   grid-template-columns: 140px 1fr;
   gap: 24px;
+  align-items: baseline;
 }
 
 .expPeriod {
   font-size: 16px;
   color: var(--color-neutral-dark);
-  padding-top: 3px;
 }
 
 .expRole {
@@ -150,6 +150,7 @@
   display: grid;
   grid-template-columns: 140px 1fr;
   gap: 24px;
+  align-items: baseline;
 }
 
 .contactLink {
