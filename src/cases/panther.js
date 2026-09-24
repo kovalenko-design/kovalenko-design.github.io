@@ -15,6 +15,9 @@ import screenImport from '../assets/cases/panther/screen-import.webp'
 import screenReports from '../assets/cases/panther/screen-reports.webp'
 import screenPromotions from '../assets/cases/panther/screen-promotions.webp'
 import designSystemImg from '../assets/cases/panther/design-system.webp'
+// Two pages rendered from the real brief, research and PRD (public sources only, internal parts left out).
+import aiDiscoveryOverview from '../assets/cases/panther/ai-discovery-overview.png'
+import aiDiscoveryResearch from '../assets/cases/panther/ai-discovery-research.png'
 import driftAnnotation from '../assets/cases/panther/drift-annotation-button.png'
 import driftComponentConfig from '../assets/cases/panther/drift-component-config.png'
 // Line drawings of the payment devices, shown as a row above the Consumer Engagement App clip.
@@ -84,6 +87,20 @@ const panther = {
         {
           label: 'Deliverables',
           body: 'Handoff assets, Figma files, AI-built prototypes, the design system, design QA docs, and the GitHub repo with the AI pipeline that supported the work.',
+        },
+      ],
+    },
+    {
+      heading: 'AI for research',
+      layout: 'carousel',
+      body: [
+        "Besides prototyping and design, I use AI to get from an idea to a PRD, with three skills I wrote. /dm-brief interviews me one question at a time. /dm-research finds real competitors and links a source for every claim. /dm-prd combines the two into a PRD and lists what's still missing.",
+      ],
+      slides: [
+        { image: aiDiscoveryOverview, caption: 'The brief, the research and the PRD for Panther' },
+        {
+          image: aiDiscoveryResearch,
+          caption: 'The research: seven real competitors with sources, and a stated gap',
         },
       ],
     },
