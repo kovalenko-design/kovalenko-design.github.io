@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 
 const SITE = 'https://kovalenko.info'
 const SITE_NAME = 'Vadim Kovalenko'
-const SITE_TITLE = 'Vadim Kovalenko — Lead Product Designer'
+const SITE_TITLE = 'Vadim Kovalenko — Product Designer'
 const SITE_DESCRIPTION =
   'Product designer in Warsaw with 7+ years in fintech, communication, and retail products. Case studies: Panther POS, BOSS Money, BOSS Revolution, zendit.'
 
