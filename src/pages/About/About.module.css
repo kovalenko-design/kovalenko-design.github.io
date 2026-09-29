@@ -81,7 +81,53 @@
   color: var(--color-charcoal);
 }
 
-/* Skills */
+/* Impact */
+.impactList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.impactItem {
+  position: relative;
+  padding-left: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-charcoal);
+  text-wrap: pretty;
+}
+
+.impactItem::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+/* Skills, grouped like the CV: label on the left, pills on the right (same columns as Experience) */
+.skillGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skillGroup {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 24px;
+  align-items: baseline;
+}
+
+.skillGroupLabel {
+  font-size: 16px;
+  color: var(--color-neutral-dark);
+}
+
 .skillList {
   list-style: none;
   display: flex;
@@ -137,6 +183,14 @@
   font-size: 15px;
   line-height: 1.65;
   color: var(--color-charcoal);
+}
+
+.expContext {
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--color-neutral-dark);
+  margin-bottom: 8px;
 }
 
 /* Education */
@@ -253,8 +307,18 @@
     gap: 4px;
   }
 
+  .skillGroup {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .skillGroupLabel {
+    font-size: 12px;
+  }
+
   .expPeriod {
     color: var(--color-neutral-dark);
     font-size: 12px;
   }
 }
+

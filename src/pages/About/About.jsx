@@ -14,32 +14,36 @@ const pageItem = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.23, ease: [0.16, 1, 0.3, 1] } },
 }
 
-const skills = [
-  'Agentic AI Workflows',
-  'Claude Code',
-  'Design Harnesses',
-  'Interaction Design',
-  'Visual Design',
-  'Information Architecture',
-  'User Flows',
-  'Wireframing',
-  'Prototyping',
-  'Design Systems',
-  'Accessibility',
-  'UX Writing',
-  'Figma',
-  'LLMs',
-  'GitHub',
-  'Adobe CC',
-  'Amplitude',
-  'Miro',
-  'Agile',
-  'Jira',
-  'Confluence',
-  'User Research',
-  'Usability Testing',
-  'English (C1)',
-  'Russian (Native)',
+const impact = [
+  'Redesigned the BOSS Money app; its Google Play rating rose from 3.9 to 4.9 over the following year',
+  'Designed the UX/UI for a new in-app referral program; action rate reached 85% against 41% for the standard format',
+  'Led design for NRS, a POS platform used in about 34,000 independent US stores',
+  "Moved the team's prototyping and daily design work onto AI and agent-driven tools",
+  'Set up design review and other team rituals, mentoring, and alignment between stakeholder requests and team delivery',
+]
+
+const skillGroups = [
+  { label: 'AI', items: ['Agentic AI Workflows', 'Claude Code', 'Design Harnesses'] },
+  {
+    label: 'Design',
+    items: [
+      'Interaction Design',
+      'Visual Design',
+      'Information Architecture',
+      'User Flows',
+      'Wireframing',
+      'Prototyping',
+      'Design Systems',
+      'Accessibility',
+      'UX Writing',
+    ],
+  },
+  {
+    label: 'Tools',
+    items: ['Figma', 'LLMs', 'GitHub', 'Adobe CC', 'Amplitude', 'Miro', 'Agile', 'Jira', 'Confluence'],
+  },
+  { label: 'Research', items: ['User Research', 'Usability Testing'] },
+  { label: 'Languages', items: ['English (C1)', 'Russian (Native)'] },
 ]
 
 const experience = [
@@ -49,13 +53,17 @@ const experience = [
     location: 'Warsaw, Poland',
     period: '2024–Present',
     summary:
-      'Leading a team in overhauling the design for a retail POS platform used by small businesses, including convenience stores, retail shops and restaurants',
+      'Leading a team of 4 designers in overhauling the design for a retail platform used by convenience stores, retail shops and restaurants',
+    context:
+      "NRS is IDT's point-of-sale platform: the register and back office for around 34,000 independent US stores.",
   },
   {
     role: 'Senior UX/UI Designer',
     company: 'IDT Technologies',
     location: 'Warsaw, Poland',
     period: '2022–2024',
+    context:
+      "BOSS Money is IDT's remittance app, sending money home to 50+ countries. It crossed 2 million transfers a month while I was on it.",
     summary:
       'Redesigned a global fintech money transfer (remittance) app, improving onboarding, transfers, top-ups, and account management',
   },
@@ -147,13 +155,29 @@ export default function About() {
 
         <section className={styles.content}>
           <div className={styles.contentInner}>
-            <motion.div variants={pageItem} className={styles.skills}>
-              <h2 className={styles.sectionLabel}>Skills</h2>
-              <ul className={styles.skillList}>
-                {skills.map((skill) => (
-                  <li key={skill} className={styles.skillItem}>{skill}</li>
+            <motion.div variants={pageItem}>
+              <h2 className={styles.sectionLabel}>Impact</h2>
+              <ul className={styles.impactList}>
+                {impact.map((item) => (
+                  <li key={item} className={styles.impactItem}>{item}</li>
                 ))}
               </ul>
+            </motion.div>
+
+            <motion.div variants={pageItem} className={styles.skills}>
+              <h2 className={styles.sectionLabel}>Skills &amp; Tools</h2>
+              <div className={styles.skillGroups}>
+                {skillGroups.map((group) => (
+                  <div key={group.label} className={styles.skillGroup}>
+                    <span className={styles.skillGroupLabel}>{group.label}</span>
+                    <ul className={styles.skillList}>
+                      {group.items.map((skill) => (
+                        <li key={skill} className={styles.skillItem}>{skill}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </motion.div>
 
             <motion.div variants={pageItem} className={styles.expSection}>
@@ -169,6 +193,9 @@ export default function About() {
                       <span className={styles.expCompany}>
                         {item.company}{item.location ? ` · ${item.location}` : ''}
                       </span>
+                      {item.context && (
+                        <p className={styles.expContext}>{item.context}</p>
+                      )}
                       <p className={styles.expSummary}>{item.summary}</p>
                     </div>
                   </div>
