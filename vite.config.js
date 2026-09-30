@@ -2,10 +2,11 @@ import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { pageTitle } from './src/pageTitle.js'
 
 const SITE = 'https://kovalenko.info'
 const SITE_NAME = 'Vadim Kovalenko'
-const SITE_TITLE = 'Vadim Kovalenko — Product Designer'
+const SITE_TITLE = pageTitle('Product Designer')
 const SITE_DESCRIPTION =
   'Product designer in Warsaw with 7+ years in fintech, communication, and retail products. Case studies: Panther POS, BOSS Money, BOSS Revolution, zendit.'
 
@@ -78,7 +79,7 @@ function addressPages() {
           address: 'about',
           info: {
             path: '/about',
-            title: `About — ${SITE_NAME}`,
+            title: pageTitle('About'),
             description: SITE_DESCRIPTION,
             heading: 'About Vadim Kovalenko',
           },
@@ -87,7 +88,7 @@ function addressPages() {
           address: c.id,
           info: {
             path: `/${c.id}`,
-            title: `${c.title} — ${SITE_NAME}`,
+            title: pageTitle(c.title),
             description: `${c.subtitle}. ${c.description}`,
             heading: `${c.title}: ${c.subtitle}`,
           },
