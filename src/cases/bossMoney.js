@@ -40,7 +40,9 @@ const bossMoney = {
     'BOSS Money started as a straightforward app for sending money internationally, primarily focusing on mobile wallet transfers and bank deposits. As the app grew, the original design became too convoluted and struggling to support the new functionalities.',
 
   approach:
-    'To scale efficiently, BOSS Money needed to transition to a unified Flutter code base, aligning with its sister app, BOSS Revolution. This would enable a vision of modular app design for both of the apps and beyond.',
+    'To scale efficiently, BOSS Money needed to transition to a unified Flutter code base, aligning with its sister app, BOSS Revolution. This would enable a vision of modular app design for\u00A0both of the apps and beyond.',
+
+  keyImpact: "The app's Google Play store rating increased significantly from 3.9 to 4.9 after the\u00A0redesign.",
 
   splitIntro: true,
 
@@ -104,7 +106,7 @@ const bossMoney = {
   ],
 
   retrospective:
-    'Like many redesigns, the initial reaction from customers was mixed. People were used to the old version, and the shift took some getting used to. However, over time, the numbers told a different story. Our key metrics showed a significant boost in transaction numbers, which directly led to an increase in revenue. Over time, it became clear that the redesign was a success, and users adapted to the improved experience.',
+    'Like many redesigns, the initial reaction from customers was mixed. People were used to the old version, and the shift took some getting used to. Over the following year, the app\'s Google Play rating rose from 3.9 to 4.9, and our key metrics showed a significant boost in transaction numbers, which directly led to an increase in revenue. It became clear that the redesign was a success, and users adapted to the improved experience.',
   retroUrl: 'www.bossmoney.com',
 }
 

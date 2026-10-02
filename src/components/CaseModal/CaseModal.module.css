@@ -167,7 +167,7 @@
   font-size: 36px;
   font-weight: 600;
   color: var(--color-headline);
-  line-height: 1.15;
+  line-height: 48px;
 }
 
 /* Meta bar */
@@ -994,6 +994,24 @@
   margin-bottom: 72px;
 }
 
+/* Split intro with a Key impact line (keyImpact): narrower text column, larger hero, first row sized to the intro */
+.introSplitLifted {
+  grid-template-columns: 0.83fr 1.17fr;
+  grid-template-rows: auto 1fr;
+}
+
+.introSplitLifted .introSplitLeft {
+  padding-top: 32px;
+}
+
+.introSplitLifted .introSplitRight {
+  top: -50px;
+}
+
+.introSplitLifted .introSplitRight img {
+  transform: scale(1.11);
+}
+
 .introSplitLeft {
   grid-column: 1;
   grid-row: 1;
@@ -1227,7 +1245,7 @@
   .contentWithSquircle { padding-top: 116px; }
   .contentWithWideLogo { padding-top: 100px; }
   .caseLogoWide { top: 24px; max-height: 40px; left: 24px; } /* zendit wordmark: no transparent pad, restore to 24px */
-  .title { font-size: 26px; }
+  .title { font-size: 26px; line-height: 36px; }
   .contextApproach { grid-template-columns: 1fr; gap: 20px; }
   .problemWork { grid-template-columns: 1fr; gap: 16px; }
   .meta { display: grid; grid-template-columns: repeat(3, 1fr); }
@@ -1246,6 +1264,9 @@
   .introSplitBelow { gap: 16px; }
   .introSplitRight { top: 0; left: 0; width: 85%; margin: 0 auto; }
   .introSplitRight img { transform: scale(1); }
+  .introSplitLifted .introSplitLeft { padding-top: 0; }
+  .introSplitLifted .introSplitRight { top: 0; }
+  .introSplitLifted .introSplitRight img { transform: scale(1); }
   /* Small hero variant on mobile: text first, then bell+phone lockup 70% centered */
   .introSplitSmall { display: flex; flex-direction: column; gap: 20px; margin-bottom: 48px; }
   .introSplitLeftFull { order: 1; gap: 16px; }

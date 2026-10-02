@@ -498,7 +498,7 @@ export default function CaseModal({ caseData, onClose }) {
 
               {/* Intro — split (text+context left, image right) or stacked */}
               {caseData.splitIntro ? (
-                <motion.div variants={item} className={`${styles.introSplit}${caseData.introImageSmall ? ' ' + styles.introSplitSmall : ''}`}>
+                <motion.div variants={item} className={`${styles.introSplit}${caseData.introImageSmall ? ' ' + styles.introSplitSmall : ''}${caseData.keyImpact ? ' ' + styles.introSplitLifted : ''}`}>
                   {caseData.introImageSmall ? (
                     // Small hero: phone floats right first (float must precede wrapping text in DOM)
                     <>
@@ -519,6 +519,11 @@ export default function CaseModal({ caseData, onClose }) {
                             {caseData.title && caseData.intro.startsWith(caseData.title)
                               ? <><strong>{caseData.title}</strong>{caseData.intro.slice(caseData.title.length)}</>
                               : caseData.intro}
+                          </p>
+                        )}
+                        {caseData.keyImpact && (
+                          <p className={styles.intro}>
+                            <strong>Key impact:</strong> {caseData.keyImpact}
                           </p>
                         )}
                         {caseData.context && (
@@ -551,6 +556,11 @@ export default function CaseModal({ caseData, onClose }) {
                             {caseData.title && caseData.intro.startsWith(caseData.title)
                               ? <><strong>{caseData.title}</strong>{caseData.intro.slice(caseData.title.length)}</>
                               : caseData.intro}
+                          </p>
+                        )}
+                        {caseData.keyImpact && (
+                          <p className={styles.intro}>
+                            <strong>Key impact:</strong> {caseData.keyImpact}
                           </p>
                         )}
                       </div>
