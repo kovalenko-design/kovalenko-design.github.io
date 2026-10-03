@@ -498,7 +498,7 @@ export default function CaseModal({ caseData, onClose }) {
 
               {/* Intro — split (text+context left, image right) or stacked */}
               {caseData.splitIntro ? (
-                <motion.div variants={item} className={`${styles.introSplit}${caseData.introImageSmall ? ' ' + styles.introSplitSmall : ''}${caseData.keyImpact ? ' ' + styles.introSplitLifted : ''}`}>
+                <motion.div variants={item} className={`${styles.introSplit}${caseData.introImageSmall ? ' ' + styles.introSplitSmall : ''}${caseData.keyImpact ? ' ' + styles.introSplitLifted : ''}${caseData.introHeroLarge ? ' ' + styles.introHeroLarge : ''}`}>
                   {caseData.introImageSmall ? (
                     // Small hero: phone floats right first (float must precede wrapping text in DOM)
                     <>

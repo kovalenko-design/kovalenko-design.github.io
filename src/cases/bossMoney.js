@@ -45,6 +45,7 @@ const bossMoney = {
   keyImpact: "The app's Google Play store rating increased significantly from 3.9 to 4.9 after the\u00A0redesign.",
 
   splitIntro: true,
+  introHeroLarge: true,
 
   tools: [
     { name: 'Figma', icon: toolFigma },

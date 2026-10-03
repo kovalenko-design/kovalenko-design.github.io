@@ -65,7 +65,7 @@ Grid order = array order in `src/cases/index.js`. Currently live, in grid order:
 2. Create `src/cases/<case-id>.js` exporting a plain data object. Two schemas are in active use — pick whichever fits the story, don't force one onto the other:
    - **`sections` + `tools`** (bossMoney, brWebPortal, bossRevolution) — a linear array of free-form narrative sections.
    - **`features` + `context`/`approach`** (zendit) — structured per-feature blocks: `{ title, description, problem, work, image, imageCaption, imageLayout, videoId }`.
-   - Common to both: `id, title, subtitle, description, tags, cover, logo, meta[], intro, introImage, retrospective, retroUrl`. Optional, used by some cases only: `splitIntro`, `introBgImage`, `introImageSmall`, `logoWide`, `keyImpact` (one sentence shown as a "Key impact:" line under the intro, split intro only).
+   - Common to both: `id, title, subtitle, description, tags, cover, logo, meta[], intro, introImage, retrospective, retroUrl`. Optional, used by some cases only: `splitIntro`, `introBgImage`, `introImageSmall`, `logoWide`, `keyImpact` (one sentence shown as a "Key impact:" line under the intro, split intro only), `introHeroLarge` (split intro: narrower text column and a larger hero, used by BOSS Money).
 3. Import it in `src/cases/index.js` and add to the `cases` array — that position sets its place in the grid.
 
 That's the whole change. **Never hardcode case content in components** — CaseCard/CaseDrawer render whatever shape of data they're given.

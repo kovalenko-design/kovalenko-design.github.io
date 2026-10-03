@@ -55,6 +55,8 @@ const panther = {
   approach:
     'The new app runs on Kotlin Multiplatform, so one codebase can serve Android and iOS tablets. Native was a deliberate choice: cashiers work from muscle memory, and a web-based POS would not react fast enough. The goal was a modular product that can keep growing with new features and plug-and-play devices.',
 
+  keyImpact: 'Over 30% of NRS stores have already moved from the old POS to the premium plans built on\u00A0Panther.',
+
   splitIntro: true,
 
   // No `tools` field on purpose: tools are named in the info grid instead of an icon row.

@@ -994,9 +994,8 @@
   margin-bottom: 72px;
 }
 
-/* Split intro with a Key impact line (keyImpact): narrower text column, larger hero, first row sized to the intro */
+/* Split intro with a Key impact line (keyImpact): first row sized to the intro, text starts higher */
 .introSplitLifted {
-  grid-template-columns: 0.83fr 1.17fr;
   grid-template-rows: auto 1fr;
 }
 
@@ -1004,11 +1003,16 @@
   padding-top: 32px;
 }
 
-.introSplitLifted .introSplitRight {
+/* introHeroLarge: narrower text column, larger and lower hero (BOSS Money phones) */
+.introHeroLarge {
+  grid-template-columns: 0.83fr 1.17fr;
+}
+
+.introHeroLarge .introSplitRight {
   top: -50px;
 }
 
-.introSplitLifted .introSplitRight img {
+.introHeroLarge .introSplitRight img {
   transform: scale(1.11);
 }
 
@@ -1265,8 +1269,8 @@
   .introSplitRight { top: 0; left: 0; width: 85%; margin: 0 auto; }
   .introSplitRight img { transform: scale(1); }
   .introSplitLifted .introSplitLeft { padding-top: 0; }
-  .introSplitLifted .introSplitRight { top: 0; }
-  .introSplitLifted .introSplitRight img { transform: scale(1); }
+  .introHeroLarge .introSplitRight { top: 0; }
+  .introHeroLarge .introSplitRight img { transform: scale(1); }
   /* Small hero variant on mobile: text first, then bell+phone lockup 70% centered */
   .introSplitSmall { display: flex; flex-direction: column; gap: 20px; margin-bottom: 48px; }
   .introSplitLeftFull { order: 1; gap: 16px; }
