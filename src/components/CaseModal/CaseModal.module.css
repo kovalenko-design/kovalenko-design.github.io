@@ -42,11 +42,15 @@
   transition: background 0.15s ease, color 0.15s ease;
   z-index: 2;
   flex-shrink: 0;
+  touch-action: manipulation;
 }
 
-.closeBtn:hover {
-  background: var(--color-neutral-light);
-  color: var(--color-darkest);
+/* Hover look only with a mouse: on iPhone a :hover style can make the first tap a "hover" and need a second tap */
+@media (hover: hover) {
+  .closeBtn:hover {
+    background: var(--color-neutral-light);
+    color: var(--color-darkest);
+  }
 }
 
 /* Copy link button — same look as the close button, just to its left */
@@ -67,11 +71,14 @@
   transition: background 0.15s ease, color 0.15s ease;
   z-index: 2;
   flex-shrink: 0;
+  touch-action: manipulation;
 }
 
-.copyBtn:hover {
-  background: var(--color-neutral-light);
-  color: var(--color-darkest);
+@media (hover: hover) {
+  .copyBtn:hover {
+    background: var(--color-neutral-light);
+    color: var(--color-darkest);
+  }
 }
 
 .copyToast {
