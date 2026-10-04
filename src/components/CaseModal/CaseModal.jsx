@@ -388,6 +388,22 @@ export default function CaseModal({ caseData, onClose }) {
   if (!caseData && openedOnLoad) setOpenedOnLoad(false)
   const startState = openedOnLoad ? false : 'hidden'
 
+  // On phones a tap while the case is still gliding after a scroll only stops the scroll,
+  // and the browser sends no click. So the close button also closes when a finger lifts off it.
+  const closeTouch = useRef(null)
+  const closeTouchStart = (e) => {
+    const t = e.touches[0]
+    closeTouch.current = { x: t.clientX, y: t.clientY }
+  }
+  const closeTouchEnd = (e) => {
+    const start = closeTouch.current
+    closeTouch.current = null
+    const t = e.changedTouches[0]
+    if (!start || Math.abs(t.clientX - start.x) > 10 || Math.abs(t.clientY - start.y) > 10) return
+    e.preventDefault() // no second close from the click that may follow
+    onClose()
+  }
+
   const copyLink = async () => {
     const url = `${window.location.origin}/${caseData.id}`
     try {
@@ -449,7 +465,13 @@ export default function CaseModal({ caseData, onClose }) {
               </svg>
             </button>
             {copied && <span className={styles.copyToast} role="status">Link copied</span>}
-            <button className={styles.closeBtn} onClick={onClose} aria-label="Close">
+            <button
+              className={styles.closeBtn}
+              onClick={onClose}
+              onTouchStart={closeTouchStart}
+              onTouchEnd={closeTouchEnd}
+              aria-label="Close"
+            >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
