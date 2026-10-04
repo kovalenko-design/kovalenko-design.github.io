@@ -10,7 +10,7 @@ const pageVariants = {
 }
 
 const pageItem = {
-  hidden:  { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.23, ease: [0.16, 1, 0.3, 1] } },
 }
 
@@ -40,7 +40,17 @@ const skillGroups = [
   },
   {
     label: 'Tools',
-    items: ['Figma', 'LLMs', 'GitHub', 'Adobe CC', 'Amplitude', 'Miro', 'Agile', 'Jira', 'Confluence'],
+    items: [
+      'Figma',
+      'LLMs',
+      'GitHub',
+      'Adobe CC',
+      'Amplitude',
+      'Miro',
+      'Agile',
+      'Jira',
+      'Confluence',
+    ],
   },
   { label: 'Research', items: ['User Research', 'Usability Testing'] },
   { label: 'Languages', items: ['English (C1)', 'Russian (Native)'] },
@@ -126,10 +136,16 @@ export default function About() {
         <section className={styles.hero}>
           <div className={styles.heroInner}>
             <div className={styles.heroLeft}>
-              <motion.h2 variants={pageItem} className={`${styles.sectionLabel} ${styles.heroLabel}`}>About</motion.h2>
+              <motion.h2
+                variants={pageItem}
+                className={`${styles.sectionLabel} ${styles.heroLabel}`}
+              >
+                About
+              </motion.h2>
               <motion.p variants={pageItem} className={styles.bioText}>
-                I&apos;m a product designer with 7+ years of experience in building fintech, communication,
-                and retail products, built on a broader 15+ year design career across the U.S. and Europe.
+                I&apos;m a product designer with 7+ years of experience in building fintech,
+                communication, and retail products, built on a broader 15+ year design career across
+                the U.S. and Europe.
               </motion.p>
             </div>
             <motion.div variants={pageItem} className={styles.heroContact}>
@@ -159,7 +175,9 @@ export default function About() {
               <h2 className={styles.sectionLabel}>Impact</h2>
               <ul className={styles.impactList}>
                 {impact.map((item) => (
-                  <li key={item} className={styles.impactItem}>{item}</li>
+                  <li key={item} className={styles.impactItem}>
+                    {item}
+                  </li>
                 ))}
               </ul>
             </motion.div>
@@ -172,7 +190,9 @@ export default function About() {
                     <span className={styles.skillGroupLabel}>{group.label}</span>
                     <ul className={styles.skillList}>
                       {group.items.map((skill) => (
-                        <li key={skill} className={styles.skillItem}>{skill}</li>
+                        <li key={skill} className={styles.skillItem}>
+                          {skill}
+                        </li>
                       ))}
                     </ul>
                   </div>
@@ -191,11 +211,10 @@ export default function About() {
                     <div className={styles.expBody}>
                       <h3 className={styles.expRole}>{item.role}</h3>
                       <span className={styles.expCompany}>
-                        {item.company}{item.location ? ` · ${item.location}` : ''}
+                        {item.company}
+                        {item.location ? ` · ${item.location}` : ''}
                       </span>
-                      {item.context && (
-                        <p className={styles.expContext}>{item.context}</p>
-                      )}
+                      {item.context && <p className={styles.expContext}>{item.context}</p>}
                       <p className={styles.expSummary}>{item.summary}</p>
                     </div>
                   </div>
@@ -219,7 +238,6 @@ export default function About() {
                 ))}
               </div>
             </motion.div>
-
           </div>
         </section>
       </motion.main>

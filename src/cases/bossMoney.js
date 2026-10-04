@@ -18,7 +18,8 @@ const bossMoney = {
   id: 'boss-money',
   title: 'BOSS Money',
   subtitle: 'Designing the International Money Transfer Experience',
-  description: 'End-to-end redesign of a fintech mobile app for global remittance, including a new design system built from scratch.',
+  description:
+    'End-to-end redesign of a fintech mobile app for global remittance, including a new design system built from scratch.',
   tags: ['Fintech', 'Mobile', 'UX Design'],
   cover: coverImg,
   logo: logoImg,
@@ -42,7 +43,8 @@ const bossMoney = {
   approach:
     'To scale efficiently, BOSS Money needed to transition to a unified Flutter code base, aligning with its sister app, BOSS Revolution. This would enable a vision of modular app design for\u00A0both of the apps and beyond.',
 
-  keyImpact: "The app's Google Play store rating increased significantly from 3.9 to 4.9 after the\u00A0redesign.",
+  keyImpact:
+    "The app's Google Play store rating increased significantly from 3.9 to 4.9 after the\u00A0redesign.",
 
   splitIntro: true,
   introHeroLarge: true,
@@ -59,7 +61,7 @@ const bossMoney = {
       heading: 'Challenges and Goals',
       body: [
         'Our team used the opportunity to create a significant redesign. The old design had become emotionally outdated and was no longer able to support the expanding feature set, including new services like peer-to-peer wallet transfers.',
-        'It was crucial to simplify the user experience and support the app\'s evolving international feature set.',
+        "It was crucial to simplify the user experience and support the app's evolving international feature set.",
       ],
       image: challengesImg,
       imageMobile: challengesMobileImg,
@@ -68,10 +70,19 @@ const bossMoney = {
     {
       layout: 'info-grid',
       cells: [
-        { label: 'My Role', body: 'Led the design process, from concept to final implementation. Design system from scratch. Prototyping, usability testing.' },
-        { label: 'Team', body: "Two designers, 5 front-end developers, back-end devs, project managers and an owner, QA's." },
+        {
+          label: 'My Role',
+          body: 'Led the design process, from concept to final implementation. Design system from scratch. Prototyping, usability testing.',
+        },
+        {
+          label: 'Team',
+          body: "Two designers, 5 front-end developers, back-end devs, project managers and an owner, QA's.",
+        },
         { label: 'Tools', body: 'Figma, Lottie, Jira, Miro, Amplitude.' },
-        { label: 'Deliverables', body: 'Ready for development Figma flows, Lottie micro-animations.' },
+        {
+          label: 'Deliverables',
+          body: 'Ready for development Figma flows, Lottie micro-animations.',
+        },
       ],
     },
     {
@@ -95,19 +106,20 @@ const bossMoney = {
     },
     {
       heading: 'Data Based Iteration',
-      body: 'Iteration is a big part of how we develop our product. We use Miro boards to map out user flows and see how the app\'s front-end would connect with the back-end. It is the space for brainstorming and figuring out how everything would work—from user actions to the behind-the-scenes API calls. We also employ Amplitude to check out real user data, which really helped us make smarter design choices.',
+      body: "Iteration is a big part of how we develop our product. We use Miro boards to map out user flows and see how the app's front-end would connect with the back-end. It is the space for brainstorming and figuring out how everything would work—from user actions to the behind-the-scenes API calls. We also employ Amplitude to check out real user data, which really helped us make smarter design choices.",
       image: dataIterationImg,
     },
     {
       heading: 'Evolution',
-      body: 'Looking ahead, we are exploring several design concepts to push the app further. These screens represent potential updates that could enhance the user experience and expand the app\'s functionality. While still in the early stages, these ideas reflect our focus on continuous improvement and adapting to user needs.',
+      body: "Looking ahead, we are exploring several design concepts to push the app further. These screens represent potential updates that could enhance the user experience and expand the app's functionality. While still in the early stages, these ideas reflect our focus on continuous improvement and adapting to user needs.",
       image: evolutionImg,
-      imageCaption: 'Exploring redesign solutions for a universal money amount entry across app services, ensuring it accounts for tax, fee, and legal scenarios. Designing a path towards a truly worldwide peer-to-peer in-app wallet product.',
+      imageCaption:
+        'Exploring redesign solutions for a universal money amount entry across app services, ensuring it accounts for tax, fee, and legal scenarios. Designing a path towards a truly worldwide peer-to-peer in-app wallet product.',
     },
   ],
 
   retrospective:
-    'Like many redesigns, the initial reaction from customers was mixed. People were used to the old version, and the shift took some getting used to. Over the following year, the app\'s Google Play rating rose from 3.9 to 4.9, and our key metrics showed a significant boost in transaction numbers, which directly led to an increase in revenue. It became clear that the redesign was a success, and users adapted to the improved experience.',
+    "Like many redesigns, the initial reaction from customers was mixed. People were used to the old version, and the shift took some getting used to. Over the following year, the app's Google Play rating rose from 3.9 to 4.9, and our key metrics showed a significant boost in transaction numbers, which directly led to an increase in revenue. It became clear that the redesign was a success, and users adapted to the improved experience.",
   retroUrl: 'www.bossmoney.com',
 }
 

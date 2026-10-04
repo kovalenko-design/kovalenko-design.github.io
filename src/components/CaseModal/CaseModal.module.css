@@ -1234,6 +1234,9 @@
   .carouselCard { padding: 16px 12px; border-radius: 10px; }
   .backdrop { padding: 0; align-items: flex-end; }
   .modal { width: 100vw; max-width: 100%; max-height: 95vh; max-height: 95dvh; border-radius: 20px 20px 0 0; }
+  /* Fixed to the bottom edge: Safari colors the area behind its floating toolbar from the fixed
+     element there, so this makes it the sheet color instead of the dark backdrop */
+  .modal { position: fixed; left: 0; right: 0; bottom: 0; }
   .content { padding: 116px 24px 60px; }
   /* Squircle logo: shift left to compensate for transparent PNG padding (~6–7px at mobile scale) */
   .caseLogo { top: 24px; left: 18px; max-height: 80px; max-width: 80px; }

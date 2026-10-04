@@ -9,7 +9,9 @@ import styles from './CaseModal.module.css'
 function Clip({ src, poster, label, caption }) {
   const ref = useRef(null)
   const held = useRef(false)
-  const [reduceMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const [reduceMotion] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
   const [fullscreen, setFullscreen] = useState(false)
   const [playing, setPlaying] = useState(false)
 
@@ -26,7 +28,7 @@ function Clip({ src, poster, label, caption }) {
           video.pause()
         }
       },
-      { threshold: 0.45, rootMargin: '0px 0px -15% 0px' },
+      { threshold: 0.45, rootMargin: '0px 0px -15% 0px' }
     )
     observer.observe(video)
     return () => observer.disconnect()
@@ -35,7 +37,8 @@ function Clip({ src, poster, label, caption }) {
   useEffect(() => {
     const video = ref.current
     if (!video) return undefined
-    const isFull = () => document.fullscreenElement === video || document.webkitFullscreenElement === video
+    const isFull = () =>
+      document.fullscreenElement === video || document.webkitFullscreenElement === video
     const onFullscreen = () => setFullscreen(isFull())
     // Pausing or playing with the native controls in full screen counts as the viewer's choice too.
     const onPlay = () => {
@@ -106,20 +109,69 @@ function Clip({ src, poster, label, caption }) {
         {!reduceMotion && (
           <div className={`${styles.clipControls}${playing ? '' : ` ${styles.clipControlsShown}`}`}>
             <div className={styles.clipControlsGroup}>
-              <button type="button" className={styles.clipButton} onClick={restart} aria-label={`Restart ${label}`}>
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <button
+                type="button"
+                className={styles.clipButton}
+                onClick={restart}
+                aria-label={`Restart ${label}`}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
                   <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" />
                   <path d="M21 3v5h-5" />
                 </svg>
               </button>
-              <button type="button" className={styles.clipButton} onClick={togglePlay} aria-label={`${playing ? 'Pause' : 'Play'} ${label}`}>
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  {playing ? <path d="M8 5v14M16 5v14" /> : <path d="M8 5l11 7-11 7z" fill="currentColor" />}
+              <button
+                type="button"
+                className={styles.clipButton}
+                onClick={togglePlay}
+                aria-label={`${playing ? 'Pause' : 'Play'} ${label}`}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  {playing ? (
+                    <path d="M8 5v14M16 5v14" />
+                  ) : (
+                    <path d="M8 5l11 7-11 7z" fill="currentColor" />
+                  )}
                 </svg>
               </button>
             </div>
-            <button type="button" className={styles.clipButton} onClick={openFullscreen} aria-label={`View ${label} full screen`}>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <button
+              type="button"
+              className={styles.clipButton}
+              onClick={openFullscreen}
+              aria-label={`View ${label} full screen`}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" />
               </svg>
             </button>
@@ -197,7 +249,17 @@ function Carousel({ slides, label }) {
           disabled={index === 0}
           aria-label="Previous screen"
         >
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="M15 5l-7 7 7 7" />
           </svg>
         </button>
@@ -220,7 +282,17 @@ function Carousel({ slides, label }) {
           disabled={index === slides.length - 1}
           aria-label="Next screen"
         >
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
             <path d="M9 5l7 7-7 7" />
           </svg>
         </button>
@@ -235,7 +307,9 @@ function Carousel({ slides, label }) {
 // It plays only while it is on screen, and stays still with reduced motion.
 function LoopVideo({ src, className, label }) {
   const ref = useRef(null)
-  const [reduceMotion] = useState(() => window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  const [reduceMotion] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  )
 
   useEffect(() => {
     const video = ref.current
@@ -245,7 +319,7 @@ function LoopVideo({ src, className, label }) {
         if (entry.isIntersecting) video.play().catch(() => {})
         else video.pause()
       },
-      { threshold: 0.25 },
+      { threshold: 0.25 }
     )
     observer.observe(video)
     return () => observer.disconnect()
@@ -277,9 +351,11 @@ function MediaPair({ items, framed }) {
     <div className={`${styles.twoMedia}${framed ? ` ${styles.twoMediaFramed}` : ''}`}>
       {items.map((media, i) => (
         <div key={i} className={styles.twoMediaItem}>
-          {media.image
-            ? <Media src={media.image} alt={media.caption || ''} className={styles.twoMediaImg} />
-            : <div className={styles.twoMediaPlaceholder} />}
+          {media.image ? (
+            <Media src={media.image} alt={media.caption || ''} className={styles.twoMediaImg} />
+          ) : (
+            <div className={styles.twoMediaPlaceholder} />
+          )}
           {media.caption && <p className={styles.twoMediaCaption}>{media.caption}</p>}
         </div>
       ))}
@@ -292,7 +368,7 @@ const ease = [0.16, 1, 0.3, 1]
 const backdropVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.24 } },
-  exit:   { opacity: 0, transition: { duration: 0.20 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
 }
 
 const modalVariants = {
@@ -316,12 +392,12 @@ const modalVariants = {
 }
 
 const contentVariants = {
-  hidden:  {},
+  hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.32 } },
 }
 
 const item = {
-  hidden:  { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.46, ease } },
 }
 
@@ -345,8 +421,8 @@ function Feature({ feature }) {
       <h2 className={styles.featureTitle}>{feature.title}</h2>
       <p className={styles.featureDesc}>{feature.description}</p>
 
-      {feature.image && (
-        feature.imageLayout === 'overlay' ? (
+      {feature.image &&
+        (feature.imageLayout === 'overlay' ? (
           <div className={styles.overlayContainer}>
             <img src={feature.image} alt={feature.title} className={styles.overlayImage} />
             {feature.imageCaption && (
@@ -362,8 +438,7 @@ function Feature({ feature }) {
               <figcaption className={styles.caption}>{feature.imageCaption}</figcaption>
             )}
           </figure>
-        )
-      )}
+        ))}
 
       <div className={styles.problemWork}>
         <div>
@@ -376,7 +451,14 @@ function Feature({ feature }) {
         </div>
       </div>
 
-      {feature.clip && <Clip src={feature.clip.src} poster={feature.clip.poster} label={feature.title} caption={feature.clip.caption} />}
+      {feature.clip && (
+        <Clip
+          src={feature.clip.src}
+          poster={feature.clip.poster}
+          label={feature.title}
+          caption={feature.clip.caption}
+        />
+      )}
     </motion.section>
   )
 }
@@ -458,13 +540,31 @@ export default function CaseModal({ caseData, onClose }) {
             onClick={(e) => e.stopPropagation()}
             style={{ transformOrigin: 'center center' }}
           >
-            <button className={styles.copyBtn} onClick={copyLink} aria-label="Copy link to this case">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <button
+              className={styles.copyBtn}
+              onClick={copyLink}
+              aria-label="Copy link to this case"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
               </svg>
             </button>
-            {copied && <span className={styles.copyToast} role="status">Link copied</span>}
+            {copied && (
+              <span className={styles.copyToast} role="status">
+                Link copied
+              </span>
+            )}
             <button
               className={styles.closeBtn}
               onClick={onClose}
@@ -473,7 +573,12 @@ export default function CaseModal({ caseData, onClose }) {
               aria-label="Close"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                <path
+                  d="M1 1L13 13M13 1L1 13"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
 
@@ -498,7 +603,9 @@ export default function CaseModal({ caseData, onClose }) {
                 {caseData.tags && (
                   <ul className={styles.tags}>
                     {caseData.tags.map((tag) => (
-                      <li key={tag} className={styles.tag}>{tag}</li>
+                      <li key={tag} className={styles.tag}>
+                        {tag}
+                      </li>
                     ))}
                   </ul>
                 )}
@@ -510,27 +617,46 @@ export default function CaseModal({ caseData, onClose }) {
 
               {/* Intro — split (text+context left, image right) or stacked */}
               {caseData.splitIntro ? (
-                <motion.div variants={item} className={`${styles.introSplit}${caseData.introImageSmall ? ' ' + styles.introSplitSmall : ''}${caseData.keyImpact ? ' ' + styles.introSplitLifted : ''}${caseData.introHeroLarge ? ' ' + styles.introHeroLarge : ''}`}>
+                <motion.div
+                  variants={item}
+                  className={`${styles.introSplit}${caseData.introImageSmall ? ' ' + styles.introSplitSmall : ''}${caseData.keyImpact ? ' ' + styles.introSplitLifted : ''}${caseData.introHeroLarge ? ' ' + styles.introHeroLarge : ''}`}
+                >
                   {caseData.introImageSmall ? (
                     // Small hero: phone floats right first (float must precede wrapping text in DOM)
                     <>
                       {caseData.introImage && (
                         <figure className={styles.introSplitRight}>
                           {caseData.introBgImage && (
-                            <img src={caseData.introBgImage} alt="" aria-hidden="true" className={styles.introBgImg} />
+                            <img
+                              src={caseData.introBgImage}
+                              alt=""
+                              aria-hidden="true"
+                              className={styles.introBgImg}
+                            />
                           )}
-                          <img src={caseData.introImage.src} alt={caseData.introImage.caption || ''} className={styles.introFgImg} />
+                          <img
+                            src={caseData.introImage.src}
+                            alt={caseData.introImage.caption || ''}
+                            className={styles.introFgImg}
+                          />
                           {caseData.introImage.caption && (
-                            <figcaption className={styles.caption}>{caseData.introImage.caption}</figcaption>
+                            <figcaption className={styles.caption}>
+                              {caseData.introImage.caption}
+                            </figcaption>
                           )}
                         </figure>
                       )}
                       <div className={styles.introSplitLeftFull}>
                         {caseData.intro && (
                           <p className={styles.intro}>
-                            {caseData.title && caseData.intro.startsWith(caseData.title)
-                              ? <><strong>{caseData.title}</strong>{caseData.intro.slice(caseData.title.length)}</>
-                              : caseData.intro}
+                            {caseData.title && caseData.intro.startsWith(caseData.title) ? (
+                              <>
+                                <strong>{caseData.title}</strong>
+                                {caseData.intro.slice(caseData.title.length)}
+                              </>
+                            ) : (
+                              caseData.intro
+                            )}
                           </p>
                         )}
                         {caseData.keyImpact && (
@@ -553,7 +679,13 @@ export default function CaseModal({ caseData, onClose }) {
                         {caseData.tools && (
                           <div className={styles.toolsRow}>
                             {caseData.tools.map((tool) => (
-                              <img key={tool.name} src={tool.icon} alt={tool.name} title={tool.name} className={styles.toolIcon} />
+                              <img
+                                key={tool.name}
+                                src={tool.icon}
+                                alt={tool.name}
+                                title={tool.name}
+                                className={styles.toolIcon}
+                              />
                             ))}
                           </div>
                         )}
@@ -565,9 +697,14 @@ export default function CaseModal({ caseData, onClose }) {
                       <div className={styles.introSplitLeft}>
                         {caseData.intro && (
                           <p className={styles.intro}>
-                            {caseData.title && caseData.intro.startsWith(caseData.title)
-                              ? <><strong>{caseData.title}</strong>{caseData.intro.slice(caseData.title.length)}</>
-                              : caseData.intro}
+                            {caseData.title && caseData.intro.startsWith(caseData.title) ? (
+                              <>
+                                <strong>{caseData.title}</strong>
+                                {caseData.intro.slice(caseData.title.length)}
+                              </>
+                            ) : (
+                              caseData.intro
+                            )}
                           </p>
                         )}
                         {caseData.keyImpact && (
@@ -578,9 +715,14 @@ export default function CaseModal({ caseData, onClose }) {
                       </div>
                       {caseData.introImage && (
                         <figure className={styles.introSplitRight}>
-                          <img src={caseData.introImage.src} alt={caseData.introImage.caption || ''} />
+                          <img
+                            src={caseData.introImage.src}
+                            alt={caseData.introImage.caption || ''}
+                          />
                           {caseData.introImage.caption && (
-                            <figcaption className={styles.caption}>{caseData.introImage.caption}</figcaption>
+                            <figcaption className={styles.caption}>
+                              {caseData.introImage.caption}
+                            </figcaption>
                           )}
                         </figure>
                       )}
@@ -600,7 +742,13 @@ export default function CaseModal({ caseData, onClose }) {
                         {caseData.tools && (
                           <div className={styles.toolsRow}>
                             {caseData.tools.map((tool) => (
-                              <img key={tool.name} src={tool.icon} alt={tool.name} title={tool.name} className={styles.toolIcon} />
+                              <img
+                                key={tool.name}
+                                src={tool.icon}
+                                alt={tool.name}
+                                title={tool.name}
+                                className={styles.toolIcon}
+                              />
                             ))}
                           </div>
                         )}
@@ -612,16 +760,23 @@ export default function CaseModal({ caseData, onClose }) {
                 <>
                   {caseData.intro && (
                     <motion.p variants={item} className={styles.intro}>
-                      {caseData.title && caseData.intro.startsWith(caseData.title)
-                        ? <><strong>{caseData.title}</strong>{caseData.intro.slice(caseData.title.length)}</>
-                        : caseData.intro}
+                      {caseData.title && caseData.intro.startsWith(caseData.title) ? (
+                        <>
+                          <strong>{caseData.title}</strong>
+                          {caseData.intro.slice(caseData.title.length)}
+                        </>
+                      ) : (
+                        caseData.intro
+                      )}
                     </motion.p>
                   )}
                   {caseData.introImage && (
                     <motion.figure variants={item} className={styles.introFigure}>
                       <img src={caseData.introImage.src} alt={caseData.introImage.caption || ''} />
                       {caseData.introImage.caption && (
-                        <figcaption className={styles.caption}>{caseData.introImage.caption}</figcaption>
+                        <figcaption className={styles.caption}>
+                          {caseData.introImage.caption}
+                        </figcaption>
                       )}
                     </motion.figure>
                   )}
@@ -651,305 +806,394 @@ export default function CaseModal({ caseData, onClose }) {
               {caseData.tools && !caseData.splitIntro && (
                 <motion.div variants={item} className={styles.toolsRow}>
                   {caseData.tools.map((tool) => (
-                    <img key={tool.name} src={tool.icon} alt={tool.name} title={tool.name} className={styles.toolIcon} />
+                    <img
+                      key={tool.name}
+                      src={tool.icon}
+                      alt={tool.name}
+                      title={tool.name}
+                      className={styles.toolIcon}
+                    />
                   ))}
                 </motion.div>
               )}
 
               {/* Features (zendit schema) */}
-              {caseData.features && caseData.features.map((f) => (
-                <Feature key={f.title} feature={f} />
-              ))}
+              {caseData.features &&
+                caseData.features.map((f) => <Feature key={f.title} feature={f} />)}
 
               {/* Sections (boss money / legacy schema) */}
-              {!caseData.features && caseData.sections && caseData.sections.map((section, i) => (
-                <motion.section variants={item} key={i} className={`${styles.section}${section.layout === 'img-left-text-right' ? ' ' + styles.sectionTight : ''}`}>
-                  {section.layout === 'section-intro' ? (
-                    <div className={styles.sectionIntro}>
-                      {section.heading && (
-                        <h2 className={styles.title}>{section.heading}</h2>
-                      )}
-                      {section.meta && (
-                        <ul className={styles.meta}>
-                          {section.meta.map(({ label, value }) => (
-                            <li key={label} className={styles.metaItem}>
-                              <span className={styles.metaLabel}>{label}</span>
-                              <span className={styles.metaValue}>{value}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                      <div className={styles.introSplit}>
-                        <div className={styles.introSplitLeft}>
-                          {section.body && <p className={styles.intro}>{section.body}</p>}
-                        </div>
-                        {section.introImage && (
-                          <figure className={styles.introSplitRight}>
-                            <img src={section.introImage.src} alt="" />
-                          </figure>
-                        )}
-                        <div className={styles.introSplitBelow}>
-                          {section.context && (
-                            <div>
-                              <h3 className={styles.colLabel}>Context</h3>
-                              <p className={styles.colBody}>{section.context}</p>
-                            </div>
-                          )}
-                          {section.tools && (
-                            <div className={styles.toolsRow}>
-                              {section.tools.map((tool) => (
-                                <img key={tool.name} src={tool.icon} alt={tool.name} title={tool.name} className={styles.toolIcon} />
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ) : section.layout === 'two-col-header' ? (
-                    <>
-                      <div className={styles.twoColHeader}>
-                        <h2 className={styles.twoColHeading}>{section.heading}</h2>
-                        <div className={styles.twoColBody}>
-                          {section.body && (
-                            Array.isArray(section.body)
-                              ? section.body.map((para, j) => <p key={j}>{para}</p>)
-                              : <p>{section.body}</p>
-                          )}
-                        </div>
-                      </div>
-                      {section.image && (
-                        <figure className={styles.featureFigure}>
-                          <img src={section.image} alt={section.heading || ''} />
-                          {section.imageCaption && (
-                            <figcaption className={styles.caption}>{section.imageCaption}</figcaption>
-                          )}
-                        </figure>
-                      )}
-                    </>
-                  ) : section.layout === 'overlay' ? (
-                    <>
-                      <div className={styles.overlayContainer}>
-                        <picture>
-                          {section.imageMobile && (
-                            <source srcSet={section.imageMobile} media="(max-width: 860px)" />
-                          )}
-                          <img src={section.image} alt={section.heading || ''} className={styles.overlayImage} />
-                        </picture>
-                        <div className={styles.overlayText}>
-                          {section.heading && <h2 className={styles.overlayHeading}>{section.heading}</h2>}
-                          {section.body && (
-                            Array.isArray(section.body)
-                              ? section.body.map((para, j) => <p key={j} className={styles.overlayBody}>{para}</p>)
-                              : <p className={styles.overlayBody}>{section.body}</p>
-                          )}
-                        </div>
-                      </div>
-                      {section.imageCaption && (
-                        <p className={styles.caption}>{section.imageCaption}</p>
-                      )}
-                    </>
-                  ) : section.layout === 'text-left-img-right' ? (
-                    <div className={styles.textLeftImgRightCols}>
-                      <div className={styles.textLeftImgRightLeft}>
-                        {section.heading && (
-                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
-                        )}
-                        {section.body && (
-                          Array.isArray(section.body)
-                            ? section.body.map((para, j) => <p key={j} className={styles.sectionBody}>{para}</p>)
-                            : <p className={styles.sectionBody}>{section.body}</p>
-                        )}
-                      </div>
-                      <div className={styles.textLeftImgRightRight}>
-                        {section.image && (
-                          <img src={section.image} alt={section.heading || ''} />
-                        )}
-                        {section.imageCaption && (
-                          <p className={styles.caption}>{section.imageCaption}</p>
-                        )}
-                      </div>
-                    </div>
-                  ) : section.layout === 'img-left-text-right' ? (
-                    <div className={styles.imgLeftTextRightCols}>
-                      <div className={styles.imgLeftTextRightLeft}>
-                        {section.clip ? (
-                          <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} caption={section.clip.caption} />
-                        ) : section.image ? (
-                          <img src={section.image} alt={section.heading || ''} />
-                        ) : null}
-                        {section.imageCaption && (
-                          <p className={styles.caption}>{section.imageCaption}</p>
-                        )}
-                      </div>
-                      <div className={styles.imgLeftTextRightRight}>
-                        {section.heading && (
-                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
-                        )}
-                        {section.body && (
-                          Array.isArray(section.body)
-                            ? section.body.map((para, j) => <p key={j} className={styles.sectionBody}>{para}</p>)
-                            : <p className={styles.sectionBody}>{section.body}</p>
-                        )}
-                        {section.steps && (
-                          <ol className={styles.stepsList}>
-                            {section.steps.map((step, j) => (
-                              <li key={j} className={styles.stepItem}>
-                                <img src={step.icon} alt={`Step ${j + 1}`} className={styles.stepIcon} />
-                                <p className={styles.stepText}>{step.text}</p>
+              {!caseData.features &&
+                caseData.sections &&
+                caseData.sections.map((section, i) => (
+                  <motion.section
+                    variants={item}
+                    key={i}
+                    className={`${styles.section}${section.layout === 'img-left-text-right' ? ' ' + styles.sectionTight : ''}`}
+                  >
+                    {section.layout === 'section-intro' ? (
+                      <div className={styles.sectionIntro}>
+                        {section.heading && <h2 className={styles.title}>{section.heading}</h2>}
+                        {section.meta && (
+                          <ul className={styles.meta}>
+                            {section.meta.map(({ label, value }) => (
+                              <li key={label} className={styles.metaItem}>
+                                <span className={styles.metaLabel}>{label}</span>
+                                <span className={styles.metaValue}>{value}</span>
                               </li>
                             ))}
-                          </ol>
+                          </ul>
                         )}
-                      </div>
-                    </div>
-                  ) : section.layout === 'carousel' ? (
-                    <>
-                      {section.heading && (
-                        <h2 className={styles.sectionHeading}>{section.heading}</h2>
-                      )}
-                      {/* A paragraph can be { lead, text }: the lead is set in bold as a run-in heading */}
-                      {section.body && section.body.map((para, j) => (
-                        <p key={j} className={styles.sectionBody}>
-                          {typeof para === 'string' ? para : (
-                            <>
-                              <strong className={styles.sectionLead}>{para.lead}</strong> {para.text}
-                            </>
-                          )}
-                        </p>
-                      ))}
-                      <Carousel slides={section.slides} label={section.heading || caseData.title} />
-                    </>
-                  ) : section.layout === 'clip-side' ? (
-                    <div className={styles.clipSide}>
-                      <div className={styles.clipSideText}>
-                        {section.heading && (
-                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
-                        )}
-                        {section.body && (
-                          Array.isArray(section.body)
-                            ? section.body.map((para, j) => <p key={j} className={styles.sectionBody}>{para}</p>)
-                            : <p className={styles.sectionBody}>{section.body}</p>
-                        )}
-                      </div>
-                      <div className={styles.clipSideMedia}>
-                        {/* Optional row of small decorative pictures (for example the devices) above the clip */}
-                        {section.devices && (
-                          <div className={styles.deviceRow}>
-                            {section.devices.map((src, j) => (
-                              <img key={j} src={src} alt="" className={styles.deviceImg} />
-                            ))}
+                        <div className={styles.introSplit}>
+                          <div className={styles.introSplitLeft}>
+                            {section.body && <p className={styles.intro}>{section.body}</p>}
                           </div>
-                        )}
-                        <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} caption={section.clip.caption} />
-                      </div>
-                    </div>
-                  ) : section.layout === 'timeline' ? (
-                    <>
-                      {section.heading && (
-                        <h2 className={styles.sectionHeading}>{section.heading}</h2>
-                      )}
-                      <ol className={styles.timeline}>
-                        {section.stages.map((stage, j) => (
-                          <li key={j} className={styles.timelineStage}>
-                            <span className={styles.timelineNode} aria-hidden="true">{j + 1}</span>
-                            <h3 className={styles.timelineTitle}>{stage.title}</h3>
-                            <p className={styles.timelineBody}>{stage.body}</p>
-                          </li>
-                        ))}
-                      </ol>
-                      {section.note && (
-                        <p className={styles.timelineNote}>
-                          <strong className={styles.timelineNoteLabel}>{section.note.label}</strong>{' '}
-                          {section.note.body}
-                        </p>
-                      )}
-                    </>
-                  ) : section.layout === 'info-grid' ? (
-                    <div className={styles.infoGridCard}>
-                      <div className={styles.infoGrid}>
-                        {section.cells.map((cell, j) => (
-                          <div key={j} className={styles.infoCell}>
-                            <h3 className={styles.infoCellLabel}>{cell.label}</h3>
-                            <p className={styles.infoCellBody}>{cell.body}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ) : section.layout === 'two-media' ? (
-                    <MediaPair
-                      items={[
-                        { image: section.image, caption: section.imageCaption },
-                        { image: section.image2, caption: section.imageCaption2 },
-                      ]}
-                    />
-                  ) : section.layout === 'two-col-body' ? (
-                    <>
-                      {section.heading && (
-                        <h2 className={styles.sectionHeading}>{section.heading}</h2>
-                      )}
-                      {section.body && Array.isArray(section.body) && (
-                        <div className={styles.twoColBodyGrid}>
-                          {section.body.map((para, j) => (
-                            <p key={j} className={styles.twoColBodyCol}>{para}</p>
-                          ))}
-                        </div>
-                      )}
-                      {section.image && (
-                        <figure className={styles.featureFigure}>
-                          <img src={section.image} alt={section.heading || ''} />
-                          {section.imageCaption && (
-                            <figcaption className={styles.caption}>{section.imageCaption}</figcaption>
-                          )}
-                        </figure>
-                      )}
-                    </>
-                  ) : (
-                    <>
-                      {section.heading && (
-                        <h2 className={styles.sectionHeading}>{section.heading}</h2>
-                      )}
-                      {section.body && (
-                        Array.isArray(section.body)
-                          ? section.body.map((para, j) => <p key={j} className={styles.sectionBody}>{para}</p>)
-                          : <p className={styles.sectionBody}>{section.body}</p>
-                      )}
-                      {section.image && (
-                        (section.image2 || section.image3) ? (
-                          <>
-                            <figure className={styles.imageStack}>
-                              <Media src={section.image} alt={section.heading || ''} />
-                              {section.image2 && <Media src={section.image2} alt="" />}
-                              {section.image3 && <Media src={section.image3} alt="" />}
+                          {section.introImage && (
+                            <figure className={styles.introSplitRight}>
+                              <img src={section.introImage.src} alt="" />
                             </figure>
-                            {section.imageCaption && (
-                              <p className={styles.caption}>{section.imageCaption}</p>
+                          )}
+                          <div className={styles.introSplitBelow}>
+                            {section.context && (
+                              <div>
+                                <h3 className={styles.colLabel}>Context</h3>
+                                <p className={styles.colBody}>{section.context}</p>
+                              </div>
                             )}
-                          </>
-                        ) : (
+                            {section.tools && (
+                              <div className={styles.toolsRow}>
+                                {section.tools.map((tool) => (
+                                  <img
+                                    key={tool.name}
+                                    src={tool.icon}
+                                    alt={tool.name}
+                                    title={tool.name}
+                                    className={styles.toolIcon}
+                                  />
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ) : section.layout === 'two-col-header' ? (
+                      <>
+                        <div className={styles.twoColHeader}>
+                          <h2 className={styles.twoColHeading}>{section.heading}</h2>
+                          <div className={styles.twoColBody}>
+                            {section.body &&
+                              (Array.isArray(section.body) ? (
+                                section.body.map((para, j) => <p key={j}>{para}</p>)
+                              ) : (
+                                <p>{section.body}</p>
+                              ))}
+                          </div>
+                        </div>
+                        {section.image && (
                           <figure className={styles.featureFigure}>
+                            <img src={section.image} alt={section.heading || ''} />
+                            {section.imageCaption && (
+                              <figcaption className={styles.caption}>
+                                {section.imageCaption}
+                              </figcaption>
+                            )}
+                          </figure>
+                        )}
+                      </>
+                    ) : section.layout === 'overlay' ? (
+                      <>
+                        <div className={styles.overlayContainer}>
+                          <picture>
+                            {section.imageMobile && (
+                              <source srcSet={section.imageMobile} media="(max-width: 860px)" />
+                            )}
                             <img
                               src={section.image}
                               alt={section.heading || ''}
-                              className={section.imageSmall ? styles.featureImgSmall : undefined}
+                              className={styles.overlayImage}
                             />
+                          </picture>
+                          <div className={styles.overlayText}>
+                            {section.heading && (
+                              <h2 className={styles.overlayHeading}>{section.heading}</h2>
+                            )}
+                            {section.body &&
+                              (Array.isArray(section.body) ? (
+                                section.body.map((para, j) => (
+                                  <p key={j} className={styles.overlayBody}>
+                                    {para}
+                                  </p>
+                                ))
+                              ) : (
+                                <p className={styles.overlayBody}>{section.body}</p>
+                              ))}
+                          </div>
+                        </div>
+                        {section.imageCaption && (
+                          <p className={styles.caption}>{section.imageCaption}</p>
+                        )}
+                      </>
+                    ) : section.layout === 'text-left-img-right' ? (
+                      <div className={styles.textLeftImgRightCols}>
+                        <div className={styles.textLeftImgRightLeft}>
+                          {section.heading && (
+                            <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                          )}
+                          {section.body &&
+                            (Array.isArray(section.body) ? (
+                              section.body.map((para, j) => (
+                                <p key={j} className={styles.sectionBody}>
+                                  {para}
+                                </p>
+                              ))
+                            ) : (
+                              <p className={styles.sectionBody}>{section.body}</p>
+                            ))}
+                        </div>
+                        <div className={styles.textLeftImgRightRight}>
+                          {section.image && <img src={section.image} alt={section.heading || ''} />}
+                          {section.imageCaption && (
+                            <p className={styles.caption}>{section.imageCaption}</p>
+                          )}
+                        </div>
+                      </div>
+                    ) : section.layout === 'img-left-text-right' ? (
+                      <div className={styles.imgLeftTextRightCols}>
+                        <div className={styles.imgLeftTextRightLeft}>
+                          {section.clip ? (
+                            <Clip
+                              src={section.clip.src}
+                              poster={section.clip.poster}
+                              label={section.heading || caseData.title}
+                              caption={section.clip.caption}
+                            />
+                          ) : section.image ? (
+                            <img src={section.image} alt={section.heading || ''} />
+                          ) : null}
+                          {section.imageCaption && (
+                            <p className={styles.caption}>{section.imageCaption}</p>
+                          )}
+                        </div>
+                        <div className={styles.imgLeftTextRightRight}>
+                          {section.heading && (
+                            <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                          )}
+                          {section.body &&
+                            (Array.isArray(section.body) ? (
+                              section.body.map((para, j) => (
+                                <p key={j} className={styles.sectionBody}>
+                                  {para}
+                                </p>
+                              ))
+                            ) : (
+                              <p className={styles.sectionBody}>{section.body}</p>
+                            ))}
+                          {section.steps && (
+                            <ol className={styles.stepsList}>
+                              {section.steps.map((step, j) => (
+                                <li key={j} className={styles.stepItem}>
+                                  <img
+                                    src={step.icon}
+                                    alt={`Step ${j + 1}`}
+                                    className={styles.stepIcon}
+                                  />
+                                  <p className={styles.stepText}>{step.text}</p>
+                                </li>
+                              ))}
+                            </ol>
+                          )}
+                        </div>
+                      </div>
+                    ) : section.layout === 'carousel' ? (
+                      <>
+                        {section.heading && (
+                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                        )}
+                        {/* A paragraph can be { lead, text }: the lead is set in bold as a run-in heading */}
+                        {section.body &&
+                          section.body.map((para, j) => (
+                            <p key={j} className={styles.sectionBody}>
+                              {typeof para === 'string' ? (
+                                para
+                              ) : (
+                                <>
+                                  <strong className={styles.sectionLead}>{para.lead}</strong>{' '}
+                                  {para.text}
+                                </>
+                              )}
+                            </p>
+                          ))}
+                        <Carousel
+                          slides={section.slides}
+                          label={section.heading || caseData.title}
+                        />
+                      </>
+                    ) : section.layout === 'clip-side' ? (
+                      <div className={styles.clipSide}>
+                        <div className={styles.clipSideText}>
+                          {section.heading && (
+                            <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                          )}
+                          {section.body &&
+                            (Array.isArray(section.body) ? (
+                              section.body.map((para, j) => (
+                                <p key={j} className={styles.sectionBody}>
+                                  {para}
+                                </p>
+                              ))
+                            ) : (
+                              <p className={styles.sectionBody}>{section.body}</p>
+                            ))}
+                        </div>
+                        <div className={styles.clipSideMedia}>
+                          {/* Optional row of small decorative pictures (for example the devices) above the clip */}
+                          {section.devices && (
+                            <div className={styles.deviceRow}>
+                              {section.devices.map((src, j) => (
+                                <img key={j} src={src} alt="" className={styles.deviceImg} />
+                              ))}
+                            </div>
+                          )}
+                          <Clip
+                            src={section.clip.src}
+                            poster={section.clip.poster}
+                            label={section.heading || caseData.title}
+                            caption={section.clip.caption}
+                          />
+                        </div>
+                      </div>
+                    ) : section.layout === 'timeline' ? (
+                      <>
+                        {section.heading && (
+                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                        )}
+                        <ol className={styles.timeline}>
+                          {section.stages.map((stage, j) => (
+                            <li key={j} className={styles.timelineStage}>
+                              <span className={styles.timelineNode} aria-hidden="true">
+                                {j + 1}
+                              </span>
+                              <h3 className={styles.timelineTitle}>{stage.title}</h3>
+                              <p className={styles.timelineBody}>{stage.body}</p>
+                            </li>
+                          ))}
+                        </ol>
+                        {section.note && (
+                          <p className={styles.timelineNote}>
+                            <strong className={styles.timelineNoteLabel}>
+                              {section.note.label}
+                            </strong>{' '}
+                            {section.note.body}
+                          </p>
+                        )}
+                      </>
+                    ) : section.layout === 'info-grid' ? (
+                      <div className={styles.infoGridCard}>
+                        <div className={styles.infoGrid}>
+                          {section.cells.map((cell, j) => (
+                            <div key={j} className={styles.infoCell}>
+                              <h3 className={styles.infoCellLabel}>{cell.label}</h3>
+                              <p className={styles.infoCellBody}>{cell.body}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : section.layout === 'two-media' ? (
+                      <MediaPair
+                        items={[
+                          { image: section.image, caption: section.imageCaption },
+                          { image: section.image2, caption: section.imageCaption2 },
+                        ]}
+                      />
+                    ) : section.layout === 'two-col-body' ? (
+                      <>
+                        {section.heading && (
+                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                        )}
+                        {section.body && Array.isArray(section.body) && (
+                          <div className={styles.twoColBodyGrid}>
+                            {section.body.map((para, j) => (
+                              <p key={j} className={styles.twoColBodyCol}>
+                                {para}
+                              </p>
+                            ))}
+                          </div>
+                        )}
+                        {section.image && (
+                          <figure className={styles.featureFigure}>
+                            <img src={section.image} alt={section.heading || ''} />
                             {section.imageCaption && (
-                              <figcaption className={styles.caption}>{section.imageCaption}</figcaption>
+                              <figcaption className={styles.caption}>
+                                {section.imageCaption}
+                              </figcaption>
                             )}
                           </figure>
-                        )
-                      )}
-                      {/* Text that continues after the image (bodyAfter), before any pair or clip */}
-                      {section.bodyAfter && (
-                        Array.isArray(section.bodyAfter)
-                          ? section.bodyAfter.map((para, j) => <p key={j} className={styles.sectionBody}>{para}</p>)
-                          : <p className={styles.sectionBody}>{section.bodyAfter}</p>
-                      )}
-                      {section.pair && <MediaPair items={section.pair} framed />}
-                      {section.clip && <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} caption={section.clip.caption} />}
-                    </>
-                  )}
-                </motion.section>
-              ))}
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {section.heading && (
+                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                        )}
+                        {section.body &&
+                          (Array.isArray(section.body) ? (
+                            section.body.map((para, j) => (
+                              <p key={j} className={styles.sectionBody}>
+                                {para}
+                              </p>
+                            ))
+                          ) : (
+                            <p className={styles.sectionBody}>{section.body}</p>
+                          ))}
+                        {section.image &&
+                          (section.image2 || section.image3 ? (
+                            <>
+                              <figure className={styles.imageStack}>
+                                <Media src={section.image} alt={section.heading || ''} />
+                                {section.image2 && <Media src={section.image2} alt="" />}
+                                {section.image3 && <Media src={section.image3} alt="" />}
+                              </figure>
+                              {section.imageCaption && (
+                                <p className={styles.caption}>{section.imageCaption}</p>
+                              )}
+                            </>
+                          ) : (
+                            <figure className={styles.featureFigure}>
+                              <img
+                                src={section.image}
+                                alt={section.heading || ''}
+                                className={section.imageSmall ? styles.featureImgSmall : undefined}
+                              />
+                              {section.imageCaption && (
+                                <figcaption className={styles.caption}>
+                                  {section.imageCaption}
+                                </figcaption>
+                              )}
+                            </figure>
+                          ))}
+                        {/* Text that continues after the image (bodyAfter), before any pair or clip */}
+                        {section.bodyAfter &&
+                          (Array.isArray(section.bodyAfter) ? (
+                            section.bodyAfter.map((para, j) => (
+                              <p key={j} className={styles.sectionBody}>
+                                {para}
+                              </p>
+                            ))
+                          ) : (
+                            <p className={styles.sectionBody}>{section.bodyAfter}</p>
+                          ))}
+                        {section.pair && <MediaPair items={section.pair} framed />}
+                        {section.clip && (
+                          <Clip
+                            src={section.clip.src}
+                            poster={section.clip.poster}
+                            label={section.heading || caseData.title}
+                            caption={section.clip.caption}
+                          />
+                        )}
+                      </>
+                    )}
+                  </motion.section>
+                ))}
 
               {/* Retrospective */}
               {caseData.retrospective && (

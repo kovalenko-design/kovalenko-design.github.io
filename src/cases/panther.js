@@ -25,7 +25,6 @@ import deviceA30 from '../assets/cases/panther/device-a30.png'
 import deviceSlot from '../assets/cases/panther/device-slot.png'
 import deviceA35 from '../assets/cases/panther/device-a35.png'
 
-
 const panther = {
   id: 'panther',
   title: 'Panther POS',
@@ -55,7 +54,8 @@ const panther = {
   approach:
     'The new app runs on Kotlin Multiplatform, so one codebase can serve Android and iOS tablets. Native was a deliberate choice: cashiers work from muscle memory, and a web-based POS would not react fast enough. The goal was a modular product that can keep growing with new features and plug-and-play devices.',
 
-  keyImpact: 'Over 30% of NRS stores have already moved from the old POS to the premium plans built on\u00A0Panther.',
+  keyImpact:
+    'Over 30% of NRS stores have already moved from the old POS to the premium plans built on\u00A0Panther.',
 
   splitIntro: true,
 
@@ -212,7 +212,7 @@ const panther = {
       layout: 'clip-side',
       devices: [deviceA30, deviceSlot, deviceA35],
       body: [
-        "The app runs on the payment devices at the counter: touchscreens with built-in card and chip readers, running Android, so they can run custom software. They are also a second screen facing the customer. When a device is idle, its screen plays a slideshow of ads or relevant messages, and during a sale it shows the customer their basket as it fills. That is a business opportunity: selling screen time.",
+        'The app runs on the payment devices at the counter: touchscreens with built-in card and chip readers, running Android, so they can run custom software. They are also a second screen facing the customer. When a device is idle, its screen plays a slideshow of ads or relevant messages, and during a sale it shows the customer their basket as it fills. That is a business opportunity: selling screen time.',
         "I was the only designer on it and designed it from scratch, working from a list of business needs from stakeholders. The device and the app are standalone: they don't connect to the POS directly, only through the cloud. That connection has to be established and held before the device can pair with a specific POS terminal. The MVP proved we could do that, and V1 added ads, the live basket animation and tipping.",
       ],
       // The customer-facing flow as a looping clip, with a row of device drawings above it.

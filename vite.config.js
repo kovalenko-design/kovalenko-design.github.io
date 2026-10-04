@@ -15,7 +15,9 @@ const escapeHtml = (text) =>
 
 // Reads a one-line string field (single or double quoted, on the same or the next line) from a case file.
 function readField(source, name) {
-  const match = source.match(new RegExp(`^\\s*${name}:\\s*(?:'((?:[^'\\\\]|\\\\.)*)'|"([^"]*)")`, 'm'))
+  const match = source.match(
+    new RegExp(`^\\s*${name}:\\s*(?:'((?:[^'\\\\]|\\\\.)*)'|"([^"]*)")`, 'm')
+  )
   return (match?.[1] ?? match?.[2] ?? '').replace(/\\'/g, "'")
 }
 

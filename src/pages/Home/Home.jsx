@@ -14,7 +14,7 @@ const pageVariants = {
 }
 
 const pageItem = {
-  hidden:  { opacity: 0, y: 18 },
+  hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.23, ease: [0.16, 1, 0.3, 1] } },
 }
 
@@ -55,7 +55,9 @@ export default function Home() {
 
         <section className={styles.work}>
           <div className={styles.workInner}>
-            <motion.h2 variants={pageItem} className={styles.workLabel}>Selected Work</motion.h2>
+            <motion.h2 variants={pageItem} className={styles.workLabel}>
+              Selected Work
+            </motion.h2>
             <motion.div variants={pageItem} className={styles.grid}>
               {cases.map((c, i) => (
                 <CaseCard key={c.id} caseData={c} index={i} onClick={() => openCase(c)} />

@@ -12,7 +12,9 @@ function PageTitle() {
   useEffect(() => {
     const id = pathname.replace(/^\/|\/$/g, '')
     const openCase = cases.find((c) => c.id === id)
-    document.title = pageTitle(id === 'about' ? 'About' : openCase ? openCase.title : 'Product Designer')
+    document.title = pageTitle(
+      id === 'about' ? 'About' : openCase ? openCase.title : 'Product Designer'
+    )
   }, [pathname])
   return null
 }

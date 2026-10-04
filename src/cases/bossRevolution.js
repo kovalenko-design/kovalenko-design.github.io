@@ -78,7 +78,7 @@ const bossRevolution = {
         { label: 'Platform', value: 'Web — Desktop & Mobile' },
         { label: 'Team', value: '1 designer · 2 FE devs · PM · QA' },
       ],
-      body: "The same BOSS Revolution experience as the native app — top-ups and account management — built as a web portal for people who'd rather not install it.",
+      body: "The same BOSS Revolution experience as the native app — top-ups and account management — built as a web portal for people who'd rather not install\u00a0it.",
       introImage: {
         src: webPortalHeroImg,
       },
