@@ -272,10 +272,11 @@
     max-width: 100%;
   }
 
+  /* Phones: one link per line, left aligned */
   .heroContact {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
     width: 100%;
     margin-left: 0;
     margin-right: 0;
