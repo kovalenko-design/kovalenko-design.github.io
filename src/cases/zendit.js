@@ -49,7 +49,6 @@ const zendit = {
       imageCaption:
         'Flow diagram developed iteratively alongside the PM spec, covering branching logic and edge case handling. This is a partial view',
       imageLayout: 'overlay',
-      // Was a YouTube embed (videoId '2xNjhaiw-xQ'); now a looping clip.
       clip: {
         src: multiUserClip,
         poster: multiUserPoster,
@@ -64,7 +63,6 @@ const zendit = {
         'No mechanism existed for creating large-volume eSIM orders in a single operation, tracking their processing status, or handling failed transactions without manual intervention on each one.',
       work:
         'Designed a Bulk Order flow within the existing client account area. Order creation, processing status, and exception handling all live in one place Bulk eSIM ordering starts inside an existing client account, from the Bulk Order tab. A new order is created by entering an offer ID and quantity, with wallet balance visible before submission. Once submitted, the order processes and results break down into successful and failed transactions, each investigable in place. Files can be downloaded and refunds initiated from the same view.',
-      // Was a YouTube embed (videoId 'XwNI9jVlCOk'); now a looping clip.
       clip: {
         src: bulkOrderClip,
         poster: bulkOrderPoster,

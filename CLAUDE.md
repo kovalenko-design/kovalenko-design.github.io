@@ -64,16 +64,16 @@ Grid order = array order in `src/cases/index.js`. Currently live, in grid order:
 1. Drop exported images into `src/assets/cases/<case-id>/` (ask before assuming filenames — always exported manually from Figma/Behance).
 2. Create `src/cases/<case-id>.js` exporting a plain data object. Two schemas are in active use — pick whichever fits the story, don't force one onto the other:
    - **`sections` + `tools`** (bossMoney, brWebPortal, bossRevolution) — a linear array of free-form narrative sections.
-   - **`features` + `context`/`approach`** (zendit) — structured per-feature blocks: `{ title, description, problem, work, image, imageCaption, imageLayout, videoId }`.
+   - **`features` + `context`/`approach`** (zendit) — structured per-feature blocks: `{ title, description, problem, work, image, imageCaption, imageLayout, clip }`.
    - Common to both: `id, title, subtitle, description, tags, cover, logo, meta[], intro, introImage, retrospective, retroUrl`. Optional, used by some cases only: `splitIntro`, `introBgImage`, `introImageSmall`, `logoWide`, `keyImpact` (one sentence shown as a "Key impact:" line under the intro, split intro only), `introHeroLarge` (split intro: narrower text column and a larger hero, used by BOSS Money).
 3. Import it in `src/cases/index.js` and add to the `cases` array — that position sets its place in the grid.
 
-That's the whole change. **Never hardcode case content in components** — CaseCard/CaseDrawer render whatever shape of data they're given.
+That's the whole change. **Never hardcode case content in components** — CaseCard/CaseModal render whatever shape of data they're given.
 
 ---
 
 ### Section layouts available in `CaseModal.jsx` (set with `layout` on a section)
-- default: `heading`, `body` (string or array; an item can be `{ lead, text }` for a bold run-in lead), `image` / `image2` / `image3` (stacked), `imageCaption`, `bodyAfter` (text after the image), `pair: [{ image, caption }, { image, caption }]` (two framed images on a gray card, each with its own caption), `clip`, `videoId` (old embeds)
+- default: `heading`, `body` (string or array; an item can be `{ lead, text }` for a bold run-in lead), `image` / `image2` / `image3` (stacked), `imageCaption`, `bodyAfter` (text after the image), `pair: [{ image, caption }, { image, caption }]` (two framed images on a gray card, each with its own caption), `clip`
 - `overlay`, `info-grid` (`cells`), `two-col-body`, `two-media` (two images side by side)
 - `timeline`: `stages: [{ title, body }]` joined by a dashed line (vertical on phones), plus `note: { label, body }`
 - `carousel`: `slides: [{ image, caption }]` scrolling sideways with snap, arrows and dots; optional `body`

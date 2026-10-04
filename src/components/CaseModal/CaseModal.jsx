@@ -377,16 +377,6 @@ function Feature({ feature }) {
       </div>
 
       {feature.clip && <Clip src={feature.clip.src} poster={feature.clip.poster} label={feature.title} caption={feature.clip.caption} />}
-      {!feature.clip && feature.videoId && (
-        <div className={styles.videoWrapper}>
-          <iframe
-            src={`https://www.youtube.com/embed/${feature.videoId}`}
-            title={feature.title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </div>
-      )}
     </motion.section>
   )
 }
@@ -934,16 +924,6 @@ export default function CaseModal({ caseData, onClose }) {
                       )}
                       {section.pair && <MediaPair items={section.pair} framed />}
                       {section.clip && <Clip src={section.clip.src} poster={section.clip.poster} label={section.heading || caseData.title} caption={section.clip.caption} />}
-                      {section.videoId && (
-                        <div className={styles.videoWrapper}>
-                          <iframe
-                            src={`https://www.youtube.com/embed/${section.videoId}`}
-                            title={section.heading || caseData.title}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          />
-                        </div>
-                      )}
                     </>
                   )}
                 </motion.section>
