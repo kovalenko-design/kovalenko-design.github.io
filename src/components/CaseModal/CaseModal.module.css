@@ -1164,17 +1164,27 @@
   z-index: 1;
 }
 
-/* Key impact card in the intro (Panther): the text column takes half the width, and the hero is
-   centered vertically against the whole column (intro paragraph, card, Context, Approach) */
+/* Key impact card in the intro (Panther): the text column takes half the width, and the hero
+   starts level with the top of the intro paragraph */
 @media (min-width: 641px) {
   .introSplitCentered {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     column-gap: 72px;
   }
 
+  /* The photo's top lines up with the top of the blue intro text: the text column starts 32px down,
+     and the capitals sit about 8px below the top of their line */
   .introSplitCentered .introSplitRight {
     top: 0;
-    align-self: center;
+    align-self: start;
+    margin-top: 40px;
+  }
+}
+
+
+@media (max-width: 640px) {
+  .introSplitLeft .outcomes {
+    width: auto;
   }
 }
 
@@ -1184,6 +1194,12 @@
   display: block;
   transform: scale(1.04);
   transform-origin: top center;
+}
+
+/* Panther's hero is a plain photo: rounded here, shown at its true size */
+.introSplitCentered .introSplitRight img {
+  border-radius: 16px;
+  transform: none;
 }
 
 /* Small hero variant — phone floats right so challenge text wraps naturally beside it */

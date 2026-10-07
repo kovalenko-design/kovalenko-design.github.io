@@ -1,7 +1,8 @@
 // Panther POS case data.
 import coverImg from '../assets/cases/panther/cover.png'
 import logoImg from '../assets/cases/panther/panther-logo.png'
-import heroImg from '../assets/cases/panther/hero.webp'
+// 4:5 crop of the hero photo (master: _sources/panther/misc/hero-4x5.png), corners rounded in CSS.
+import heroImg from '../assets/cases/panther/hero.jpg'
 import pizzaBuilderClip from '../assets/cases/panther/pizza-builder.mp4'
 import pizzaBuilderPoster from '../assets/cases/panther/pizza-builder-poster.jpg'
 import pizzaCreatorClip from '../assets/cases/panther/pizza-creator.mp4'
