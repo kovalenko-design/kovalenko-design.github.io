@@ -64,8 +64,9 @@ Grid order = array order in `src/cases/index.js`. Currently live, in grid order:
 1. Drop exported images into `src/assets/cases/<case-id>/` (ask before assuming filenames — always exported manually from Figma/Behance).
 2. Create `src/cases/<case-id>.js` exporting a plain data object. Two schemas are in active use — pick whichever fits the story, don't force one onto the other:
    - **`sections` + `tools`** (bossMoney, brWebPortal, bossRevolution) — a linear array of free-form narrative sections.
-   - **`features` + `context`/`approach`** (zendit) — structured per-feature blocks: `{ title, description, problem, work, image, imageCaption, imageLayout, clip }`.
-   - Common to both: `id, title, subtitle, description, tags, cover, logo, meta[], intro, introImage, retrospective, retroUrl`. Optional, used by some cases only: `splitIntro`, `introBgImage`, `introImageSmall`, `logoWide`, `keyImpact` (one sentence shown as a "Key impact:" line under the intro, split intro only), `introHeroLarge` (split intro: narrower text column and a larger hero, used by BOSS Money).
+   - **`features` + `context`/`approach`** (zendit) — structured per-feature blocks: `{ title, description, problem, work, decisions, image, imageCaption, imageLayout, clip }`. `decisions: [{ lead, text }]` is optional: a "Key decisions" list under The problem / The work, a bold lead and then the reason.
+   - Common to both: `id, title, subtitle, description, tags, cover, logo, meta[], intro, introImage, retrospective, retroUrl`. `retrospective` is a string, or an array of paragraphs where an item can be `{ lead, text }` (bold lead, used for "What I would measure next:"). Optional, used by some cases only: `splitIntro`, `introBgImage`, `introImageSmall`, `logoWide`, `introHeroLarge` (split intro: narrower text column and a larger hero, used by BOSS Money).
+   - **Key impact** is the `outcomes` card, the standard for every case: `outcomes: [{ value, label }]`, a gray card with a small "KEY IMPACT" label and the figures side by side, divided like the meta bar. By default it sits to the right of the meta bar (BOSS Money); at 860px and narrower it goes full width under it. `outcomesInIntro: true` puts it under the intro paragraph instead (Panther, one figure): the text column takes half the width and the hero is centered against it. With a card, the hero never rises into it. Figures must be public and undated. The older one-line `keyImpact` still works but no case uses it.
 3. Import it in `src/cases/index.js` and add to the `cases` array — that position sets its place in the grid.
 
 That's the whole change. **Never hardcode case content in components** — CaseCard/CaseModal render whatever shape of data they're given.
@@ -73,10 +74,10 @@ That's the whole change. **Never hardcode case content in components** — CaseC
 ---
 
 ### Section layouts available in `CaseModal.jsx` (set with `layout` on a section)
-- default: `heading`, `body` (string or array; an item can be `{ lead, text }` for a bold run-in lead), `image` / `image2` / `image3` (stacked), `imageCaption`, `bodyAfter` (text after the image), `pair: [{ image, caption }, { image, caption }]` (two framed images on a gray card, each with its own caption), `clip`
+- default: `heading`, `body` (string or array), `decisions: [{ lead, text }]` (a "Key decisions" list after the body), `image` / `image2` / `image3` (stacked), `imageCaption`, `bodyAfter` (text after the image), `pair: [{ image, caption }, { image, caption }]` (two framed images on a gray card, each with its own caption), `clip`
 - `overlay`, `info-grid` (`cells`), `two-col-body`, `two-media` (two images side by side)
 - `timeline`: `stages: [{ title, body }]` joined by a dashed line (vertical on phones), plus `note: { label, body }`
-- `carousel`: `slides: [{ image, caption }]` scrolling sideways with snap, arrows and dots; optional `body`
+- `carousel`: `slides: [{ image, caption }]` scrolling sideways with snap, arrows and dots; optional `body` (an item can be `{ lead, text }` for a bold run-in lead)
 - `clip-side`: one narrow text column and the clip at two thirds of the width; optional `devices: [images]` shows a small row of drawings above the clip on a gradient strip
 - `img-left-text-right`: image (or a `clip`) on the left, heading, `body` and an optional numbered `steps: [{ icon, text }]` list on the right
 - `section-intro`: a sub-header for a part of the case that reads like its own mini case: a full-width title (same style as the case title, `\n` breaks the line), optional `meta: [{ label, value }]`, `body` (the intro paragraph), `introImage: { src }`, `context` and `tools: [{ name, icon }]`, laid out like the case's own intro

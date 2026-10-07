@@ -401,6 +401,23 @@ const item = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.46, ease } },
 }
 
+// Key impact: a small gray card next to the meta bar, figures divided like the meta bar.
+function Outcomes({ items }) {
+  return (
+    <div className={styles.outcomes}>
+      <h2 className={styles.outcomesLabel}>Key impact</h2>
+      <ul className={styles.outcomesList}>
+        {items.map(({ value, label }) => (
+          <li key={value} className={styles.outcome}>
+            <span className={styles.outcomeValue}>{value}</span>
+            <span className={styles.outcomeText}>{label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 function MetaBar({ meta }) {
   return (
     <motion.ul variants={item} className={styles.meta}>
@@ -411,6 +428,22 @@ function MetaBar({ meta }) {
         </li>
       ))}
     </motion.ul>
+  )
+}
+
+// Key decisions: a bold lead, then the reason. Used by features and by default sections.
+function Decisions({ items }) {
+  return (
+    <div className={styles.decisions}>
+      <h3 className={styles.pwLabel}>Key decisions</h3>
+      <ul className={styles.decisionsList}>
+        {items.map((d) => (
+          <li key={d.lead} className={styles.pwBody}>
+            <strong className={styles.sectionLead}>{d.lead}</strong> {d.text}
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
@@ -450,6 +483,8 @@ function Feature({ feature }) {
           <p className={styles.pwBody}>{feature.work}</p>
         </div>
       </div>
+
+      {feature.decisions && <Decisions items={feature.decisions} />}
 
       {feature.clip && (
         <Clip
@@ -613,13 +648,21 @@ export default function CaseModal({ caseData, onClose }) {
               </motion.header>
 
               {/* Meta bar */}
-              {caseData.meta && <MetaBar meta={caseData.meta} />}
+              {/* Meta bar, with the Key impact card to its right (unless the case puts it in the intro) */}
+              {caseData.outcomes && !caseData.outcomesInIntro ? (
+                <motion.div variants={item} className={styles.metaRow}>
+                  {caseData.meta && <MetaBar meta={caseData.meta} />}
+                  <Outcomes items={caseData.outcomes} />
+                </motion.div>
+              ) : (
+                caseData.meta && <MetaBar meta={caseData.meta} />
+              )}
 
               {/* Intro — split (text+context left, image right) or stacked */}
               {caseData.splitIntro ? (
                 <motion.div
                   variants={item}
-                  className={`${styles.introSplit}${caseData.introImageSmall ? ' ' + styles.introSplitSmall : ''}${caseData.keyImpact ? ' ' + styles.introSplitLifted : ''}${caseData.introHeroLarge ? ' ' + styles.introHeroLarge : ''}`}
+                  className={`${styles.introSplit}${caseData.introImageSmall ? ' ' + styles.introSplitSmall : ''}${caseData.keyImpact || caseData.outcomesInIntro ? ' ' + styles.introSplitLifted : ''}${caseData.introHeroLarge ? ' ' + styles.introHeroLarge : ''}${caseData.outcomesInIntro ? ' ' + styles.introSplitCentered : ''}`}
                 >
                   {caseData.introImageSmall ? (
                     // Small hero: phone floats right first (float must precede wrapping text in DOM)
@@ -663,6 +706,9 @@ export default function CaseModal({ caseData, onClose }) {
                           <p className={styles.intro}>
                             <strong>Key impact:</strong> {caseData.keyImpact}
                           </p>
+                        )}
+                        {caseData.outcomes && caseData.outcomesInIntro && (
+                          <Outcomes items={caseData.outcomes} />
                         )}
                         {caseData.context && (
                           <div>
@@ -711,6 +757,9 @@ export default function CaseModal({ caseData, onClose }) {
                           <p className={styles.intro}>
                             <strong>Key impact:</strong> {caseData.keyImpact}
                           </p>
+                        )}
+                        {caseData.outcomes && caseData.outcomesInIntro && (
+                          <Outcomes items={caseData.outcomes} />
                         )}
                       </div>
                       {caseData.introImage && (
@@ -1144,6 +1193,7 @@ export default function CaseModal({ caseData, onClose }) {
                           ) : (
                             <p className={styles.sectionBody}>{section.body}</p>
                           ))}
+                        {section.decisions && <Decisions items={section.decisions} />}
                         {section.image &&
                           (section.image2 || section.image3 ? (
                             <>
@@ -1199,7 +1249,21 @@ export default function CaseModal({ caseData, onClose }) {
               {caseData.retrospective && (
                 <motion.div variants={item} className={styles.retro}>
                   <h2 className={styles.retroHeading}>Retrospective</h2>
-                  <p className={styles.retroBody}>{caseData.retrospective}</p>
+                  {/* A string, or an array of paragraphs where an item can be { lead, text } */}
+                  {(Array.isArray(caseData.retrospective)
+                    ? caseData.retrospective
+                    : [caseData.retrospective]
+                  ).map((para, j) => (
+                    <p key={j} className={styles.retroBody}>
+                      {typeof para === 'object' ? (
+                        <>
+                          <strong>{para.lead}</strong> {para.text}
+                        </>
+                      ) : (
+                        para
+                      )}
+                    </p>
+                  ))}
                   {caseData.retroUrl && (
                     <a
                       href={`https://${caseData.retroUrl}`}

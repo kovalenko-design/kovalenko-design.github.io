@@ -27,7 +27,7 @@ const bossMoney = {
   meta: [
     { label: 'Role', value: 'Lead UX Design' },
     { label: 'Platform', value: 'Mobile — Flutter' },
-    { label: 'Team', value: '2 designers · 5 devs · PM · QA' },
+    { label: 'Team', value: '1 designer · 5 devs · PM · QA' },
   ],
 
   intro:
@@ -43,8 +43,14 @@ const bossMoney = {
   approach:
     'To scale efficiently, BOSS Money needed to transition to a unified Flutter code base, aligning with its sister app, BOSS Revolution. This would enable a vision of modular app design for\u00A0both of the apps and beyond.',
 
-  keyImpact:
-    "The app's Google Play store rating increased significantly from 3.9 to 4.9 after the\u00A0redesign.",
+  outcomes: [
+    { value: '3.9 → 4.9', label: 'Google Play rating in the year after the redesign' },
+    {
+      value: '12%',
+      label:
+        'Churn reduction, achieved through a simpler ordering flow and gentle prompts at the point of exit',
+    },
+  ],
 
   splitIntro: true,
   introHeroLarge: true,
@@ -60,7 +66,7 @@ const bossMoney = {
     {
       heading: 'Challenges and Goals',
       body: [
-        'Our team used the opportunity to create a significant redesign. The old design had become emotionally outdated and was no longer able to support the expanding feature set, including new services like peer-to-peer wallet transfers.',
+        'Stakeholders used the opportunity to push for a significant redesign. The old design had become emotionally outdated and was no longer able to support the expanding feature set, including new services like peer-to-peer wallet transfers.',
         "It was crucial to simplify the user experience and support the app's evolving international feature set.",
       ],
       image: challengesImg,
@@ -72,11 +78,11 @@ const bossMoney = {
       cells: [
         {
           label: 'My Role',
-          body: 'Led the design process, from concept to final implementation. Design system from scratch. Prototyping, usability testing.',
+          body: 'Sole designer, from concept to final implementation. Design system from scratch. Prototyping, usability testing.',
         },
         {
           label: 'Team',
-          body: "Two designers, 5 front-end developers, back-end devs, project managers and an owner, QA's.",
+          body: 'One designer, 5 front-end developers, back-end devs, project managers and an owner, QAs.',
         },
         { label: 'Tools', body: 'Figma, Lottie, Jira, Miro, Amplitude.' },
         {
@@ -94,24 +100,24 @@ const bossMoney = {
       heading: 'Research & Competitor Analysis',
       layout: 'text-left-img-right',
       body: [
-        'Our team uses Amplitude as a tool to research how people are using the app—what features they used the most and where they get stuck. This data is key in helping us figure out where to focus our efforts.',
-        'We also looked at competing apps in the fintech space as well as elsewhere to see what they were doing well and where we fell short. This helped us identify opportunities to stand out by offering a smoother, more intuitive user experience, while still keeping all the core functionalities users expect.',
+        'Our team used Amplitude as a tool to research how people were using the app—what features they used the most and where they got stuck. This data was key in helping us figure out where to focus our efforts.',
+        'I studied competitors in fintech and beyond to understand what they did well and where ours fell short. That comparison made our opportunity clear: a smoother, more intuitive experience without sacrificing the core features users expect.',
       ],
       image: researchImg,
     },
     {
       heading: 'Design System',
-      body: 'The previous app had been built without a formal design system, making it challenging to maintain visual consistency across the interface. This underscored the necessity of creating a design system from the ground up—one that would deliver a cohesive user experience while ensuring alignment across both BOSS apps. After discussions with our front-end team, we decided to base the new design system on Material Design standards, which aligned well with our use of Flutter in development and allowed us to create a scalable system that supported some out-of-the-box solutions to speed up the development process, as well as streamlining the process in general.',
+      body: 'The previous app had been built without a formal design system, making it challenging to maintain visual consistency across the interface. This underscored the necessity of creating a design system from the ground up—one that would deliver a cohesive user experience while ensuring alignment across both BOSS apps. After discussions with our front-end team, we decided to base the new design system on Material Design standards, which aligned well with our use of Flutter in development and allowed me to create a scalable system that supported some out-of-the-box solutions to speed up the development process, as well as streamlining the process in general.',
       image: designSystemImg,
     },
     {
       heading: 'Data Based Iteration',
-      body: "Iteration is a big part of how we develop our product. We use Miro boards to map out user flows and see how the app's front-end would connect with the back-end. It is the space for brainstorming and figuring out how everything would work—from user actions to the behind-the-scenes API calls. We also employ Amplitude to check out real user data, which really helped us make smarter design choices.",
+      body: 'Iteration was a big part of how I worked on the products. I used Miro boards to brainstorm, map out user journeys or understand how our behind-the-scenes APIs and overall back end connected to our flows. I also used Amplitude to check out real user data and behavior—to understand where they got stuck, or what went well—and that really helped me make smarter design choices.',
       image: dataIterationImg,
     },
     {
       heading: 'Evolution',
-      body: "Looking ahead, we are exploring several design concepts to push the app further. These screens represent potential updates that could enhance the user experience and expand the app's functionality. While still in the early stages, these ideas reflect our focus on continuous improvement and adapting to user needs.",
+      body: "Looking ahead, I was exploring several design concepts to push the app further. These screens represent potential updates that could enhance the user experience and expand the app's functionality. While still in the early stages, these ideas reflect my focus on continuous improvement and adapting to user needs.",
       image: evolutionImg,
       imageCaption:
         'Exploring redesign solutions for a universal money amount entry across app services, ensuring it accounts for tax, fee, and legal scenarios. Designing a path towards a truly worldwide peer-to-peer in-app wallet product.',
@@ -119,7 +125,7 @@ const bossMoney = {
   ],
 
   retrospective:
-    "Like many redesigns, the initial reaction from customers was mixed. People were used to the old version, and the shift took some getting used to. Over the following year, the app's Google Play rating rose from 3.9 to 4.9, and our key metrics showed a significant boost in transaction numbers, which directly led to an increase in revenue. It became clear that the redesign was a success, and users adapted to the improved experience.",
+    'Like many redesigns, the initial reaction from customers was mixed. People were used to the old version, and the shift took some getting used to. Over the following year, the rating climbed and our key metrics showed a significant boost in transaction numbers, which directly led to an increase in revenue. It became clear that the redesign was a success, and users adapted to the improved experience.',
   retroUrl: 'www.bossmoney.com',
 }
 

@@ -54,8 +54,14 @@ const panther = {
   approach:
     'The new app runs on Kotlin Multiplatform, so one codebase can serve Android and iOS tablets. Native was a deliberate choice: cashiers work from muscle memory, and a web-based POS would not react fast enough. The goal was a modular product that can keep growing with new features and plug-and-play devices.',
 
-  keyImpact:
-    'Over 30% of NRS stores have already moved from the old POS to the premium plans built on\u00A0Panther.',
+  outcomes: [
+    {
+      value: '30%+',
+      label: 'NRS stores that have moved from the old POS to the premium plans built on Panther',
+    },
+  ],
+  // The Key impact card goes under the intro paragraph instead of beside the meta bar.
+  outcomesInIntro: true,
 
   splitIntro: true,
 
@@ -134,11 +140,21 @@ const panther = {
       },
     },
     {
-      // One section: title, what it is (with the cashier's ordering issue in one sentence), the hard part, then the clip.
+      // One section: title, what it is, the hard part, the Key decisions (how the cashier builds the order), then the clip.
       heading: 'New tools for retailers with in-store pizza kitchens',
       body: [
-        'Many NRS customers have a small kitchen in the shop, and a module for it could bring in new customers and improve margins. Pizza Builder lets a cashier build a custom pizza on the tablet, and the order goes to the kitchen as a printed ticket. Customers do not order in a fixed sequence, so the cashier can switch between the left half, the right half and the whole pizza at any moment, and set how much of each ingredient goes on that side.',
+        'Many NRS customers have a small kitchen in the shop, and a module for it could bring in new customers and improve margins. Pizza Builder lets a cashier build a custom pizza on the tablet, and the order goes to the kitchen as a printed ticket.',
         'The hard part was the domain: specialist companies such as Slice make POS software only for pizza shops, so I started by learning how they work and what the fastest way to build a pizza is.',
+      ],
+      decisions: [
+        {
+          lead: 'Halves at any moment.',
+          text: 'Customers do not order in a fixed sequence, so the cashier can switch between the left half, the right half and the whole pizza without going back.',
+        },
+        {
+          lead: 'Amount per side.',
+          text: 'The cashier sets how much of each ingredient goes on each side, because light or extra on one half is a normal order.',
+        },
       ],
       // A looping clip that opens full screen on click.
       clip: {
@@ -225,8 +241,13 @@ const panther = {
     },
   ],
 
-  retrospective:
+  retrospective: [
     "Android is live for all customers. Because the app is built on Kotlin Multiplatform, iOS (already tested and working) and the web are ready to go too, but the company's goals are not there yet. On the Consumer Engagement App, the MVP and V1 are built and V2 is designed and ready for development. For scale, NRS as a whole runs about 39,300 active POS terminals for independent retailers. Panther is a functional, clean product on a design system built to keep growing, which was the goal.",
+    {
+      lead: 'What I would measure next:',
+      text: 'support calls per store before and after the move to Panther, and time per sale at the register.',
+    },
+  ],
   // No retroUrl on purpose.
 }
 

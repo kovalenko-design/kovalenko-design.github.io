@@ -342,7 +342,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .pwLabel {
@@ -360,6 +360,18 @@
   font-size: 14px;
   color: var(--color-charcoal);
   line-height: 1.65;
+}
+
+/* Key decisions under a feature: a bold lead, then the reason */
+.decisions {
+  margin-bottom: 32px;
+}
+
+.decisionsList {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 10px;
 }
 
 /* Video */
@@ -482,6 +494,10 @@
   white-space: pre-line;
 }
 
+.retroBody + .retroBody {
+  margin-top: 24px;
+}
+
 .retroLink {
   position: relative;
   display: inline-block;
@@ -537,6 +553,11 @@
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 8px;
+}
+
+/* Inside a feature, the overlay image keeps the same 32px from the text below as the intro image does */
+.feature .overlayContainer {
+  margin-bottom: 32px;
 }
 
 .overlayContainer > picture {
@@ -613,6 +634,100 @@
   font-size: 13px;
   color: var(--color-charcoal);
   line-height: 1.65;
+}
+
+/* Meta bar on the left, Key impact card on the right (a little wider than half) */
+.metaRow {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.metaRow .meta {
+  margin-bottom: 0;
+}
+
+/* Key impact — small gray card, figures divided like the meta bar */
+.outcomes {
+  background: var(--color-background);
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+
+.outcomesLabel {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-neutral-dark);
+  margin-bottom: 12px;
+}
+
+.outcomesList {
+  list-style: none;
+  display: flex;
+}
+
+.outcome {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 24px;
+  border-right: 1px solid var(--color-neutral-light);
+}
+
+.outcome:first-child {
+  padding-left: 0;
+}
+
+.outcome:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.outcomeValue {
+  font-family: var(--font-headline);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-headline);
+}
+
+.outcomeText {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-neutral-dark);
+}
+
+/* In the intro column the card has a set width (its text width plus 15%), never wider than the column */
+.introSplitLeft .outcomes,
+.introSplitLeftFull .outcomes {
+  align-self: flex-start;
+  width: 450px;
+  max-width: 100%;
+}
+
+@media (max-width: 860px) {
+  /* The card spans the full width here, so the phones must not rise into it */
+  .metaRow {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+
+  .outcome {
+    padding: 0 16px;
+  }
+
+  .outcomeValue {
+    font-size: 20px;
+  }
 }
 
 /* Info grid — 2×2 My Role / Team / Tools / Deliverables */
@@ -1000,11 +1115,22 @@
 }
 
 .introHeroLarge .introSplitRight {
-  top: -50px;
+  top: -60px;
 }
 
 .introHeroLarge .introSplitRight img {
   transform: scale(1.11);
+}
+
+/* With a Key impact card above, the hero does not rise into it: it sits centered beside the intro text */
+.metaRow + .introSplit .introSplitRight {
+  top: 0;
+}
+
+@media (min-width: 641px) {
+  .metaRow + .introSplit .introSplitRight {
+    align-self: center;
+  }
 }
 
 .introSplitLeft {
@@ -1036,6 +1162,20 @@
   top: -60px;
   left: 20px;
   z-index: 1;
+}
+
+/* Key impact card in the intro (Panther): the text column takes half the width, and the hero is
+   centered vertically against the whole column (intro paragraph, card, Context, Approach) */
+@media (min-width: 641px) {
+  .introSplitCentered {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 72px;
+  }
+
+  .introSplitCentered .introSplitRight {
+    top: 0;
+    align-self: center;
+  }
 }
 
 .introSplitRight img {
