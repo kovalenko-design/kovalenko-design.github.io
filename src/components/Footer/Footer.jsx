@@ -5,7 +5,6 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <span className={styles.copy}>© {new Date().getFullYear()} Vadim Kovalenko</span>
         <nav className={styles.links} aria-label="Contact">
           <EmailLink>Email</EmailLink>
           <a

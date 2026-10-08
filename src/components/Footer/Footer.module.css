@@ -8,12 +8,7 @@
   padding: 16px 48px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.copy {
-  font-size: 13px;
-  color: var(--color-neutral-dark);
+  justify-content: flex-end;
 }
 
 .links {
