@@ -15,7 +15,8 @@
 
 .introHeading {
   font-family: var(--font-headline);
-  font-size: clamp(28px, 3.84vw, 46px);
+  /* Grows with its column (46px at the full 904px column), so every width keeps the desktop line breaks. */
+  font-size: clamp(28px, calc(5.09vw - 5px), 46px);
   font-weight: 570;
   font-stretch: 112%;
   color: var(--color-charcoal);
@@ -87,7 +88,7 @@
   }
 
   .introHeading {
-    font-size: 24px;
+    font-size: clamp(24px, calc(5.09vw - 2px), 46px);
   }
 
   .work {
