@@ -88,7 +88,7 @@
   }
 
   .introHeading {
-    font-size: clamp(24px, calc(5.09vw - 2px), 46px);
+    font-size: clamp(30px, calc(5.09vw - 2px), 46px);
   }
 
   .work {
@@ -102,5 +102,12 @@
 
   .grid > *:nth-child(even) {
     margin-top: 0;
+  }
+}
+
+/* Very narrow phones (320px): one step smaller so the title never ends on a single word. */
+@media (max-width: 359px) {
+  .introHeading {
+    font-size: 28px;
   }
 }
