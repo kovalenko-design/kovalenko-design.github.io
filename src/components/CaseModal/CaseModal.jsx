@@ -19,7 +19,21 @@ function FitHeading({ as: Tag = 'h2', className, children }) {
   useLayoutEffect(() => {
     const el = ref.current
     if (!el) return
+    let frame = 0
+    let tries = 0
     const fit = () => {
+      cancelAnimationFrame(frame)
+      // While the pop-up flips open, the page is tilted and every line looks like one,
+      // so wait (a frame at a time, up to about two seconds) until it lies flat.
+      const box = el.getBoundingClientRect()
+      const tilted =
+        Math.abs(box.height - el.offsetHeight) > 1 || Math.abs(box.width - el.offsetWidth) > 1
+      if (tilted && tries < 120) {
+        tries += 1
+        frame = requestAnimationFrame(fit)
+        return
+      }
+      tries = 0
       el.style.width = ''
       const range = document.createRange()
       range.selectNodeContents(el)
@@ -37,10 +51,16 @@ function FitHeading({ as: Tag = 'h2', className, children }) {
       }
     }
     fit()
+    // Measure again when a font arrives: the heading may wrap differently in Archivo.
     document.fonts?.ready.then(fit)
+    document.fonts?.addEventListener('loadingdone', fit)
     const observer = new ResizeObserver(fit)
     observer.observe(el.parentElement)
-    return () => observer.disconnect()
+    return () => {
+      cancelAnimationFrame(frame)
+      document.fonts?.removeEventListener('loadingdone', fit)
+      observer.disconnect()
+    }
   }, [children])
   return (
     <Tag ref={ref} className={className}>
