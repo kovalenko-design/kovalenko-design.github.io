@@ -85,7 +85,8 @@ That's the whole change. **Never hardcode case content in components** — CaseC
 ## Design Rules
 
 ### Typography
-- **Headlines:** Encode Sans Expanded (Google Fonts), set in `variables.css` as `--font-headline`
+- **Headlines:** Archivo (Google Fonts, variable: weight and width), set in `variables.css` as `--font-headline`. Each headline style sets its own `font-weight` and `font-stretch` (width), with `letter-spacing: 0.02em` in the cases. `index.html` loads only the range in use (weight 500–900, width 95–115); widen it there if a new value falls outside.
+- **Headline rules in the cases:** no one-word last lines (case titles use `text-wrap: balance`; underlined headings keep their last two words together, done by `noOrphan` in `CaseModal.jsx`). Main titles get the thick underline, and it stops at the end of the longest line (`FitHeading` in `CaseModal.jsx`). Secondary titles (Context, Approach, Key decisions, The problem, The work, Retrospective) have no underline.
 - **Body:** DM Sans (Google Fonts)
 
 ### Color Palette
@@ -159,7 +160,7 @@ Run the plugin inside the Figma file before asking Claude Code to read it.
 - **Cover image** (`cover` field, shown on the homepage grid card): CSS enforces `aspect-ratio: 404 / 313` (≈1.29:1) with `object-fit: cover`. All 4 live covers are ~1616×1260px (2× retina at that ratio). Export new covers at the same ratio, ~1600px wide minimum — the crop is forgiving (`object-fit: cover`) but the source must already be close to 1.29:1 or the crop looks wrong.
 - **Intro / section / feature images** (`introImage`, `image` inside `features`/`sections`): no fixed aspect ratio in CSS — these scale via `max-width: 100%`, so dimensions vary per case (screenshots, phone mockups, wide platform shots all coexist). Export at whatever ratio suits the actual content, at a resolution sharp on retina (≥1600px on the long edge for a full-width shot).
 - **Demo clips** (`clip: { src, poster, caption }` on a section or feature): short looping mp4, muted, silent, no player chrome; it plays only while at least 45% is on screen (the bottom 15% of the screen does not count), opens full screen on click, and has small restart / pause / full-screen buttons (always visible on touch screens). Encode with a fast-start mp4 and keep each clip under about 8 MB. **Every clip needs a caption** in the form "<Feature> flow example" (the caption is part of the clip data, so a clip cannot appear without one). No YouTube embeds and no unlisted video IDs in the repo, it is public.
-- Typography and color are never touched per-image — they come from `global.css` / `variables.css` (Encode Sans Expanded + DM Sans, the token table above). Nothing case-specific to configure there.
+- Typography and color are never touched per-image — they come from `global.css` / `variables.css` (Archivo + DM Sans, the token table above). Nothing case-specific to configure there.
 
 ---
 
@@ -167,7 +168,7 @@ Run the plugin inside the Figma file before asking Claude Code to read it.
 
 - React + Vite
 - CSS Modules (no exceptions — do not use inline styles or other CSS solutions)
-- Google Fonts: Encode Sans Expanded + DM Sans
+- Google Fonts: Archivo + DM Sans
 - React Router for navigation
 - Framer Motion for animations and drawer transitions
 - GitHub Pages deployment via GitHub Actions on push to `main` (see Architecture → Deploy)
@@ -199,7 +200,7 @@ GitHub Pages cannot serve those addresses by itself, so `vite.config.js` has a s
 Each case is a plain data object in `src/cases/` (one file per case). `src/cases/index.js` exports the array. Components receive case data as props — **never hardcode case content in components**. Adding a new case = add one data file + import it in `index.js`.
 
 ### Styling
-CSS Modules only — no exceptions. Global CSS variables are in `src/styles/variables.css` (imported via `src/styles/global.css`). Use `var(--token-name)` throughout. Google Fonts (Encode Sans Expanded + DM Sans) are loaded in `global.css`.
+CSS Modules only — no exceptions. Global CSS variables are in `src/styles/variables.css` (imported via `src/styles/global.css`). Use `var(--token-name)` throughout. Google Fonts (Archivo + DM Sans) are loaded in `index.html`. The one exception to CSS Modules: `FitHeading` in `CaseModal.jsx` sets a heading's width from code, because the length of its longest line can only be measured in the browser.
 
 ### Assets
 Case images go in `src/assets/cases/<case-id>/`. Always ask before assuming an asset filename — images are exported manually from Figma.

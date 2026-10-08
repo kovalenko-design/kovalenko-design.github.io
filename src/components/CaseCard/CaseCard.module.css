@@ -69,7 +69,9 @@
 .title {
   font-family: var(--font-headline);
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 570;
+  font-stretch: 96%;
+  letter-spacing: 0.02em;
   color: var(--color-headline);
   line-height: 1.2;
   margin-bottom: 10px;

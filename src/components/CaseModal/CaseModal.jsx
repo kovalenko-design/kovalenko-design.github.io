@@ -1,11 +1,54 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import styles from './CaseModal.module.css'
+
+// Joins the last two words of a longer heading so it never ends on a single word.
+const noOrphan = (text) =>
+  typeof text === 'string' && text.trim().split(/\s+/).length > 2
+    ? text.replace(/\s+(\S+)\s*$/, '\u00a0$1')
+    : text
 
 // A short screen recording that plays like a moving image: silent, looping, no player chrome.
 // It plays only while visible. A click opens it full screen, where the native controls appear.
 // A small button pauses it: a clip the viewer paused stays paused until they press play.
 // With reduced motion it stays still and shows native controls in place.
+// A heading whose underline stops at the end of its longest line, never past it.
+// The width can only be measured in the browser, so it is set from code: the one exception to CSS Modules only.
+function FitHeading({ as: Tag = 'h2', className, children }) {
+  const ref = useRef(null)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const fit = () => {
+      el.style.width = ''
+      const range = document.createRange()
+      range.selectNodeContents(el)
+      const lines = []
+      for (const r of range.getClientRects()) {
+        if (!r.width) continue
+        const line = lines.find((l) => Math.abs(l.top - r.top) < 4)
+        if (line) {
+          line.left = Math.min(line.left, r.left)
+          line.right = Math.max(line.right, r.right)
+        } else lines.push({ top: r.top, left: r.left, right: r.right })
+      }
+      if (lines.length > 1) {
+        el.style.width = `${Math.ceil(Math.max(...lines.map((l) => l.right - l.left))) + 1}px`
+      }
+    }
+    fit()
+    document.fonts?.ready.then(fit)
+    const observer = new ResizeObserver(fit)
+    observer.observe(el.parentElement)
+    return () => observer.disconnect()
+  }, [children])
+  return (
+    <Tag ref={ref} className={className}>
+      {children}
+    </Tag>
+  )
+}
+
 function Clip({ src, poster, label, caption }) {
   const ref = useRef(null)
   const held = useRef(false)
@@ -451,7 +494,7 @@ function Feature({ feature }) {
   return (
     <motion.section variants={item} className={styles.feature}>
       {feature.number && <span className={styles.featureNumber}>{feature.number}</span>}
-      <h2 className={styles.featureTitle}>{feature.title}</h2>
+      <FitHeading className={styles.featureTitle}>{noOrphan(feature.title)}</FitHeading>
       <p className={styles.featureDesc}>{feature.description}</p>
 
       {feature.image &&
@@ -927,7 +970,9 @@ export default function CaseModal({ caseData, onClose }) {
                     ) : section.layout === 'two-col-header' ? (
                       <>
                         <div className={styles.twoColHeader}>
-                          <h2 className={styles.twoColHeading}>{section.heading}</h2>
+                          <FitHeading className={styles.twoColHeading}>
+                            {noOrphan(section.heading)}
+                          </FitHeading>
                           <div className={styles.twoColBody}>
                             {section.body &&
                               (Array.isArray(section.body) ? (
@@ -985,7 +1030,9 @@ export default function CaseModal({ caseData, onClose }) {
                       <div className={styles.textLeftImgRightCols}>
                         <div className={styles.textLeftImgRightLeft}>
                           {section.heading && (
-                            <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                            <FitHeading className={styles.sectionHeading}>
+                              {noOrphan(section.heading)}
+                            </FitHeading>
                           )}
                           {section.body &&
                             (Array.isArray(section.body) ? (
@@ -1024,7 +1071,9 @@ export default function CaseModal({ caseData, onClose }) {
                         </div>
                         <div className={styles.imgLeftTextRightRight}>
                           {section.heading && (
-                            <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                            <FitHeading className={styles.sectionHeading}>
+                              {noOrphan(section.heading)}
+                            </FitHeading>
                           )}
                           {section.body &&
                             (Array.isArray(section.body) ? (
@@ -1055,7 +1104,9 @@ export default function CaseModal({ caseData, onClose }) {
                     ) : section.layout === 'carousel' ? (
                       <>
                         {section.heading && (
-                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                          <FitHeading className={styles.sectionHeading}>
+                            {noOrphan(section.heading)}
+                          </FitHeading>
                         )}
                         {/* A paragraph can be { lead, text }: the lead is set in bold as a run-in heading */}
                         {section.body &&
@@ -1080,7 +1131,9 @@ export default function CaseModal({ caseData, onClose }) {
                       <div className={styles.clipSide}>
                         <div className={styles.clipSideText}>
                           {section.heading && (
-                            <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                            <FitHeading className={styles.sectionHeading}>
+                              {noOrphan(section.heading)}
+                            </FitHeading>
                           )}
                           {section.body &&
                             (Array.isArray(section.body) ? (
@@ -1113,7 +1166,9 @@ export default function CaseModal({ caseData, onClose }) {
                     ) : section.layout === 'timeline' ? (
                       <>
                         {section.heading && (
-                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                          <FitHeading className={styles.sectionHeading}>
+                            {noOrphan(section.heading)}
+                          </FitHeading>
                         )}
                         <ol className={styles.timeline}>
                           {section.stages.map((stage, j) => (
@@ -1140,7 +1195,9 @@ export default function CaseModal({ caseData, onClose }) {
                         <div className={styles.infoGrid}>
                           {section.cells.map((cell, j) => (
                             <div key={j} className={styles.infoCell}>
-                              <h3 className={styles.infoCellLabel}>{cell.label}</h3>
+                              <FitHeading as="h3" className={styles.infoCellLabel}>
+                                {noOrphan(cell.label)}
+                              </FitHeading>
                               <p className={styles.infoCellBody}>{cell.body}</p>
                             </div>
                           ))}
@@ -1156,7 +1213,9 @@ export default function CaseModal({ caseData, onClose }) {
                     ) : section.layout === 'two-col-body' ? (
                       <>
                         {section.heading && (
-                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                          <FitHeading className={styles.sectionHeading}>
+                            {noOrphan(section.heading)}
+                          </FitHeading>
                         )}
                         {section.body && Array.isArray(section.body) && (
                           <div className={styles.twoColBodyGrid}>
@@ -1181,7 +1240,9 @@ export default function CaseModal({ caseData, onClose }) {
                     ) : (
                       <>
                         {section.heading && (
-                          <h2 className={styles.sectionHeading}>{section.heading}</h2>
+                          <FitHeading className={styles.sectionHeading}>
+                            {noOrphan(section.heading)}
+                          </FitHeading>
                         )}
                         {section.body &&
                           (Array.isArray(section.body) ? (

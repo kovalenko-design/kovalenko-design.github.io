@@ -14,7 +14,7 @@
   --color-accent2: #d822f3;
 
   /* Typography */
-  --font-headline: 'Encode Sans Expanded', sans-serif;
+  --font-headline: 'Archivo', sans-serif;
   --color-headline: var(--color-primary-dark);
   --font-body: 'DM Sans', sans-serif;
 
