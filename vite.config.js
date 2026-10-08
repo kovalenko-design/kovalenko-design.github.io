@@ -6,6 +6,8 @@ import { pageTitle } from './src/pageTitle.js'
 
 const SITE = 'https://kovalenko.info'
 const SITE_NAME = 'Vadim Kovalenko'
+// The link-preview image every address shares (public/og-image.png, 1200×627).
+const SHARE_IMAGE = { url: `${SITE}/og-image.png`, width: 1200, height: 627 }
 const SITE_TITLE = pageTitle('Product Designer')
 const SITE_DESCRIPTION =
   'Product designer in Warsaw with 7+ years in fintech, communication, and retail products. Case studies: Panther POS, BOSS Money, BOSS Revolution, zendit.'
@@ -33,7 +35,10 @@ function withPageInfo(html, { path, title, description, heading }) {
     `<meta property="og:title" content="${escapeHtml(title)}" />`,
     `<meta property="og:description" content="${escapeHtml(description)}" />`,
     `<meta property="og:url" content="${url}" />`,
-    `<meta name="twitter:card" content="summary" />`,
+    `<meta property="og:image" content="${SHARE_IMAGE.url}" />`,
+    `<meta property="og:image:width" content="${SHARE_IMAGE.width}" />`,
+    `<meta property="og:image:height" content="${SHARE_IMAGE.height}" />`,
+    `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeHtml(title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
   ].join('\n    ')
