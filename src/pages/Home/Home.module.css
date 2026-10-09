@@ -4,7 +4,7 @@
 
 .intro {
   background-color: var(--color-background);
-  padding: 28px 0 24px;
+  padding: 28px 0 18px;
 }
 
 .introInner {
@@ -31,7 +31,7 @@
 }
 
 .work {
-  padding: 54px 0 72px;
+  padding: 42px 0 72px;
   background-image: url('../../assets/bg-cross.svg');
   background-repeat: repeat;
   background-size: 30px 30px;

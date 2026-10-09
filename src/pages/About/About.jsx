@@ -15,7 +15,7 @@ const pageItem = {
 }
 
 const impact = [
-  'Redesigned a money transfer (remittance) app; its Google Play rating rose from 3.9 to 4.9 over the following year',
+  'Overhauled a money transfer (remittance) app; its Google Play rating rose from 3.9 to 4.9 over the following year',
   'Designed the UX/UI for a new in-app referral program; action rate reached 85% against 41% for the standard format',
   'Led design for a POS and retail management platform used in about 34,000 independent US stores',
   "Moved the team's prototyping and daily design work onto AI and agent-driven tools",

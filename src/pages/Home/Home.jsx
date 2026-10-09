@@ -48,7 +48,7 @@ export default function Home() {
         <section className={styles.intro}>
           <div className={styles.introInner}>
             <motion.h1 variants={pageItem} className={styles.introHeading}>
-              Product Designer building fintech, communication, and retail products.
+              Product Designer bringing clarity to&nbsp;complex&nbsp;systems
             </motion.h1>
           </div>
         </section>
