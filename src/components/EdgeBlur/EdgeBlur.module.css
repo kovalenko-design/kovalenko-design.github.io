@@ -48,6 +48,36 @@
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 25%);
 }
 
+/* Safari stand-in for the warp, which Safari cannot apply to a backdrop: the left half of the content is
+   shifted one way round the color wheel and the right half the other, strongest at the top, with a little
+   more desaturation. Hue rotation leaves gray as it is, so over the plain page background nothing shows.
+   `font: -apple-system-body` is understood only by WebKit (Safari, and every browser on iPhone). */
+.safariTint {
+  display: none;
+}
+
+@supports (font: -apple-system-body) {
+  .safariTint {
+    display: block;
+  }
+}
+
+.tintLeft {
+  backdrop-filter: hue-rotate(24deg) saturate(80%);
+  mask-image:
+    linear-gradient(to bottom, #000 0%, transparent 70%),
+    linear-gradient(to right, #000 40%, transparent 60%);
+  mask-composite: intersect;
+}
+
+.tintRight {
+  backdrop-filter: hue-rotate(-24deg) saturate(80%);
+  mask-image:
+    linear-gradient(to bottom, #000 0%, transparent 70%),
+    linear-gradient(to left, #000 40%, transparent 60%);
+  mask-composite: intersect;
+}
+
 /* Skew and color fringe, see the SVG filter in EdgeBlur.jsx. Last of the layers, so the fringe sits on the blur. */
 .blur .warp {
   backdrop-filter: url(#edge-warp);
@@ -64,10 +94,18 @@
   content: '';
   position: absolute;
   inset: 0;
+  /* Eased out in small steps and nearly gone by the bottom of the bar, so it leaves no visible edge where
+     it ends; only the blur trails on below the bar. */
   background: linear-gradient(
     to bottom,
     color-mix(in srgb, var(--color-background) 80%, transparent) 0%,
-    color-mix(in srgb, var(--color-background) 40%, transparent) 60%,
-    transparent 100%
+    color-mix(in srgb, var(--color-background) 70%, transparent) 12%,
+    color-mix(in srgb, var(--color-background) 56%, transparent) 25%,
+    color-mix(in srgb, var(--color-background) 40%, transparent) 38%,
+    color-mix(in srgb, var(--color-background) 26%, transparent) 50%,
+    color-mix(in srgb, var(--color-background) 14%, transparent) 62%,
+    color-mix(in srgb, var(--color-background) 6%, transparent) 72%,
+    color-mix(in srgb, var(--color-background) 2%, transparent) 80%,
+    transparent 88%
   );
 }

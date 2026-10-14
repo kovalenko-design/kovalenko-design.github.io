@@ -44,6 +44,9 @@ export default function EdgeBlur() {
       <span />
       <span />
       <span />
+      {/* Safari only (it cannot run the warp below): the two halves get opposite hue shifts instead. */}
+      <span className={`${styles.safariTint} ${styles.tintLeft}`} />
+      <span className={`${styles.safariTint} ${styles.tintRight}`} />
       <span className={styles.warp} />
       {/* Used by .warp: leans the two halves of the content apart in a V (more at the top, see WARP_MAP) and
           shifts the red, green and blue by different amounts for a slight color fringe. Only Chromium (and
