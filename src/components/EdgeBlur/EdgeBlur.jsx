@@ -3,7 +3,8 @@ import styles from './EdgeBlur.module.css'
 
 // Displacement map for the warp: red sets the sideways shift, green the downward pull, and 50% gray
 // means no shift. Red is full on the left half and zero on the right (with a soft join in the middle), so the
-// two halves lean apart in a V. A gray wash fades it out towards the bottom.
+// two halves lean apart in a V. A gray wash fades it out towards the inner edge and covers the last 30%, so
+// near the inner edge content is only blurred and the lean starts closer to the outer edge.
 const WARP_MAP =
   'data:image/svg+xml,' +
   encodeURIComponent(
@@ -13,13 +14,14 @@ const WARP_MAP =
       '</linearGradient>' +
       '<linearGradient id="y" x1="0" y1="0" x2="0" y2="1">' +
       '<stop offset="0" stop-color="rgb(128,128,128)" stop-opacity="0"/>' +
-      '<stop offset="1" stop-color="rgb(128,128,128)"/>' +
+      '<stop offset="0.7" stop-color="rgb(128,128,128)"/>' +
       '</linearGradient>' +
       '<rect width="100" height="80" fill="url(#x)"/><rect width="100" height="80" fill="url(#y)"/></svg>'
   )
 
-// How far the red, green and blue copies are shifted (lean and color fringe): the footer is a little gentler.
-const WARP_SCALES = { top: [25, 31, 36], bottom: [24, 30, 34] }
+// How far the red, green and blue copies are shifted. The size sets the V lean, the gaps between the three set
+// the color fringe (keep the gaps when changing the lean). The footer is a little gentler.
+const WARP_SCALES = { top: [20, 26, 31], bottom: [19, 25, 29] }
 
 // Progressive blur with a V-shaped warp and a slight color fringe, for a bar that content scrolls under.
 // edge="top" is strongest at the top edge (the header); edge="bottom" is the same thing upside down (the footer).
