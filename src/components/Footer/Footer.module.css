@@ -1,23 +1,10 @@
-/* Pinned to the bottom of the screen. Content scrolling under it fades out (see ::before). */
+/* Pinned to the bottom of the screen, on the plain page background: content scrolls out of sight under a
+   straight top edge. */
 .footer {
   position: sticky;
   bottom: 0;
   z-index: 100;
-}
-
-/* Soft fade: starts clear 24px above the footer and is solid page gray from just above the links down. */
-.footer::before {
-  content: '';
-  position: absolute;
-  inset: -24px 0 0;
-  z-index: -1;
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    color-mix(in srgb, var(--color-background) 60%, transparent) 25%,
-    var(--color-background) 50%
-  );
+  background-color: var(--color-background);
 }
 
 .inner {
