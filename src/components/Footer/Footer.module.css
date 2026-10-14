@@ -1,11 +1,30 @@
+/* Pinned to the bottom of the screen. Content scrolling under it fades out (see ::before). */
 .footer {
-  background-color: transparent;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+
+/* Soft fade: starts clear 24px above the footer and is solid page gray from just above the links down. */
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: -24px 0 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--color-background) 60%, transparent) 25%,
+    var(--color-background) 50%
+  );
 }
 
 .inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 16px 48px;
+  padding: 0 48px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -31,10 +50,8 @@
 
 @media (max-width: 640px) {
   .inner {
-    padding: 12px 20px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+    padding: 0 20px;
+    height: 30px;
   }
 }
 

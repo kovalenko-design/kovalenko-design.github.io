@@ -1,0 +1,73 @@
+/* Behind the bar's content and 12px past its bottom edge. Over the flat page background it is invisible,
+   so it only shows once something scrolls under the bar. */
+.blur {
+  position: absolute;
+  inset: 0 0 -12px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blur span {
+  position: absolute;
+  inset: 0;
+}
+
+.blur span:nth-child(1) {
+  backdrop-filter: blur(1px) saturate(84%);
+  -webkit-backdrop-filter: blur(1px) saturate(84%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
+}
+
+.blur span:nth-child(2) {
+  backdrop-filter: blur(2px) saturate(84%);
+  -webkit-backdrop-filter: blur(2px) saturate(84%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 85%);
+}
+
+.blur span:nth-child(3) {
+  backdrop-filter: blur(4px) saturate(84%);
+  -webkit-backdrop-filter: blur(4px) saturate(84%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 70%);
+}
+
+.blur span:nth-child(4) {
+  backdrop-filter: blur(8px) saturate(84%);
+  -webkit-backdrop-filter: blur(8px) saturate(84%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 55%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 55%);
+}
+
+.blur span:nth-child(5) {
+  backdrop-filter: blur(16px) saturate(84%);
+  -webkit-backdrop-filter: blur(16px) saturate(84%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 10%, transparent 40%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 10%, transparent 40%);
+}
+
+/* Skew and color fringe, see the SVG filter in EdgeBlur.jsx. Last of the layers, so the fringe sits on the blur. */
+.blur .warp {
+  backdrop-filter: url(#edge-warp);
+  -webkit-backdrop-filter: url(#edge-warp);
+}
+
+.filterDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* A light wash of the page background on top, so the text in the bar stays readable over busy images. */
+.blur::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-background) 80%, transparent) 0%,
+    color-mix(in srgb, var(--color-background) 40%, transparent) 60%,
+    transparent 100%
+  );
+}
