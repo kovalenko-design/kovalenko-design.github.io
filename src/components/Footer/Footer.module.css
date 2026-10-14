@@ -1,17 +1,15 @@
-/* Pinned to the bottom of the screen, on the plain page background: content scrolls out of sight under a
-   straight top edge. */
+/* Pinned to the bottom of the screen, with the header's blur turned upside down behind it (EdgeBlur). */
 .footer {
   position: sticky;
   bottom: 0;
   z-index: 100;
-  background-color: var(--color-background);
 }
 
 .inner {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 48px;
-  height: 36px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -38,7 +36,7 @@
 @media (max-width: 640px) {
   .inner {
     padding: 0 20px;
-    height: 30px;
+    height: 26px;
   }
 }
 

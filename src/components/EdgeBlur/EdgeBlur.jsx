@@ -18,12 +18,16 @@ const WARP_MAP =
       '<rect width="100" height="80" fill="url(#x)"/><rect width="100" height="80" fill="url(#y)"/></svg>'
   )
 
+// How far the red, green and blue copies are shifted (lean and color fringe): the footer is a little gentler.
+const WARP_SCALES = { top: [25, 31, 36], bottom: [24, 30, 34] }
+
 // Progressive blur with a V-shaped warp and a slight color fringe, for a bar that content scrolls under.
-// Strongest at the top edge (used by the header). The parent must be positioned; this sits behind its content
-// and 24px past its bottom edge.
-export default function EdgeBlur() {
+// edge="top" is strongest at the top edge (the header); edge="bottom" is the same thing upside down (the footer).
+// The parent must be positioned; this sits behind its content and 24px past its inner edge.
+export default function EdgeBlur({ edge = 'top' }) {
   // The warp map has to match the size of this box (the V is centered on it), and the filter only takes pixels.
   const ref = useRef(null)
+  const [scaleR, scaleG, scaleB] = WARP_SCALES[edge]
   const [size, setSize] = useState({ width: 1440, height: 64 })
 
   useEffect(() => {
@@ -36,7 +40,7 @@ export default function EdgeBlur() {
   }, [])
 
   return (
-    <div ref={ref} className={styles.blur} aria-hidden="true">
+    <div ref={ref} className={`${styles.blur} ${styles[edge]}`} aria-hidden="true">
       {/* Stacked layers, each stronger and masked shorter, so the blur fades out downwards. */}
       <span />
       <span />
@@ -53,7 +57,7 @@ export default function EdgeBlur() {
           Firefox) apply a filter like this to the backdrop; Safari keeps the blur only. */}
       <svg className={styles.filterDefs}>
         <filter
-          id="edge-warp"
+          id={`edge-warp-${edge}`}
           x="0"
           y="0"
           width="100%"
@@ -72,7 +76,7 @@ export default function EdgeBlur() {
           <feDisplacementMap
             in="SourceGraphic"
             in2="map"
-            scale="24"
+            scale={scaleR}
             xChannelSelector="R"
             yChannelSelector="G"
             result="dr"
@@ -80,7 +84,7 @@ export default function EdgeBlur() {
           <feDisplacementMap
             in="SourceGraphic"
             in2="map"
-            scale="30"
+            scale={scaleG}
             xChannelSelector="R"
             yChannelSelector="G"
             result="dg"
@@ -88,7 +92,7 @@ export default function EdgeBlur() {
           <feDisplacementMap
             in="SourceGraphic"
             in2="map"
-            scale="34"
+            scale={scaleB}
             xChannelSelector="R"
             yChannelSelector="G"
             result="db"

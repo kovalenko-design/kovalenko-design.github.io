@@ -1,9 +1,11 @@
 import EmailLink from '../EmailLink/EmailLink'
+import EdgeBlur from '../EdgeBlur/EdgeBlur'
 import styles from './Footer.module.css'
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
+      <EdgeBlur edge="bottom" />
       <div className={styles.inner}>
         <nav className={styles.links} aria-label="Contact">
           <EmailLink>Email</EmailLink>

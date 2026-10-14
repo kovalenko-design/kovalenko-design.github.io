@@ -5,7 +5,7 @@ import styles from './Header.module.css'
 export default function Header() {
   return (
     <header className={styles.header}>
-      <EdgeBlur />
+      <EdgeBlur edge="top" />
       <div className={styles.inner}>
         <Link to="/" className={styles.brand}>
           <span className={styles.name}>Vadim Kovalenko</span>
