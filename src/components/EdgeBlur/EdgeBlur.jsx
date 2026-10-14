@@ -20,7 +20,7 @@ const WARP_MAP =
 
 // Progressive blur with a V-shaped warp and a slight color fringe, for a bar that content scrolls under.
 // Strongest at the top edge (used by the header). The parent must be positioned; this sits behind its content
-// and 12px past its bottom edge.
+// and 24px past its bottom edge.
 export default function EdgeBlur() {
   // The warp map has to match the size of this box (the V is centered on it), and the filter only takes pixels.
   const ref = useRef(null)
@@ -38,6 +38,7 @@ export default function EdgeBlur() {
   return (
     <div ref={ref} className={styles.blur} aria-hidden="true">
       {/* Stacked layers, each stronger and masked shorter, so the blur fades out downwards. */}
+      <span />
       <span />
       <span />
       <span />

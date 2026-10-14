@@ -1,8 +1,8 @@
-/* Behind the bar's content and 12px past its bottom edge. Over the flat page background it is invisible,
+/* Behind the bar's content and 24px past its bottom edge. Over the flat page background it is invisible,
    so it only shows once something scrolls under the bar. */
 .blur {
   position: absolute;
-  inset: 0 0 -12px;
+  inset: 0 0 -24px;
   z-index: -1;
   pointer-events: none;
 }
@@ -40,6 +40,12 @@
   backdrop-filter: blur(16px) saturate(84%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 10%, transparent 40%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 10%, transparent 40%);
+}
+
+.blur span:nth-child(6) {
+  backdrop-filter: blur(32px) saturate(84%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 25%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 25%);
 }
 
 /* Skew and color fringe, see the SVG filter in EdgeBlur.jsx. Last of the layers, so the fringe sits on the blur. */
