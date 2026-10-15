@@ -1,21 +1,10 @@
-/* Behind the bar's content and 24px past its inner edge. Over the flat page background it is invisible,
+/* Behind the bar's content and 24px past its bottom edge. Over the flat page background it is invisible,
    so it only shows once something scrolls under the bar. */
 .blur {
   position: absolute;
+  inset: 0 0 -24px;
   z-index: -1;
   pointer-events: none;
-}
-
-.top {
-  inset: 0 0 -24px;
-  --desaturate: 83%;
-}
-
-/* The same layers turned upside down (masks, wash and warp all mirror), so it is strongest at the bottom. */
-.bottom {
-  inset: -24px 0 0;
-  transform: scaleY(-1);
-  --desaturate: 84%;
 }
 
 .blur span {
@@ -24,37 +13,37 @@
 }
 
 .blur span:nth-child(1) {
-  backdrop-filter: blur(1px) saturate(var(--desaturate));
+  backdrop-filter: blur(1px) saturate(83%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, transparent 100%);
 }
 
 .blur span:nth-child(2) {
-  backdrop-filter: blur(2px) saturate(var(--desaturate));
+  backdrop-filter: blur(2px) saturate(83%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 85%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 85%);
 }
 
 .blur span:nth-child(3) {
-  backdrop-filter: blur(4px) saturate(var(--desaturate));
+  backdrop-filter: blur(4px) saturate(83%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 70%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 40%, transparent 70%);
 }
 
 .blur span:nth-child(4) {
-  backdrop-filter: blur(8px) saturate(var(--desaturate));
+  backdrop-filter: blur(8px) saturate(83%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 55%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 25%, transparent 55%);
 }
 
 .blur span:nth-child(5) {
-  backdrop-filter: blur(16px) saturate(var(--desaturate));
+  backdrop-filter: blur(16px) saturate(83%);
   mask-image: linear-gradient(to bottom, #000 0%, #000 10%, transparent 40%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 10%, transparent 40%);
 }
 
 .blur span:nth-child(6) {
-  backdrop-filter: blur(32px) saturate(var(--desaturate));
+  backdrop-filter: blur(32px) saturate(83%);
   mask-image: linear-gradient(to bottom, #000 0%, transparent 25%);
   -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 25%);
 }
@@ -90,12 +79,8 @@
 }
 
 /* Skew and color fringe, see the SVG filter in EdgeBlur.jsx. Last of the layers, so the fringe sits on the blur. */
-.top .warp {
-  backdrop-filter: url(#edge-warp-top);
-}
-
-.bottom .warp {
-  backdrop-filter: url(#edge-warp-bottom);
+.blur .warp {
+  backdrop-filter: url(#edge-warp);
 }
 
 .filterDefs {

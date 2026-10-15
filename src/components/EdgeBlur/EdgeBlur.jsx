@@ -3,8 +3,8 @@ import styles from './EdgeBlur.module.css'
 
 // Displacement map for the warp: red sets the sideways shift, green the downward pull, and 50% gray
 // means no shift. Red is full on the left half and zero on the right (with a soft join in the middle), so the
-// two halves lean apart in a V. A gray wash fades it out towards the inner edge and covers the last 30%, so
-// near the inner edge content is only blurred and the lean starts closer to the outer edge.
+// two halves lean apart in a V. A gray wash fades it out towards the bottom and covers the last 30%, so
+// near the bottom content is only blurred and the lean starts closer to the top edge.
 const WARP_MAP =
   'data:image/svg+xml,' +
   encodeURIComponent(
@@ -20,16 +20,15 @@ const WARP_MAP =
   )
 
 // How far the red, green and blue copies are shifted. The size sets the V lean, the gaps between the three set
-// the color fringe (keep the gaps when changing the lean). The footer is a little gentler.
-const WARP_SCALES = { top: [20, 26, 31], bottom: [19, 25, 29] }
+// the color fringe (keep the gaps when changing the lean).
+const [SCALE_R, SCALE_G, SCALE_B] = [20, 26, 31]
 
 // Progressive blur with a V-shaped warp and a slight color fringe, for a bar that content scrolls under.
-// edge="top" is strongest at the top edge (the header); edge="bottom" is the same thing upside down (the footer).
-// The parent must be positioned; this sits behind its content and 24px past its inner edge.
-export default function EdgeBlur({ edge = 'top' }) {
+// Strongest at the top edge (used by the header). The parent must be positioned; this sits behind its content
+// and 24px past its bottom edge.
+export default function EdgeBlur() {
   // The warp map has to match the size of this box (the V is centered on it), and the filter only takes pixels.
   const ref = useRef(null)
-  const [scaleR, scaleG, scaleB] = WARP_SCALES[edge]
   const [size, setSize] = useState({ width: 1440, height: 64 })
 
   useEffect(() => {
@@ -42,7 +41,7 @@ export default function EdgeBlur({ edge = 'top' }) {
   }, [])
 
   return (
-    <div ref={ref} className={`${styles.blur} ${styles[edge]}`} aria-hidden="true">
+    <div ref={ref} className={styles.blur} aria-hidden="true">
       {/* Stacked layers, each stronger and masked shorter, so the blur fades out downwards. */}
       <span />
       <span />
@@ -59,7 +58,7 @@ export default function EdgeBlur({ edge = 'top' }) {
           Firefox) apply a filter like this to the backdrop; Safari keeps the blur only. */}
       <svg className={styles.filterDefs}>
         <filter
-          id={`edge-warp-${edge}`}
+          id="edge-warp"
           x="0"
           y="0"
           width="100%"
@@ -78,7 +77,7 @@ export default function EdgeBlur({ edge = 'top' }) {
           <feDisplacementMap
             in="SourceGraphic"
             in2="map"
-            scale={scaleR}
+            scale={SCALE_R}
             xChannelSelector="R"
             yChannelSelector="G"
             result="dr"
@@ -86,7 +85,7 @@ export default function EdgeBlur({ edge = 'top' }) {
           <feDisplacementMap
             in="SourceGraphic"
             in2="map"
-            scale={scaleG}
+            scale={SCALE_G}
             xChannelSelector="R"
             yChannelSelector="G"
             result="dg"
@@ -94,7 +93,7 @@ export default function EdgeBlur({ edge = 'top' }) {
           <feDisplacementMap
             in="SourceGraphic"
             in2="map"
-            scale={scaleB}
+            scale={SCALE_B}
             xChannelSelector="R"
             yChannelSelector="G"
             result="db"
