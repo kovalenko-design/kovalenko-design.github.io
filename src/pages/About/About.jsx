@@ -15,10 +15,11 @@ const pageItem = {
 }
 
 const impact = [
-  'Overhauled a money transfer (remittance) app; its Google Play rating rose from 3.9 to 4.9 over the following year',
-  'Designed the UX/UI for a new in-app referral program; action rate reached 85% against 41% for the standard format',
-  'Led design for a POS and retail management platform used in about 34,000 independent US stores',
-  "Moved the team's prototyping and daily design work onto AI and agent-driven tools",
+  'Rebuilt the fintech app zero to one on the existing backend, replacing an obsolete legacy design without losing customers; Google Play rating rose from 3.9 to 4.9 within a year',
+  'Designed the UX/UI for a new in app referral program; action rate reached 85% against 41% before',
+  'Led design for a retail POS platform used in about 34,000 independent US stores',
+  'Created multiple design systems for accelerated and consistent design and development',
+  "Moved the team's prototyping and daily design work onto AI and agent driven tools",
   'Set up design review and other team rituals, mentoring, and alignment between stakeholder requests and team delivery',
 ]
 
@@ -143,9 +144,12 @@ export default function About() {
                 About
               </motion.h2>
               <motion.p variants={pageItem} className={styles.bioText}>
-                I&apos;m a product designer with 7+ years of experience in building fintech,
-                communication, and retail products, built on a broader 15+ year design career across
-                the U.S. and Europe.
+                I&apos;m a product designer with 7+ years of experience in building B2B, B2C, SaaS
+                products in fintech, communication, retail and other domains. This builds on a
+                broader 15+ year design career across the U.S. and Europe. I&apos;m good at systems
+                and product thinking, tracking outcomes, end-to-end delivery, and making sense of
+                complex data sets. I focus on real user problems, work iteratively, and keep design
+                tied to trackable outcomes.
               </motion.p>
             </div>
             <motion.div variants={pageItem} className={styles.heroContact}>
