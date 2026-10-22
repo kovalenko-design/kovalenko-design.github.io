@@ -3,6 +3,7 @@ import { join } from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { pageTitle } from './src/pageTitle.js'
+import { checkCv, CV_PDF } from './scripts/cv-check.mjs'
 
 const SITE = 'https://kovalenko.info'
 const SITE_NAME = 'Vadim Kovalenko'
@@ -11,6 +12,19 @@ const SHARE_IMAGE = { url: `${SITE}/og-image.png?v=2`, width: 1200, height: 627 
 const SITE_TITLE = pageTitle('Product Designer')
 const SITE_DESCRIPTION =
   'Product designer in Warsaw with 7+ years building B2B, B2C and SaaS products in fintech, communication, retail and other domains. Case studies: Panther POS, BOSS Money, BOSS Revolution, zendit.'
+
+// Who the site is about, as schema.org data for search engines (not shown on the page).
+const PERSON = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE_NAME,
+  jobTitle: 'Product Designer',
+  url: SITE,
+  email: 'mailto:vadim.kavalenka@gmail.com',
+  address: { '@type': 'PostalAddress', addressLocality: 'Warsaw', addressCountry: 'PL' },
+  sameAs: ['https://www.linkedin.com/in/vadim-kovalenko-design/'],
+  subjectOf: { '@type': 'DigitalDocument', name: 'CV', url: `${SITE}/cv.md` },
+}
 
 const escapeHtml = (text) =>
   text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -41,6 +55,8 @@ function withPageInfo(html, { path, title, description, heading }) {
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeHtml(title)}" />`,
     `<meta name="twitter:description" content="${escapeHtml(description)}" />`,
+    `<link rel="alternate" type="text/markdown" href="/cv.md" title="CV of ${SITE_NAME} (Markdown)" />`,
+    `<script type="application/ld+json">${JSON.stringify(PERSON).replace(/</g, '\\u003c')}</script>`,
   ].join('\n    ')
   const summary = `<noscript><h1>${escapeHtml(heading)}</h1><p>${escapeHtml(description)}</p></noscript>`
   return html
@@ -54,10 +70,16 @@ function withPageInfo(html, { path, title, description, heading }) {
 // The case addresses come from the id of each file in src/cases, so a new case gets its own address automatically.
 // Each copy carries that page's own title and description (see withPageInfo).
 // It also saves a copy as 404.html, so a mistyped address opens the app, which sends the visitor to the home page.
+// For search engines and AI agents it writes sitemap.xml and llms.txt (an index pointing to public/cv.md).
+// The build stops if cv.md was not updated after a new CV PDF (see scripts/cv-check.mjs).
 function addressPages() {
   return {
     name: 'address-pages',
     apply: 'build',
+    buildStart() {
+      const cv = checkCv()
+      if (!cv.ok) this.error(cv.message)
+    },
     closeBundle() {
       const casesDir = 'src/cases'
       const cases = readdirSync(casesDir)
@@ -105,6 +127,39 @@ function addressPages() {
         mkdirSync(join('dist', address), { recursive: true })
         writeFileSync(join('dist', address, 'index.html'), withPageInfo(shell, info))
       }
+
+      const urls = ['/', ...pages.map((p) => p.info.path)]
+      writeFileSync(
+        join('dist', 'sitemap.xml'),
+        [
+          '<?xml version="1.0" encoding="UTF-8"?>',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+          ...urls.map((path) => `  <url><loc>${SITE}${path}</loc></url>`),
+          '</urlset>',
+          '',
+        ].join('\n')
+      )
+
+      writeFileSync(
+        join('dist', 'llms.txt'),
+        [
+          `# ${SITE_NAME}`,
+          '',
+          `> ${SITE_DESCRIPTION}`,
+          '',
+          '## CV',
+          '',
+          `- [CV in Markdown](${SITE}/cv.md): the full CV as plain text`,
+          `- [CV as PDF](${SITE}/${CV_PDF})`,
+          '',
+          '## Pages',
+          '',
+          `- [Home](${SITE}/): selected case studies`,
+          `- [About](${SITE}/about): bio, skills and experience`,
+          ...cases.map((c) => `- [${c.title}](${SITE}/${c.id}): ${c.subtitle}`),
+          '',
+        ].join('\n')
+      )
     },
   }
 }
