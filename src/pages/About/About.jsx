@@ -24,7 +24,10 @@ const impact = [
 ]
 
 const skillGroups = [
-  { label: 'AI', items: ['Agentic AI Workflows', 'Claude Code', 'Design Harnesses'] },
+  {
+    label: 'AI',
+    items: ['Agentic Workflows', 'AI Design Harnesses', 'MCP', 'Design Systems as Context'],
+  },
   {
     label: 'Design',
     items: [
