@@ -19,7 +19,7 @@
 
 .heroLeft {
   flex: 0 1 auto;
-  max-width: 50%;
+  max-width: 65%;
 }
 
 /* Right-aligned to the header's right edge. The header container (--max-width) is wider than this
