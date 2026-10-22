@@ -10,7 +10,7 @@ const SITE_NAME = 'Vadim Kovalenko'
 const SHARE_IMAGE = { url: `${SITE}/og-image.png?v=2`, width: 1200, height: 627 }
 const SITE_TITLE = pageTitle('Product Designer')
 const SITE_DESCRIPTION =
-  'Product designer in Warsaw with 7+ years in fintech, communication, and retail products. Case studies: Panther POS, BOSS Money, BOSS Revolution, zendit.'
+  'Product designer in Warsaw with 7+ years building B2B, B2C and SaaS products in fintech, communication, retail and other domains. Case studies: Panther POS, BOSS Money, BOSS Revolution, zendit.'
 
 const escapeHtml = (text) =>
   text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')

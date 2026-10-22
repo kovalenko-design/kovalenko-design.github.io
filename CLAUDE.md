@@ -23,7 +23,7 @@ No dark mode. English only. Mobile-first responsive.
 **Location:** Warsaw, Poland
 
 **Bio:**
-I'm a product designer with 7+ years of experience in building fintech, communication, and retail products, built on a broader 15+ year design career across the U.S. and Europe. Currently leading a team designing a POS platform for small retail businesses. I focus on real user problems, work iteratively, and keep design tied to outcomes that matter.
+I'm a product designer with 7+ years of experience in building B2B, B2C, SaaS products in fintech, communication, retail and other domains. This builds on a broader 15+ year design career across the U.S. and Europe. I'm good at systems and product thinking, tracking outcomes, end-to-end delivery, and making sense of complex data sets. I focus on real user problems, work iteratively, and keep design tied to trackable outcomes.
 
 ---
 
