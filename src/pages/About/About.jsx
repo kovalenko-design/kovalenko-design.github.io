@@ -66,10 +66,17 @@ const experience = [
     company: 'IDT Technologies',
     location: 'Warsaw, Poland',
     period: '2024–Present',
-    summary:
-      'Leading a team of 4 designers in overhauling the design for a retail platform used by convenience stores, retail shops and restaurants',
     context:
-      "NRS is IDT's point-of-sale platform: the register and back office for around 34,000 independent US stores.",
+      'IDT provides a point-of-sale platform through National Retail Solutions (NRS): the register and back office for around 34,000 independent US stores.',
+    bullets: [
+      'Leading a team of 4 designers in overhauling the design for a retail platform used by convenience stores, retail shops and restaurants',
+      'Integrating AI-assisted design and agentic workflows into everyday practice, from functional prototyping to faster design iteration',
+      'Expanding the Android platform to iOS and Web',
+      'Closing gaps in a legacy system with short term fixes and long term modernization, while creating shared assets for consistent cross platform use',
+      'Building new design systems, to be used with Kotlin Multiplatform and Vue.js',
+      'Redesigning UX flows for POS, store, and stock management systems',
+      'Working with engineers to ensure scalability and technical fit',
+    ],
   },
   {
     role: 'Senior UX/UI Designer',
@@ -77,39 +84,45 @@ const experience = [
     location: 'Warsaw, Poland',
     period: '2022–2024',
     context:
-      "BOSS Money is IDT's remittance app, sending money home to 50+ countries. It crossed 2 million transfers a month while I was on it.",
-    summary:
-      'Redesigned a global fintech money transfer (remittance) app, improving onboarding, transfers, top-ups, and account management',
+      "BOSS Money is IDT's fintech app, providing a wallet and money transfer to 50+ countries. It crossed 2 million transfers a month while I was on it.",
+    bullets: [
+      'Designed and refined the app end to end',
+      'Delivered UX flows for onboarding, transfers, top-ups, the customer inbox, KYC verification and account management',
+      'Built and maintained a scalable design system',
+      "Designed B2B features for zendit, IDT's SaaS platform: multi-user accounts, role based access, and enterprise management tools",
+    ],
   },
   {
     role: 'Middle UX/UI Designer',
     company: 'IDT Technologies',
-    location: 'Warsaw, Poland',
+    location: 'Minsk, Belarus',
     period: '2020–2022',
-    summary: 'Designed UX flows for VoIP and text messaging app targeting US market',
+    bullets: [
+      'Designed UX flows for a VoIP and text messaging app targeting US market',
+      'Built the first UI kit and foundations for a new design system',
+      'Adapted mobile native UX flows for a web portal',
+      'Collaborated with stakeholders to ensure user centered design and supported early product builds',
+    ],
   },
   {
     role: 'UI Designer',
     company: 'Huawei Technologies',
     location: 'Minsk, Belarus',
     period: '2019–2020',
-    summary:
+    bullets: [
       'Led regional design support for marketing and corporate campaigns, delivered consistent brand experiences across platforms using global standards',
-  },
-  {
-    role: 'Designer',
-    company: 'Freelance Practice',
-    location: '',
-    period: '2010–2019',
-    summary: 'End-to-end design services for startups and small businesses',
+      'Produced digital and printed materials including campaign key visuals',
+    ],
   },
   {
     role: 'In-House Designer',
     company: 'Fairview Health',
     location: 'Minneapolis, USA',
     period: '2008–2017',
-    summary:
+    bullets: [
       'Created visual materials for healthcare campaigns, patient education, and internal communications',
+      'Managed visual brand standards across multiple departments for healthcare communications within a highly regulated industry',
+    ],
   },
 ]
 
@@ -222,7 +235,13 @@ export default function About() {
                         {item.location ? ` · ${item.location}` : ''}
                       </span>
                       {item.context && <p className={styles.expContext}>{item.context}</p>}
-                      <p className={styles.expSummary}>{item.summary}</p>
+                      <ul className={styles.expBullets}>
+                        {item.bullets.map((bullet) => (
+                          <li key={bullet} className={styles.expBullet}>
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 ))}

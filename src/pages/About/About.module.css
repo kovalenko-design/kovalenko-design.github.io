@@ -181,10 +181,31 @@
   margin-bottom: 10px;
 }
 
-.expSummary {
+.expBullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.expBullet {
+  position: relative;
+  padding-left: 18px;
   font-size: 15px;
   line-height: 1.65;
   color: var(--color-charcoal);
+  text-wrap: pretty;
+}
+
+.expBullet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
 }
 
 .expContext {
