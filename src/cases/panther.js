@@ -100,7 +100,7 @@ const panther = {
       ],
     },
     {
-      heading: 'AI for research',
+      heading: 'Starting with LLM',
       layout: 'carousel',
       body: [
         "Besides prototyping and design, I use AI to get from an idea to a PRD, with three skills I wrote. /dm-brief interviews me one question at a time. /dm-research finds real competitors and links a source for every claim. /dm-prd combines the two into a PRD and lists what's still missing.",
